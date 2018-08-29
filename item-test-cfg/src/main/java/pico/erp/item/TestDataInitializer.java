@@ -8,16 +8,18 @@ import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import pico.erp.item.data.ItemSpecVariables;
 import pico.erp.shared.ApplicationInitializer;
 
 @Configuration
 @Profile({"!development", "!production"})
-public class DataInitializer implements ApplicationInitializer {
+public class TestDataInitializer implements ApplicationInitializer {
 
   @Lazy
   @Autowired

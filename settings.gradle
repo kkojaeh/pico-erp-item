@@ -1,4 +1,5 @@
 rootProject.name = 'pico-erp-item'
 include 'item-api'
 include 'item-impl'
+include 'item-test-cfg'
 

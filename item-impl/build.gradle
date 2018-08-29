@@ -10,6 +10,8 @@ afterEvaluate {
 
     compile project(':item-api')
 
+    testRuntimeOnly project(':item-test-cfg')
+
     compile('com.github.kkojaeh.pico-erp-shared:shared-impl:1.0.0')
 
     testRuntimeOnly('com.github.kkojaeh.pico-erp-audit:audit-impl:1.0.0')
