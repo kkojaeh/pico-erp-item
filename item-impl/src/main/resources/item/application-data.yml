@@ -1,0 +1,74 @@
+data:
+  item-categories:
+  - id: category-1
+    name: 인쇄
+    description: 인쇄 설명
+  - id: category-2
+    name: 포장
+    description: 포장 설명
+  - id: category-3
+    name: 종이
+    description: 종이 설명
+  - id: category-4
+    name: 기타
+    description: 기타 설명
+  - id: category-5
+    name: 완성품
+    description: 기타 설명
+  - id: category-23
+    parent-id: category-2
+    name: 아웃박스
+    description: 아웃박스 설명
+  - id: category-34
+    parent-id: category-3
+    name: 인쇄종이
+    description: 인쇄종이 설명
+
+  items:
+  - id: item-1
+    name: HG105-0311
+    base-unit-cost: 100
+    category-id: category-5
+    customer-id: CUST1
+    unit: EA
+    type: PRODUCT
+  - id: item-2
+    base-unit-cost: 90
+    name: HG105-0311 - 카드
+    category-id: category-3
+    customer-id: CUST1
+    unit: EA
+    type: SEMI_PRODUCT
+    spec-type-id: pico.erp.config.item.spec.PaperItemSpecVariables
+  - id: item-3
+    base-unit-cost: 80
+    name: HG105-0311 - 카드 - 코팅완료
+    category-id: category-5
+    customer-id: CUST1
+    unit: EA
+    type: WORK_IN_PROCESS
+  - id: item-4
+    base-unit-cost: 70
+    name: HG105-0311 - 카드 - 인쇄완료
+    category-id: category-5
+    customer-id: CUST1
+    unit: EA
+    type: WORK_IN_PROCESS
+  - id: item-5
+    base-unit-cost: 60
+    name: HG105-0311 - PET
+    category-id: category-5
+    customer-id: CUST1
+    unit: EA
+    type: SEMI_PRODUCT
+  item-specs:
+  - id: item-2-spec-1
+    item-id: item-2
+  item-spec-variables:
+  - id: item-2-spec-1
+    variable-type: pico.erp.config.item.spec.PaperItemSpecVariables
+    variable-data:
+      grammage: 180
+      height: 364
+      incisionCount: 1
+      width: 545

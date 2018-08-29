@@ -1,0 +1,109 @@
+package pico.erp.item.core;
+
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+import pico.erp.audit.AuditService;
+import pico.erp.item.ItemCategoryExceptions.AlreadyExistsException;
+import pico.erp.item.ItemCategoryExceptions.CodeAlreadyExistsException;
+import pico.erp.item.ItemCategoryExceptions.NotFoundException;
+import pico.erp.item.ItemCategoryRequests.CreateRequest;
+import pico.erp.item.ItemCategoryRequests.DeleteRequest;
+import pico.erp.item.ItemCategoryRequests.UpdateRequest;
+import pico.erp.item.ItemCategoryService;
+import pico.erp.item.data.ItemCategoryCode;
+import pico.erp.item.data.ItemCategoryData;
+import pico.erp.item.data.ItemCategoryId;
+import pico.erp.item.domain.ItemCategory;
+import pico.erp.shared.Public;
+import pico.erp.shared.event.EventPublisher;
+
+@SuppressWarnings("Duplicates")
+@Slf4j
+@Service
+@Public
+@Transactional
+@Validated
+public class ItemCategoryServiceLogic implements ItemCategoryService {
+
+  @Autowired
+  private ItemCategoryRepository itemCategoryRepository;
+
+  @Autowired
+  private EventPublisher eventPublisher;
+
+  @Autowired
+  private ItemMapper mapper;
+
+  @Lazy
+  @Autowired
+  private AuditService auditService;
+
+  @Override
+  public ItemCategoryData create(CreateRequest request) {
+    val itemCategory = new ItemCategory();
+    if (itemCategoryRepository.exists(request.getId())) {
+      throw new AlreadyExistsException();
+    }
+    val response = itemCategory.apply(mapper.map(request));
+
+    if (itemCategoryRepository.exists(itemCategory.getCode())) {
+      throw new CodeAlreadyExistsException();
+    }
+    val created = itemCategoryRepository.create(itemCategory);
+    auditService.commit(created);
+    eventPublisher.publishEvents(response.getEvents());
+    return mapper.map(created);
+  }
+
+  @Override
+  public void delete(DeleteRequest request) {
+    val itemCategory = itemCategoryRepository.findBy(request.getId())
+      .orElseThrow(NotFoundException::new);
+    val response = itemCategory.apply(mapper.map(request));
+    itemCategoryRepository.deleteBy(request.getId());
+    auditService.delete(itemCategory);
+    eventPublisher.publishEvents(response.getEvents());
+  }
+
+  @Override
+  public boolean exists(ItemCategoryId id) {
+    return itemCategoryRepository.exists(id);
+  }
+
+  @Override
+  public boolean exists(ItemCategoryCode code) {
+    return itemCategoryRepository.exists(code);
+  }
+
+  @Override
+  public ItemCategoryData get(ItemCategoryId id) {
+    return itemCategoryRepository.findBy(id)
+      .map(mapper::map)
+      .orElseThrow(NotFoundException::new);
+  }
+
+  @Override
+  public ItemCategoryData get(ItemCategoryCode code) {
+    return itemCategoryRepository.findBy(code)
+      .map(mapper::map)
+      .orElseThrow(NotFoundException::new);
+  }
+
+  @Override
+  public void update(UpdateRequest request) {
+    val itemCategory = itemCategoryRepository.findBy(request.getId())
+      .orElseThrow(NotFoundException::new);
+
+    val response = itemCategory.apply(mapper.map(request));
+
+    itemCategoryRepository.update(itemCategory);
+    auditService.commit(itemCategory);
+    eventPublisher.publishEvents(response.getEvents());
+  }
+
+}
