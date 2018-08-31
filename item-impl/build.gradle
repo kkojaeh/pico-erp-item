@@ -5,22 +5,20 @@ apply plugin: "io.github.divinespear.jpa-schema-generate"
 
 apply from: 'https://rawgit.com/kkojaeh/pico-erp-gradle/master/impl.gradle'
 
-afterEvaluate {
-  dependencies {
+dependencies {
 
-    compile project(':item-api')
+  compile project(':item-api')
 
-    testRuntimeOnly project(':item-test-cfg')
+  testRuntimeOnly project(':item-test-cfg')
 
-    compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
+  compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
 
-    testRuntimeOnly ("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
-    testRuntimeOnly ("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
+  testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
+  testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
 
-    testRuntimeOnly ("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
-    testRuntimeOnly ("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
+  testRuntimeOnly("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
+  testRuntimeOnly("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
 
-    compile("com.github.reinert:jjschema:${jjschemaVersion}")
+  compile("com.github.reinert:jjschema:${jjschemaVersion}")
 
-  }
 }
