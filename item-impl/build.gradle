@@ -10,15 +10,7 @@ dependencies {
 
   compile project(':item-api')
 
-  testRuntimeOnly project(':item-test-cfg')
-
   compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
-
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:audit-impl:${auditVersion}")
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:audit-test-cfg:${auditVersion}")
-
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-company:company-impl:${companyVersion}")
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-company:company-test-cfg:${companyVersion}")
 
   compile("com.github.reinert:jjschema:${jjschemaVersion}")
 
