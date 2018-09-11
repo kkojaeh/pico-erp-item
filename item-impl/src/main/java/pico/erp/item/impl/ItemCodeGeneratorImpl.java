@@ -6,15 +6,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import pico.erp.item.core.ItemCategoryRepository;
+import pico.erp.item.category.ItemCategory;
+import pico.erp.item.category.ItemCategoryRepository;
 import pico.erp.item.core.ItemCodeGenerator;
 import pico.erp.item.core.ItemRepository;
 import pico.erp.item.data.ItemCategoryCode;
 import pico.erp.item.data.ItemCode;
 import pico.erp.item.data.ItemLotCode;
 import pico.erp.item.domain.Item;
-import pico.erp.item.domain.ItemCategory;
-import pico.erp.item.domain.ItemLot;
+import pico.erp.item.lot.ItemLot;
 
 @Component
 public class ItemCodeGeneratorImpl implements ItemCodeGenerator {

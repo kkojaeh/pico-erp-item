@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
+import pico.erp.item.category.ItemCategoryExceptions
+import pico.erp.item.category.ItemCategoryRequests
+import pico.erp.item.category.ItemCategoryService
 import pico.erp.item.data.ItemCategoryCode
 import pico.erp.item.data.ItemCategoryId
 import pico.erp.shared.IntegrationConfiguration

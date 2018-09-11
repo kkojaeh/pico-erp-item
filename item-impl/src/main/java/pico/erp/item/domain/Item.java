@@ -27,6 +27,7 @@ import pico.erp.item.ItemEvents.UpdatedEvent;
 import pico.erp.item.ItemExceptions.ItemCannotActivateException;
 import pico.erp.item.ItemExceptions.ItemCannotDeactivateException;
 import pico.erp.item.ItemExceptions.ItemCannotSpecifyException;
+import pico.erp.item.category.ItemCategory;
 import pico.erp.item.data.ItemCode;
 import pico.erp.item.data.ItemId;
 import pico.erp.item.data.ItemInfo;

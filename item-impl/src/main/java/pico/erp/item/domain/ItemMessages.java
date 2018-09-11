@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.Value;
 import pico.erp.attachment.data.AttachmentId;
 import pico.erp.company.data.CompanyData;
+import pico.erp.item.category.ItemCategory;
 import pico.erp.item.core.ItemCodeGenerator;
 import pico.erp.item.data.ItemId;
 import pico.erp.item.data.ItemSpecType;

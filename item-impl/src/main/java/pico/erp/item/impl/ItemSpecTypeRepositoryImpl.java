@@ -6,9 +6,9 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
-import pico.erp.item.core.ItemSpecTypeRepository;
 import pico.erp.item.data.ItemSpecType;
 import pico.erp.item.data.ItemSpecTypeId;
+import pico.erp.item.spec.type.ItemSpecTypeRepository;
 
 @Repository
 public class ItemSpecTypeRepositoryImpl implements ItemSpecTypeRepository {

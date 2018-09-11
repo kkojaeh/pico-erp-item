@@ -8,7 +8,12 @@ import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import pico.erp.company.data.CompanyId
+import pico.erp.item.category.ItemCategoryRequests
+import pico.erp.item.category.ItemCategoryService
 import pico.erp.item.data.*
+import pico.erp.item.spec.ItemSpecRequests
+import pico.erp.item.spec.ItemSpecService
+import pico.erp.item.spec.type.ItemSpecTypeQuery
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.data.UnitKind
 import spock.lang.Specification

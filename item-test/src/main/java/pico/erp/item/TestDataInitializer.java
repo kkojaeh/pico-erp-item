@@ -12,9 +12,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
+import pico.erp.item.category.ItemCategoryRequests;
+import pico.erp.item.category.ItemCategoryService;
 import pico.erp.item.data.ItemSpecVariables;
+import pico.erp.item.spec.ItemSpecRequests;
+import pico.erp.item.spec.ItemSpecService;
 import pico.erp.shared.ApplicationInitializer;
 
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Configuration
 @Profile({"!development", "!production"})
 public class TestDataInitializer implements ApplicationInitializer {
@@ -71,7 +76,7 @@ public class TestDataInitializer implements ApplicationInitializer {
     public void ready() {
       ItemSpecVariables variables = variableType.newInstance();
       BeanUtils.populate(variables, variableData);
-      super.variables = variables;
+      setVariables(variables);
     }
 
   }

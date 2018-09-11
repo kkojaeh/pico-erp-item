@@ -9,12 +9,13 @@ import org.springframework.context.annotation.Lazy;
 import pico.erp.company.CompanyService;
 import pico.erp.company.data.CompanyData;
 import pico.erp.company.data.CompanyId;
-import pico.erp.item.ItemCategoryRequests;
 import pico.erp.item.ItemExceptions.ItemNotFoundException;
-import pico.erp.item.ItemLotRequests;
 import pico.erp.item.ItemRequests;
-import pico.erp.item.ItemSpecRequests;
-import pico.erp.item.ItemSpecTypeExceptions.NotFoundException;
+import pico.erp.item.category.ItemCategory;
+import pico.erp.item.category.ItemCategoryExceptions;
+import pico.erp.item.category.ItemCategoryMessages;
+import pico.erp.item.category.ItemCategoryRepository;
+import pico.erp.item.category.ItemCategoryRequests;
 import pico.erp.item.data.ItemCategoryData;
 import pico.erp.item.data.ItemCategoryId;
 import pico.erp.item.data.ItemData;
@@ -25,18 +26,20 @@ import pico.erp.item.data.ItemSpecType;
 import pico.erp.item.data.ItemSpecTypeData;
 import pico.erp.item.data.ItemSpecTypeId;
 import pico.erp.item.domain.Item;
-import pico.erp.item.domain.ItemCategory;
-import pico.erp.item.domain.ItemCategoryMessages;
-import pico.erp.item.domain.ItemLot;
-import pico.erp.item.domain.ItemLotMessages;
-import pico.erp.item.domain.ItemLotMessages.ExpireRequest;
 import pico.erp.item.domain.ItemMessages.ActivateRequest;
 import pico.erp.item.domain.ItemMessages.CreateRequest;
 import pico.erp.item.domain.ItemMessages.DeactivateRequest;
 import pico.erp.item.domain.ItemMessages.DeleteRequest;
 import pico.erp.item.domain.ItemMessages.UpdateRequest;
-import pico.erp.item.domain.ItemSpec;
-import pico.erp.item.domain.ItemSpecMessages;
+import pico.erp.item.lot.ItemLot;
+import pico.erp.item.lot.ItemLotMessages;
+import pico.erp.item.lot.ItemLotMessages.ExpireRequest;
+import pico.erp.item.lot.ItemLotRequests;
+import pico.erp.item.spec.ItemSpec;
+import pico.erp.item.spec.ItemSpecMessages;
+import pico.erp.item.spec.ItemSpecRequests;
+import pico.erp.item.spec.type.ItemSpecTypeExceptions.NotFoundException;
+import pico.erp.item.spec.type.ItemSpecTypeRepository;
 
 @Mapper
 public abstract class ItemMapper {
@@ -60,7 +63,7 @@ public abstract class ItemMapper {
   protected ItemCategory map(ItemCategoryId categoryId) {
     return Optional.ofNullable(categoryId)
       .map(id -> itemCategoryRepository.findBy(id)
-        .orElseThrow(pico.erp.item.ItemCategoryExceptions.NotFoundException::new))
+        .orElseThrow(ItemCategoryExceptions.NotFoundException::new))
       .orElse(null);
   }
 

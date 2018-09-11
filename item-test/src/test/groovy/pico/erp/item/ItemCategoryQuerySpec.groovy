@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
+import pico.erp.item.category.ItemCategoryQuery
+import pico.erp.item.category.ItemCategoryService
 import pico.erp.shared.IntegrationConfiguration
 import spock.lang.Specification
 
