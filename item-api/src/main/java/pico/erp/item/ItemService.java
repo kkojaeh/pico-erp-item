@@ -8,9 +8,6 @@ import pico.erp.item.ItemRequests.CreateRequest;
 import pico.erp.item.ItemRequests.DeactivateRequest;
 import pico.erp.item.ItemRequests.DeleteRequest;
 import pico.erp.item.ItemRequests.UpdateRequest;
-import pico.erp.item.data.ItemCode;
-import pico.erp.item.data.ItemData;
-import pico.erp.item.data.ItemId;
 
 public interface ItemService {
 

@@ -3,8 +3,6 @@ package pico.erp.item.spec.type;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.springframework.stereotype.Repository;
-import pico.erp.item.data.ItemSpecType;
-import pico.erp.item.data.ItemSpecTypeId;
 
 @Repository
 public interface ItemSpecTypeRepository {

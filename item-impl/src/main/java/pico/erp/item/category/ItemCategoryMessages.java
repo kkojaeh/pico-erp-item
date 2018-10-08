@@ -8,8 +8,7 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.item.core.ItemCodeGenerator;
-import pico.erp.item.data.ItemCategoryId;
+import pico.erp.item.code.ItemCodeGenerator;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.event.Event;
 

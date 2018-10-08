@@ -7,13 +7,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.company.data.CompanyId
+import pico.erp.company.CompanyId
+import pico.erp.item.category.ItemCategoryId
 import pico.erp.item.category.ItemCategoryRequests
 import pico.erp.item.category.ItemCategoryService
-import pico.erp.item.data.ItemCategoryId
-import pico.erp.item.data.ItemCode
-import pico.erp.item.data.ItemId
-import pico.erp.item.data.ItemTypeKind
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.data.UnitKind
 import spock.lang.Specification
@@ -73,7 +70,7 @@ class ItemServiceSpec extends Specification {
     itemService.get(ItemId.from("!item"))
 
     then:
-    thrown(ItemExceptions.ItemNotFoundException)
+    thrown(ItemExceptions.NotFoundException)
   }
 
 
@@ -108,7 +105,7 @@ class ItemServiceSpec extends Specification {
     itemService.get(ItemCode.from("unknown"))
 
     then:
-    thrown(ItemExceptions.ItemNotFoundException)
+    thrown(ItemExceptions.NotFoundException)
   }
 
 

@@ -4,8 +4,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
-import pico.erp.item.data.ItemCategoryCode;
-import pico.erp.item.data.ItemCategoryId;
 
 @Repository
 public interface ItemCategoryRepository {

@@ -5,9 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.item.data.ItemSpecId;
-import pico.erp.item.data.ItemSpecVariables;
-import pico.erp.item.domain.Item;
+import pico.erp.item.Item;
 import pico.erp.shared.event.Event;
 
 public interface ItemSpecMessages {

@@ -14,10 +14,6 @@ import pico.erp.item.category.ItemCategoryExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategoryRequests.CreateRequest;
 import pico.erp.item.category.ItemCategoryRequests.DeleteRequest;
 import pico.erp.item.category.ItemCategoryRequests.UpdateRequest;
-import pico.erp.item.core.ItemMapper;
-import pico.erp.item.data.ItemCategoryCode;
-import pico.erp.item.data.ItemCategoryData;
-import pico.erp.item.data.ItemCategoryId;
 import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
@@ -36,7 +32,7 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   private EventPublisher eventPublisher;
 
   @Autowired
-  private ItemMapper mapper;
+  private ItemCategoryMapper mapper;
 
   @Lazy
   @Autowired

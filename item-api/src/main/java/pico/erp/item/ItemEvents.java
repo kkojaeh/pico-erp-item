@@ -3,8 +3,7 @@ package pico.erp.item;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.item.data.ItemCategoryId;
-import pico.erp.item.data.ItemId;
+import pico.erp.item.category.ItemCategoryId;
 import pico.erp.shared.event.Event;
 
 public interface ItemEvents {

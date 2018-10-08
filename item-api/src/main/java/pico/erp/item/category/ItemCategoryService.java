@@ -5,9 +5,6 @@ import javax.validation.constraints.NotNull;
 import pico.erp.item.category.ItemCategoryRequests.CreateRequest;
 import pico.erp.item.category.ItemCategoryRequests.DeleteRequest;
 import pico.erp.item.category.ItemCategoryRequests.UpdateRequest;
-import pico.erp.item.data.ItemCategoryCode;
-import pico.erp.item.data.ItemCategoryData;
-import pico.erp.item.data.ItemCategoryId;
 
 public interface ItemCategoryService {
 

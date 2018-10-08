@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.item.core.ItemMapper;
-import pico.erp.item.data.ItemSpecData;
-import pico.erp.item.data.ItemSpecId;
 import pico.erp.item.spec.ItemSpecExceptions.NotFoundException;
 import pico.erp.item.spec.ItemSpecRequests.CreateRequest;
 import pico.erp.item.spec.ItemSpecRequests.DeleteRequest;
@@ -25,7 +22,7 @@ public class ItemSpecServiceLogic implements ItemSpecService {
   private ItemSpecRepository itemSpecRepository;
 
   @Autowired
-  private ItemMapper mapper;
+  private ItemSpecMapper mapper;
 
   @Autowired
   private EventPublisher eventPublisher;

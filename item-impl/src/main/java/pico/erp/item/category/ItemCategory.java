@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
 import pico.erp.audit.annotation.Audit;
+import pico.erp.item.Item;
 import pico.erp.item.category.ItemCategoryEvents.CreatedEvent;
 import pico.erp.item.category.ItemCategoryEvents.DeletedEvent;
 import pico.erp.item.category.ItemCategoryEvents.ParentChangedEvent;
@@ -23,9 +24,6 @@ import pico.erp.item.category.ItemCategoryMessages.CreateResponse;
 import pico.erp.item.category.ItemCategoryMessages.DeleteResponse;
 import pico.erp.item.category.ItemCategoryMessages.SetParentResponse;
 import pico.erp.item.category.ItemCategoryMessages.UpdateResponse;
-import pico.erp.item.data.ItemCategoryCode;
-import pico.erp.item.data.ItemCategoryId;
-import pico.erp.item.domain.Item;
 import pico.erp.shared.event.Event;
 
 @Data

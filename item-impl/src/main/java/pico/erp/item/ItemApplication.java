@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
-import pico.erp.attachment.category.data.AttachmentCategory;
-import pico.erp.attachment.category.data.AttachmentCategory.AttachmentCategoryImpl;
-import pico.erp.attachment.category.data.AttachmentCategoryId;
-import pico.erp.audit.data.AuditConfiguration;
+import pico.erp.attachment.category.AttachmentCategory;
+import pico.erp.attachment.category.AttachmentCategory.AttachmentCategoryImpl;
+import pico.erp.attachment.category.AttachmentCategoryId;
+import pico.erp.audit.AuditConfiguration;
 import pico.erp.shared.ApplicationStarter;
 import pico.erp.shared.Public;
 import pico.erp.shared.SpringBootConfigs;
@@ -51,7 +51,7 @@ public class ItemApplication implements ApplicationStarter {
   public AuditConfiguration auditConfiguration() {
     return AuditConfiguration.builder()
       .packageToScan("pico.erp.item")
-      .entity(ROLE.class)
+      .entity(ItemRoles.class)
       .build();
   }
 
@@ -68,13 +68,13 @@ public class ItemApplication implements ApplicationStarter {
   @Bean
   @Public
   public Role itemAccessorRole() {
-    return ROLE.ITEM_ACCESSOR;
+    return ItemRoles.ITEM_ACCESSOR;
   }
 
   @Bean
   @Public
   public Role itemManagerRole() {
-    return ROLE.ITEM_MANAGER;
+    return ItemRoles.ITEM_MANAGER;
   }
 
   @Override

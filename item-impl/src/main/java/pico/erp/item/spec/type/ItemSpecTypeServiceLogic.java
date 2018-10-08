@@ -4,10 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.item.core.ItemMapper;
-import pico.erp.item.data.ItemSpecTypeData;
-import pico.erp.item.data.ItemSpecTypeId;
-import pico.erp.item.spec.type.ItemSpecTypeExceptions.NotFoundException;
 import pico.erp.shared.Public;
 
 @Service
@@ -20,12 +16,12 @@ public class ItemSpecTypeServiceLogic implements ItemSpecTypeService {
   private ItemSpecTypeRepository itemSpecTypeRepository;
 
   @Autowired
-  private ItemMapper mapper;
+  private ItemSpecTypeMapper mapper;
 
   @Override
   public ItemSpecTypeData get(ItemSpecTypeId id) {
     return itemSpecTypeRepository.findBy(id)
       .map(mapper::map)
-      .orElseThrow(NotFoundException::new);
+      .orElseThrow(ItemSpecTypeExceptions.NotFoundException::new);
   }
 }

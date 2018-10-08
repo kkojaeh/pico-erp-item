@@ -9,12 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.attachment.data.AttachmentId;
-import pico.erp.company.data.CompanyId;
-import pico.erp.item.data.ItemCategoryId;
-import pico.erp.item.data.ItemId;
-import pico.erp.item.data.ItemSpecTypeId;
-import pico.erp.item.data.ItemTypeKind;
+import pico.erp.attachment.AttachmentId;
+import pico.erp.company.CompanyId;
+import pico.erp.item.category.ItemCategoryId;
+import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.UnitKind;
 

@@ -9,10 +9,9 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pico.erp.audit.AuditService;
+import pico.erp.item.ItemMapper;
 import pico.erp.item.category.ItemCategoryEvents.ParentChangedEvent;
 import pico.erp.item.category.ItemCategoryExceptions.NotFoundException;
-import pico.erp.item.core.ItemMapper;
-import pico.erp.item.data.ItemCategoryId;
 import pico.erp.shared.event.EventPublisher;
 
 @Slf4j

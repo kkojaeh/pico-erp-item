@@ -14,9 +14,9 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import pico.erp.item.category.ItemCategoryRequests;
 import pico.erp.item.category.ItemCategoryService;
-import pico.erp.item.data.ItemSpecVariables;
 import pico.erp.item.spec.ItemSpecRequests;
 import pico.erp.item.spec.ItemSpecService;
+import pico.erp.item.spec.ItemSpecVariables;
 import pico.erp.shared.ApplicationInitializer;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.item.data.ItemCategoryId;
 import pico.erp.shared.TypeDefinitions;
 
 public interface ItemCategoryRequests {

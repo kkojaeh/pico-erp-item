@@ -8,13 +8,10 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.company.data.CompanyId
+import pico.erp.company.CompanyId
+import pico.erp.item.category.ItemCategoryId
 import pico.erp.item.category.ItemCategoryRequests
 import pico.erp.item.category.ItemCategoryService
-import pico.erp.item.data.ItemCategoryId
-import pico.erp.item.data.ItemId
-import pico.erp.item.data.ItemTypeKind
-import pico.erp.item.data.ItemView
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.data.UnitKind
 import spock.lang.Specification

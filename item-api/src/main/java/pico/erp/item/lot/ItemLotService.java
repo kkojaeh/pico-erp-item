@@ -2,9 +2,6 @@ package pico.erp.item.lot;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import pico.erp.item.data.ItemLotCode;
-import pico.erp.item.data.ItemLotData;
-import pico.erp.item.data.ItemLotId;
 import pico.erp.item.lot.ItemLotRequests.CreateRequest;
 import pico.erp.item.lot.ItemLotRequests.DeleteRequest;
 import pico.erp.item.lot.ItemLotRequests.ExpireRequest;

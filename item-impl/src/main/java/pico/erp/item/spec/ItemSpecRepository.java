@@ -3,7 +3,6 @@ package pico.erp.item.spec;
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
-import pico.erp.item.data.ItemSpecId;
 
 @Repository
 public interface ItemSpecRepository {

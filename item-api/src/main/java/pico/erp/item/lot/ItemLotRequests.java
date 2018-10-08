@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.item.data.ItemId;
-import pico.erp.item.data.ItemLotCode;
-import pico.erp.item.data.ItemLotId;
+import pico.erp.item.ItemId;
 
 public interface ItemLotRequests {
 

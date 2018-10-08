@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import pico.erp.audit.AuditService;
-import pico.erp.item.core.ItemMapper;
-import pico.erp.item.data.ItemLotCode;
-import pico.erp.item.data.ItemLotData;
-import pico.erp.item.data.ItemLotId;
 import pico.erp.item.lot.ItemLotExceptions.AlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.CodeAlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.NotFoundException;
@@ -37,7 +33,7 @@ public class ItemLotServiceLogic implements ItemLotService {
   private EventPublisher eventPublisher;
 
   @Autowired
-  private ItemMapper mapper;
+  private ItemLotMapper mapper;
 
   @Lazy
   @Autowired
