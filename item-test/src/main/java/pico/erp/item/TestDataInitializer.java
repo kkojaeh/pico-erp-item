@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import pico.erp.item.category.ItemCategoryRequests;
 import pico.erp.item.category.ItemCategoryService;
+import pico.erp.item.lot.ItemLotRequests;
+import pico.erp.item.lot.ItemLotService;
 import pico.erp.item.spec.ItemSpecRequests;
 import pico.erp.item.spec.ItemSpecService;
 import pico.erp.item.spec.ItemSpecVariables;
@@ -36,6 +38,10 @@ public class TestDataInitializer implements ApplicationInitializer {
   @Autowired
   private ItemSpecService itemSpecService;
 
+  @Lazy
+  @Autowired
+  private ItemLotService itemLotService;
+
 
   @Autowired
   private DataProperties dataProperties;
@@ -47,6 +53,7 @@ public class TestDataInitializer implements ApplicationInitializer {
     dataProperties.itemSpecs.forEach(itemSpecService::create);
     dataProperties.itemSpecVariables.forEach(variable -> variable.ready());
     dataProperties.itemSpecVariables.forEach(itemSpecService::update);
+    dataProperties.itemLots.forEach(itemLotService::create);
   }
 
   @Data
@@ -61,6 +68,8 @@ public class TestDataInitializer implements ApplicationInitializer {
     List<ItemSpecRequests.CreateRequest> itemSpecs = new LinkedList<>();
 
     List<ItemSpecTypedUpdateRequest> itemSpecVariables = new LinkedList<>();
+
+    List<ItemLotRequests.CreateRequest> itemLots = new LinkedList<>();
 
   }
 

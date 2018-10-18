@@ -72,3 +72,8 @@ data:
       height: 364
       incisionCount: 1
       width: 545
+  item-lots:
+  - id: item-1-lot-1
+    code: "20181018"
+    item-id: item-1
+    expiration-date: 2019-10-18T00:00:00+09:00

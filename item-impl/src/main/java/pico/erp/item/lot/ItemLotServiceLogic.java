@@ -43,7 +43,7 @@ public class ItemLotServiceLogic implements ItemLotService {
   public ItemLotData create(CreateRequest request) {
     val itemLot = new ItemLot();
 
-    if (itemLotRepository.exists(itemLot.getId())) {
+    if (itemLotRepository.exists(request.getId())) {
       throw new AlreadyExistsException();
     }
 
