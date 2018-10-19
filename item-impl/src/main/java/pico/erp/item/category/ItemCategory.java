@@ -101,7 +101,7 @@ public class ItemCategory implements Serializable {
     val oldPath = this.path;
     key = Optional.ofNullable(parent)
       .map(p -> p.getKey() + KEY_DELIMITER + getId().getValue())
-      .orElse(getId().getValue());
+      .orElse(getId().getValue().toString());
     path = Optional.ofNullable(parent)
       .map(p -> p.getPath() + PATH_DELIMITER + getName())
       .orElse(getName());
