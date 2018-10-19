@@ -79,9 +79,6 @@ alter table itm_item
 alter table itm_item_category
 	add constraint ITM_ITEM_CATEGORY_CODE_IDX unique (code);
 
-alter table itm_item_category
-	add constraint ITM_ITEM_CATEGORY_KEY_IDX unique (id_path);
-
 alter table itm_item_lot
 	add constraint ITM_ITEM_LOT_CODE_IDX unique (code);
 

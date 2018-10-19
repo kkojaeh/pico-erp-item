@@ -61,7 +61,7 @@ class ItemServiceSpec extends Specification {
     def item = itemService.get(ItemId.from("item"))
 
     then:
-    item.id.value == "item"
+    item.id == ItemId.from("item")
     item.name == "아이템"
   }
 
@@ -96,7 +96,7 @@ class ItemServiceSpec extends Specification {
     def item = itemService.get(item.code)
 
     then:
-    item.id.value == "item"
+    item.id == ItemId.from("item")
     item.name == "아이템"
   }
 

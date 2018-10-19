@@ -49,7 +49,7 @@ class ItemCategoryServiceSpec extends Specification {
     def itemCategory = itemCategoryService.get(ItemCategoryId.from("ACE"))
 
     then:
-    itemCategory.id.value == "ACE"
+    itemCategory.id == ItemCategoryId.from("ACE")
     itemCategory.name == "생산자재"
   }
 
@@ -83,7 +83,7 @@ class ItemCategoryServiceSpec extends Specification {
     def itemCategory = itemCategoryService.get(itemCategory.code)
 
     then:
-    itemCategory.id.value == "ACE"
+    itemCategory.id == ItemCategoryId.from("ACE")
     itemCategory.name == "생산자재"
   }
 
