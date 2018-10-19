@@ -110,7 +110,7 @@ public class ItemEntity implements Serializable {
   CompanyId customerId;
 
   @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ID", length = TypeDefinitions.ID_LENGTH))
+    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
   })
   AttachmentId attachmentId;
 

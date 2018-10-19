@@ -60,7 +60,7 @@ public class ItemCategoryEntity implements Serializable {
   ItemCategoryCode code;
 
   @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "PARENT_ID", length = TypeDefinitions.ID_LENGTH))
+    @AttributeOverride(name = "value", column = @Column(name = "PARENT_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
   })
   ItemCategoryId parentId;
 

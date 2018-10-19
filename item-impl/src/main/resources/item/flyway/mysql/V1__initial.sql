@@ -1,6 +1,6 @@
 create table itm_item (
 	id binary(16) not null,
-	attachment_id varchar(50),
+	attachment_id binary(16),
 	base_unit_cost decimal(19,2),
 	code varchar(20),
 	created_by_id varchar(50),
@@ -37,7 +37,7 @@ create table itm_item_category (
 	last_modified_by_name varchar(50),
 	last_modified_date datetime,
 	name varchar(30),
-	parent_id binary(50),
+	parent_id binary(16),
 	name_path varchar(500),
 	primary key (id)
 ) engine=InnoDB;
