@@ -4,7 +4,6 @@ import java.util.Optional;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import pico.erp.item.ItemExceptions;
 
 @Mapper
 public abstract class ItemSpecTypeMapper {
@@ -18,7 +17,7 @@ public abstract class ItemSpecTypeMapper {
   public ItemSpecType map(ItemSpecTypeId itemSpecTypeId) {
     return Optional.ofNullable(itemSpecTypeId)
       .map(id -> itemSpecTypeRepository.findBy(id)
-        .orElseThrow(ItemExceptions.NotFoundException::new)
+        .orElseThrow(ItemSpecTypeExceptions.NotFoundException::new)
       )
       .orElse(null);
   }
