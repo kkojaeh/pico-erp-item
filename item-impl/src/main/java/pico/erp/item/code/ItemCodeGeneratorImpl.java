@@ -65,7 +65,7 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
 
     long count = itemRepository.countByCreatedThisMonth();
     builder.append(String.format("%03d", count));
-    return ItemCode.from(builder.toString());
+    return ItemCode.from(builder.toString().toUpperCase());
   }
 
   @Override
