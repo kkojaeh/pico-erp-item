@@ -11,9 +11,8 @@ import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.JoinColumn;
+import javax.persistence.Index;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,12 +27,14 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import pico.erp.item.ItemEntity;
+import pico.erp.item.ItemId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
 
 @Entity(name = "ItemSpec")
-@Table(name = "ITM_ITEM_SPEC")
+@Table(name = "ITM_ITEM_SPEC", indexes = {
+  @Index(columnList = "ITEM_ID")
+})
 @Data
 @EqualsAndHashCode(of = "id")
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -55,9 +56,10 @@ public class ItemSpecEntity implements Serializable {
   @Column(length = TypeDefinitions.NAME_X2_LENGTH)
   String summary;
 
-  @ManyToOne
-  @JoinColumn(name = "ITEM_ID")
-  ItemEntity item;
+  @AttributeOverrides({
+    @AttributeOverride(name = "value", column = @Column(name = "ITEM_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
+  })
+  ItemId itemId;
 
   @Lob
   @Column(length = TypeDefinitions.CLOB_LENGTH)

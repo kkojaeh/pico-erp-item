@@ -12,7 +12,6 @@ import pico.erp.company.CompanyId;
 import pico.erp.company.CompanyService;
 import pico.erp.item.ItemExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategory;
-import pico.erp.item.category.ItemCategoryEntity;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.category.ItemCategoryMapper;
 import pico.erp.item.code.ItemCodeGenerator;
@@ -52,14 +51,14 @@ public abstract class ItemMapper {
       .code(entity.getCode())
       .name(entity.getName())
       .externalCode(entity.getExternalCode())
-      .category(itemCategoryMapper.domain(entity.getCategory()))
+      .category(map(entity.getCategoryId()))
       .unit(entity.getUnit())
       .baseUnitCost(entity.getBaseUnitCost())
       .type(entity.getType())
       .description(entity.getDescription())
       .status(entity.getStatus())
       .customer(map(entity.getCustomerId()))
-      .specType(itemSpecTypeMapper.map(entity.getSpecTypeId()))
+      .specType(map(entity.getSpecTypeId()))
       .sellable(entity.isSellable())
       .purchasable(entity.isPurchasable())
       .attachmentId(entity.getAttachmentId())
@@ -73,7 +72,7 @@ public abstract class ItemMapper {
   }
 
   @Mappings({
-    @Mapping(target = "category", source = "category.id"),
+    @Mapping(target = "categoryId", source = "category.id"),
     @Mapping(target = "customerId", source = "customer.id"),
     @Mapping(target = "customerName", source = "customer.name"),
     @Mapping(target = "specTypeId", source = "specType.id"),
@@ -83,10 +82,6 @@ public abstract class ItemMapper {
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
   public abstract ItemEntity entity(Item item);
-
-  protected ItemCategoryEntity entity(ItemCategoryId categoryId) {
-    return itemCategoryMapper.entity(categoryId);
-  }
 
   public ItemEntity entity(ItemId itemId) {
     return Optional.ofNullable(itemId)

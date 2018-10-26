@@ -31,7 +31,7 @@ import pico.erp.shared.data.Auditor;
 
 @Entity(name = "ItemCategory")
 @Table(name = "ITM_ITEM_CATEGORY", indexes = {
-  @Index(name = "ITM_ITEM_CATEGORY_CODE_IDX", columnList = "CODE", unique = true)
+  @Index(columnList = "CODE", unique = true)
 })
 @NoArgsConstructor
 @Data

@@ -19,10 +19,10 @@ interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotI
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
     @Param("fixedDate") OffsetDateTime fixedDate);
 
-  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.item.id = :itemId AND il.code = :code")
+  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
   boolean exists(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
 
-  @Query("SELECT il FROM ItemLot il WHERE il.item.id = :itemId AND il.code = :code")
+  @Query("SELECT il FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
   ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
 
 }

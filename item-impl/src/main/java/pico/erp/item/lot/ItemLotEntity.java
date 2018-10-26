@@ -11,8 +11,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,13 +25,14 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import pico.erp.item.ItemEntity;
+import pico.erp.item.ItemId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
 
 @Entity(name = "ItemLot")
 @Table(name = "ITM_ITEM_LOT", indexes = {
-  @Index(name = "ITM_ITEM_LOT_CODE_IDX", columnList = "CODE", unique = true)
+  @Index(columnList = "ITEM_ID, CODE", unique = true),
+  @Index(columnList = "ITEM_ID")
 })
 @Data
 @EqualsAndHashCode(of = "id")
@@ -58,9 +57,10 @@ public class ItemLotEntity implements Serializable {
   })
   ItemLotCode code;
 
-  @ManyToOne
-  @JoinColumn(name = "ITEM_ID")
-  ItemEntity item;
+  @AttributeOverrides({
+    @AttributeOverride(name = "value", column = @Column(name = "ITEM_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
+  })
+  ItemId itemId;
 
   @Column
   OffsetDateTime expirationDate;

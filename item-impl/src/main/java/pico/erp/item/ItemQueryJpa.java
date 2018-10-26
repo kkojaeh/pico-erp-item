@@ -50,11 +50,13 @@ public class ItemQueryJpa implements ItemQuery {
     val select = Projections.bean(ExtendedLabeledValue.class,
       item.id.value.as("value"),
       item.name.as("label"),
-      item.category.name.nullif("N/A").as("subLabel"),
+      itemCategory.name.nullif("N/A").as("subLabel"),
       item.code.value.as("stamp")
     );
     query.select(select);
     query.from(item);
+    query.leftJoin(itemCategory)
+      .on(item.categoryId.eq(itemCategory.id));
     query
       .where(item.name.likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", keyword, "%"))
         .and(item.status.eq(ItemStatusKind.ACTIVATED)));
@@ -73,9 +75,9 @@ public class ItemQueryJpa implements ItemQuery {
       item.unit,
       item.type,
       item.externalCode,
-      item.category.id.as("categoryId"),
-      item.category.name.as("categoryName"),
-      item.category.path.as("categoryPath"),
+      itemCategory.id.as("categoryId"),
+      itemCategory.name.as("categoryName"),
+      itemCategory.path.as("categoryPath"),
       item.customerId,
       item.customerName,
       item.status,
@@ -84,7 +86,8 @@ public class ItemQueryJpa implements ItemQuery {
     );
     query.select(select);
     query.from(item);
-    query.leftJoin(item.category, itemCategory);
+    query.leftJoin(itemCategory)
+      .on(item.categoryId.eq(itemCategory.id));
 
     val builder = new BooleanBuilder();
 
@@ -110,7 +113,7 @@ public class ItemQueryJpa implements ItemQuery {
       val category = new QItemCategoryEntity("category");
       val itemCategory = itemCategoryRepository.findBy(filter.getCategoryId())
         .orElseThrow(NotFoundException::new);
-      builder.and(item.category.id.in(
+      builder.and(item.categoryId.in(
         JPAExpressions.select(category.id)
           .from(category)
           .where(

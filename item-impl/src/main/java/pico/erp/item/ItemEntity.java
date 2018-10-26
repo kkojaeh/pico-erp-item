@@ -14,8 +14,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +30,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyId;
-import pico.erp.item.category.ItemCategoryEntity;
+import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
@@ -40,7 +38,8 @@ import pico.erp.shared.data.UnitKind;
 
 @Entity(name = "Item")
 @Table(name = "ITM_ITEM", indexes = {
-  @Index(name = "ITM_ITEM_CODE_IDX", columnList = "CODE", unique = true)
+  @Index(columnList = "CODE", unique = true),
+  @Index(columnList = "CATEGORY_ID")
 })
 @Data
 @EqualsAndHashCode(of = "id")
@@ -76,9 +75,10 @@ public class ItemEntity implements Serializable {
   @Column(length = TypeDefinitions.EXTERNAL_ID_LENGTH)
   String externalCode;
 
-  @ManyToOne
-  @JoinColumn(name = "CATEGORY_ID")
-  ItemCategoryEntity category;
+  @AttributeOverrides({
+    @AttributeOverride(name = "value", column = @Column(name = "CATEGORY_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
+  })
+  ItemCategoryId categoryId;
 
   @Column(length = TypeDefinitions.ENUM_LENGTH)
   @Enumerated(EnumType.STRING)

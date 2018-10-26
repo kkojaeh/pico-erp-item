@@ -7,7 +7,6 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import pico.erp.item.Item;
-import pico.erp.item.ItemEntity;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemMapper;
 import pico.erp.item.code.ItemCodeGenerator;
@@ -26,7 +25,7 @@ public abstract class ItemLotMapper {
     return ItemLot.builder()
       .id(entity.getId())
       .code(entity.getCode())
-      .item(itemMapper.domain(entity.getItem()))
+      .item(map(entity.getItemId()))
       .expirationDate(entity.getExpirationDate())
       .expired(entity.isExpired())
       .expiredDate(entity.getExpiredDate())
@@ -34,17 +33,13 @@ public abstract class ItemLotMapper {
   }
 
   @Mappings({
-    @Mapping(target = "item", source = "item.id"),
+    @Mapping(target = "itemId", source = "item.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
   public abstract ItemLotEntity entity(ItemLot lot);
-
-  protected ItemEntity entity(ItemId itemId) {
-    return itemMapper.entity(itemId);
-  }
 
   @Mappings({
     @Mapping(target = "itemId", source = "item.id"),

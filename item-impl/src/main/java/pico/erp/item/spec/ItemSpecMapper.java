@@ -11,7 +11,6 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import pico.erp.item.Item;
-import pico.erp.item.ItemEntity;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemMapper;
 import pico.erp.item.spec.type.ItemSpecType;
@@ -32,7 +31,7 @@ public abstract class ItemSpecMapper {
 
   @SuppressWarnings("unchecked")
   public ItemSpec domain(ItemSpecEntity entity) {
-    Item item = itemMapper.domain(entity.getItem());
+    Item item = map(entity.getItemId());
     ItemSpecType itemSpecType = item.getSpecType();
     return ItemSpec.builder()
       .id(entity.getId())
@@ -44,17 +43,13 @@ public abstract class ItemSpecMapper {
   }
 
   @Mappings({
-    @Mapping(target = "item", source = "item.id"),
+    @Mapping(target = "itemId", source = "item.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
   public abstract ItemSpecEntity entity(ItemSpec spec);
-
-  protected ItemEntity entity(ItemId itemId) {
-    return itemMapper.entity(itemId);
-  }
 
   @Mappings({
     @Mapping(target = "itemId", source = "item.id")
