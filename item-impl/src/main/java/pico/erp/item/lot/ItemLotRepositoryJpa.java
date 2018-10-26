@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import pico.erp.item.ItemId;
 
 @Repository
 interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotId> {
@@ -18,8 +19,11 @@ interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotI
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
     @Param("fixedDate") OffsetDateTime fixedDate);
 
-  @Query("SELECT il FROM ItemLot il WHERE il.code = :code")
-  ItemLotEntity findBy(@Param("code") ItemLotCode code);
+  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.item.id = :itemId AND il.code = :code")
+  boolean exists(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
+
+  @Query("SELECT il FROM ItemLot il WHERE il.item.id = :itemId AND il.code = :code")
+  ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
 
 }
 
@@ -52,8 +56,8 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public boolean exists(ItemLotCode code) {
-    return repository.findBy(code) != null;
+  public boolean exists(ItemId itemId, ItemLotCode code) {
+    return repository.exists(itemId, code);
   }
 
   @Override
@@ -63,8 +67,8 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public Optional<ItemLot> findBy(ItemLotCode code) {
-    return Optional.ofNullable(repository.findBy(code))
+  public Optional<ItemLot> findBy(ItemId itemId, ItemLotCode code) {
+    return Optional.ofNullable(repository.findBy(itemId, code))
       .map(mapper::domain);
   }
 

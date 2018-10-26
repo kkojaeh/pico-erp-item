@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
+import pico.erp.item.ItemId;
 
 @Repository
 public interface ItemLotRepository {
@@ -15,11 +16,11 @@ public interface ItemLotRepository {
 
   boolean exists(@NotNull ItemLotId id);
 
-  boolean exists(@NotNull ItemLotCode code);
+  boolean exists(@NotNull ItemId itemId, @NotNull ItemLotCode code);
 
   Stream<ItemLot> findAllExpireCandidatesBeforeThan(@NotNull OffsetDateTime fixedDate);
 
-  Optional<ItemLot> findBy(@NotNull ItemLotCode code);
+  Optional<ItemLot> findBy(@NotNull ItemId itemId, @NotNull ItemLotCode code);
 
   Optional<ItemLot> findBy(@NotNull ItemLotId id);
 

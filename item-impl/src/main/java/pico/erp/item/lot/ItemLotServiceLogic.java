@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import pico.erp.audit.AuditService;
+import pico.erp.item.ItemId;
 import pico.erp.item.lot.ItemLotExceptions.AlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.CodeAlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.NotFoundException;
@@ -49,7 +50,7 @@ public class ItemLotServiceLogic implements ItemLotService {
 
     val response = itemLot.apply(mapper.map(request));
 
-    if (itemLotRepository.exists(itemLot.getCode())) {
+    if (itemLotRepository.exists(itemLot.getItem().getId(), itemLot.getCode())) {
       throw new CodeAlreadyExistsException();
     }
     val created = itemLotRepository.create(itemLot);
@@ -69,8 +70,8 @@ public class ItemLotServiceLogic implements ItemLotService {
   }
 
   @Override
-  public boolean exists(ItemLotCode code) {
-    return itemLotRepository.exists(code);
+  public boolean exists(ItemId itemId, ItemLotCode code) {
+    return itemLotRepository.exists(itemId, code);
   }
 
   @Override
@@ -90,8 +91,8 @@ public class ItemLotServiceLogic implements ItemLotService {
   }
 
   @Override
-  public ItemLotData get(ItemLotCode code) {
-    return itemLotRepository.findBy(code)
+  public ItemLotData get(ItemId itemId, ItemLotCode code) {
+    return itemLotRepository.findBy(itemId, code)
       .map(mapper::map)
       .orElseThrow(NotFoundException::new);
   }

@@ -2,10 +2,13 @@ package pico.erp.item.code;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import pico.erp.item.Item;
 import pico.erp.item.ItemCode;
 import pico.erp.item.ItemRepository;
@@ -27,7 +30,7 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
   private ItemRepository itemRepository;
 
   @Value("${item.category.undefined-code}")
-  private String undefinedCategoryCode = "000";
+  private String undefinedCompanyCode = "000";
 
   @Override
   public ItemCategoryCode generate(ItemCategory itemCategory) {
@@ -45,32 +48,26 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
    */
   @Override
   public ItemCode generate(Item item) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(
-      Optional.ofNullable(item.getCategory())
-        .map(category -> category.getCode().getValue())
-        .orElse(undefinedCategoryCode)
-    );
-    ItemCode previousCode = item.getCode();
+    val customerPart = Optional.ofNullable(item.getCustomer())
+      .map(customer -> customer.getId().getValue())
+      .orElse(undefinedCompanyCode);
+    val previousCode = item.getCode();
     if (previousCode != null) {
-      builder.append(previousCode.getValue().substring(3));
-      return ItemCode.from(builder.toString());
+      val split = StringUtils.split(previousCode.getValue(), "-");
+      split[0] = customerPart;
+      return ItemCode.from(StringUtils.arrayToDelimitedString(split, "-"));
     }
-
-    LocalDate now = LocalDate.now();
-    builder.append('-');
-    builder.append(now.getYear() % 100);
-    builder.append(Integer.toString(now.getMonthValue(), 16));
-    builder.append('-');
-
-    long count = itemRepository.countByCreatedThisMonth();
-    builder.append(String.format("%03d", count));
-    return ItemCode.from(builder.toString().toUpperCase());
+    val now = LocalDate.now();
+    val monthPart = (now.getYear() % 100) * 100 + Integer.toString(now.getMonthValue(), 16);
+    val countPart = itemRepository.countByCreatedThisMonth();
+    val code = String.format("%s-%s-%03d", customerPart, monthPart, countPart).toUpperCase();
+    return ItemCode.from(code);
   }
 
   @Override
   public ItemLotCode generate(ItemLot item) {
-    return null;
+    val code = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+    return ItemLotCode.from(code);
   }
 
 }
