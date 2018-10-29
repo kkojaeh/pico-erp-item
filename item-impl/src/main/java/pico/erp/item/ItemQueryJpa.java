@@ -19,9 +19,9 @@ import org.springframework.validation.annotation.Validated;
 import pico.erp.item.category.ItemCategoryExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategoryRepository;
 import pico.erp.item.category.QItemCategoryEntity;
-import pico.erp.shared.ExtendedLabeledValue;
 import pico.erp.shared.LabeledValue;
 import pico.erp.shared.Public;
+import pico.erp.shared.QExtendedLabeledValue;
 import pico.erp.shared.data.LabeledValuable;
 import pico.erp.shared.jpa.QueryDslJpaSupport;
 
@@ -47,7 +47,8 @@ public class ItemQueryJpa implements ItemQuery {
   @Override
   public List<? extends LabeledValuable> asLabels(String keyword, long limit) {
     val query = new JPAQuery<LabeledValue>(entityManager);
-    val select = Projections.bean(ExtendedLabeledValue.class,
+
+    val select = new QExtendedLabeledValue(
       item.id.value.as("value"),
       item.name.as("label"),
       itemCategory.name.nullif("N/A").as("subLabel"),
