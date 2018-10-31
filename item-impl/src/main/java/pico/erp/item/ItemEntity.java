@@ -102,7 +102,7 @@ public class ItemEntity implements Serializable {
   boolean purchasable;
 
   @Column
-  boolean sellable;
+  boolean salable;
 
   @AttributeOverrides({
     @AttributeOverride(name = "value", column = @Column(name = "CUSTOMER_ID", length = TypeDefinitions.ID_LENGTH))

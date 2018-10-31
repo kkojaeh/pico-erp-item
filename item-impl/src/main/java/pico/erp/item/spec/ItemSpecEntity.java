@@ -91,4 +91,6 @@ public class ItemSpecEntity implements Serializable {
   @LastModifiedDate
   OffsetDateTime lastModifiedDate;
 
+  boolean locked;
+
 }

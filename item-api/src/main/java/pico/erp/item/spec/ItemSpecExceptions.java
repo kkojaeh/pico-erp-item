@@ -11,4 +11,10 @@ public interface ItemSpecExceptions {
     private static final long serialVersionUID = 1L;
 
   }
+
+  @ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE, reason = "item.spec.cannot.recalculate.exception")
+  class CannotRecalculateException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+  }
 }

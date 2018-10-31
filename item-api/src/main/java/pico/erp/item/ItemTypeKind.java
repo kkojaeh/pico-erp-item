@@ -55,7 +55,7 @@ public enum ItemTypeKind implements LocalizedNameable, LocalizedDescriptable {
    * 판매 가능 여부
    */
   @Getter
-  boolean sellable;
+  boolean salable;
 
   /**
    * 투입 가능 여부

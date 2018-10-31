@@ -2,20 +2,21 @@ package pico.erp.item.spec;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import pico.erp.item.spec.ItemSpecRequests.CreateRequest;
-import pico.erp.item.spec.ItemSpecRequests.DeleteRequest;
-import pico.erp.item.spec.ItemSpecRequests.UpdateRequest;
 
 public interface ItemSpecService {
 
-  ItemSpecData create(@Valid CreateRequest request);
+  ItemSpecData create(@Valid ItemSpecRequests.CreateRequest request);
 
-  void delete(@Valid DeleteRequest request);
+  void delete(@Valid ItemSpecRequests.DeleteRequest request);
 
   boolean exists(@NotNull ItemSpecId id);
 
   ItemSpecData get(@NotNull ItemSpecId id);
 
-  void update(@Valid UpdateRequest request);
+  void lock(@Valid ItemSpecRequests.LockRequest request);
+
+  void unlock(@Valid ItemSpecRequests.UnlockRequest request);
+
+  void update(@Valid ItemSpecRequests.UpdateRequest request);
 
 }

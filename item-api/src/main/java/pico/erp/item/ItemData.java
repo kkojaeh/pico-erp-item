@@ -47,7 +47,7 @@ public class ItemData implements Serializable, ItemInfo {
 
   boolean purchasable;
 
-  boolean sellable;
+  boolean salable;
 
   boolean specifiable;
 

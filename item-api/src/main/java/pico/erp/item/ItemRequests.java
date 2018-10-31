@@ -69,12 +69,10 @@ public interface ItemRequests {
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
 
-    boolean purchasable;
-
-    boolean sellable;
-
     @Valid
     AttachmentId attachmentId;
+
+    boolean purchasable;
 
   }
 
@@ -139,12 +137,10 @@ public interface ItemRequests {
     @Valid
     ItemSpecTypeId specTypeId;
 
-    boolean purchasable;
-
-    boolean sellable;
-
     @Valid
     AttachmentId attachmentId;
+
+    boolean purchasable;
 
   }
 }

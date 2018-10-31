@@ -39,8 +39,8 @@ public class ItemCategoryEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + ParentChangedEvent.CHANNEL)
   public void onItemCategoryParentChanged(ParentChangedEvent event) {
-    ItemCategoryId id = event.getItemCategoryId();
-    ItemCategory itemCategory = itemCategoryRepository.findBy(id)
+    val id = event.getItemCategoryId();
+    val itemCategory = itemCategoryRepository.findBy(id)
       .orElseThrow(NotFoundException::new);
     itemCategoryRepository.findChildrenBy(id)
       .forEach(child -> {

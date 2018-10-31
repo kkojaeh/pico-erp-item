@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.item.spec.ItemSpecExceptions.NotFoundException;
 import pico.erp.item.spec.ItemSpecRequests.CreateRequest;
 import pico.erp.item.spec.ItemSpecRequests.DeleteRequest;
+import pico.erp.item.spec.ItemSpecRequests.LockRequest;
+import pico.erp.item.spec.ItemSpecRequests.UnlockRequest;
 import pico.erp.item.spec.ItemSpecRequests.UpdateRequest;
 import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
@@ -39,7 +40,7 @@ public class ItemSpecServiceLogic implements ItemSpecService {
   @Override
   public void delete(DeleteRequest request) {
     val itemSpec = itemSpecRepository.findBy(request.getId())
-      .orElseThrow(NotFoundException::new);
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
     val response = itemSpec.apply(mapper.map(request));
     itemSpecRepository.deleteBy(request.getId());
     eventPublisher.publishEvents(response.getEvents());
@@ -54,13 +55,31 @@ public class ItemSpecServiceLogic implements ItemSpecService {
   public ItemSpecData get(ItemSpecId id) {
     return itemSpecRepository.findBy(id)
       .map(mapper::map)
-      .orElseThrow(NotFoundException::new);
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
+  }
+
+  @Override
+  public void lock(LockRequest request) {
+    val itemSpec = itemSpecRepository.findBy(request.getId())
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
+    val response = itemSpec.apply(mapper.map(request));
+    itemSpecRepository.update(itemSpec);
+    eventPublisher.publishEvents(response.getEvents());
+  }
+
+  @Override
+  public void unlock(UnlockRequest request) {
+    val itemSpec = itemSpecRepository.findBy(request.getId())
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
+    val response = itemSpec.apply(mapper.map(request));
+    itemSpecRepository.update(itemSpec);
+    eventPublisher.publishEvents(response.getEvents());
   }
 
   @Override
   public void update(UpdateRequest request) {
     val itemSpec = itemSpecRepository.findBy(request.getId())
-      .orElseThrow(NotFoundException::new);
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
     val response = itemSpec.apply(mapper.map(request));
     itemSpecRepository.update(itemSpec);
     eventPublisher.publishEvents(response.getEvents());

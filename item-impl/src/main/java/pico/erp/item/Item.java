@@ -81,8 +81,6 @@ public class Item implements Serializable, ItemInfo {
 
   boolean purchasable;
 
-  boolean sellable;
-
   AttachmentId attachmentId;
 
   public Item() {
@@ -107,7 +105,6 @@ public class Item implements Serializable, ItemInfo {
     baseUnitCost = request.getBaseUnitCost();
     type = request.getType();
     description = request.getDescription();
-    sellable = request.isSellable();
     purchasable = request.isPurchasable();
     apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
     customer = request.getCustomer();
@@ -144,7 +141,6 @@ public class Item implements Serializable, ItemInfo {
     baseUnitCost = request.getBaseUnitCost();
     type = request.getType();
     description = request.getDescription();
-    sellable = request.isSellable();
     purchasable = request.isPurchasable();
     val setCategoryResponse = apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
     events.addAll(setCategoryResponse.getEvents());
@@ -201,6 +197,10 @@ public class Item implements Serializable, ItemInfo {
 
   public boolean isSpecifiable() {
     return specType != null;
+  }
+
+  public boolean isSalable() {
+    return type.isSalable();
   }
 
 }

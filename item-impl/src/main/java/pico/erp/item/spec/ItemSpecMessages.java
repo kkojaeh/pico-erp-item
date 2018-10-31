@@ -32,7 +32,22 @@ public interface ItemSpecMessages {
   }
 
   @Data
+  class LockRequest {
+
+  }
+
+  @Data
+  class UnlockRequest {
+
+  }
+
+  @Data
   class DeleteRequest {
+
+  }
+
+  @Data
+  class RecalculateRequest {
 
   }
 
@@ -52,6 +67,27 @@ public interface ItemSpecMessages {
 
   @Value
   class DeleteResponse {
+
+    Collection<Event> events;
+
+  }
+
+  @Value
+  class LockResponse {
+
+    Collection<Event> events;
+
+  }
+
+  @Value
+  class UnlockResponse {
+
+    Collection<Event> events;
+
+  }
+
+  @Value
+  class RecalculateResponse {
 
     Collection<Event> events;
 

@@ -30,7 +30,7 @@ public abstract class ItemSpecMapper {
   }
 
   @SuppressWarnings("unchecked")
-  public ItemSpec domain(ItemSpecEntity entity) {
+  public ItemSpec jpa(ItemSpecEntity entity) {
     Item item = map(entity.getItemId());
     ItemSpecType itemSpecType = item.getSpecType();
     return ItemSpec.builder()
@@ -39,6 +39,7 @@ public abstract class ItemSpecMapper {
       .item(item)
       .variables(map(entity.getVariables(), itemSpecType.getType()))
       .baseUnitCost(entity.getBaseUnitCost())
+      .locked(entity.isLocked())
       .build();
   }
 
@@ -49,7 +50,7 @@ public abstract class ItemSpecMapper {
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
-  public abstract ItemSpecEntity entity(ItemSpec spec);
+  public abstract ItemSpecEntity jpa(ItemSpec spec);
 
   @Mappings({
     @Mapping(target = "itemId", source = "item.id")
@@ -64,6 +65,10 @@ public abstract class ItemSpecMapper {
   public abstract ItemSpecMessages.UpdateRequest map(ItemSpecRequests.UpdateRequest request);
 
   public abstract ItemSpecMessages.DeleteRequest map(ItemSpecRequests.DeleteRequest request);
+
+  public abstract ItemSpecMessages.LockRequest map(ItemSpecRequests.LockRequest request);
+
+  public abstract ItemSpecMessages.UnlockRequest map(ItemSpecRequests.UnlockRequest request);
 
   protected Item map(ItemId itemId) {
     return itemMapper.map(itemId);

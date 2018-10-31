@@ -48,4 +48,26 @@ public interface ItemSpecRequests {
     ItemSpecId id;
 
   }
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  class LockRequest {
+
+    @Valid
+    @NotNull
+    ItemSpecId id;
+
+  }
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  class UnlockRequest {
+
+    @Valid
+    @NotNull
+    ItemSpecId id;
+
+  }
 }

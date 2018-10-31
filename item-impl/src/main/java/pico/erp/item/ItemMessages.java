@@ -60,15 +60,13 @@ public interface ItemMessages {
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
 
-    boolean purchasable;
-
-    boolean sellable;
-
     @Valid
     AttachmentId attachmentId;
 
     @NotNull
     ItemCodeGenerator itemCodeGenerator;
+
+    boolean purchasable;
 
   }
 
@@ -113,15 +111,13 @@ public interface ItemMessages {
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
 
-    boolean purchasable;
-
-    boolean sellable;
-
     @Valid
     AttachmentId attachmentId;
 
     @NotNull
     ItemCodeGenerator itemCodeGenerator;
+
+    boolean purchasable;
 
   }
 

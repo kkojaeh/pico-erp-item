@@ -16,7 +16,7 @@ create table itm_item (
 	last_modified_date datetime,
 	name varchar(50),
 	purchasable bit,
-	sellable bit,
+	salable bit,
 	spec_type_id varchar(200),
 	status varchar(20),
 	type varchar(20),

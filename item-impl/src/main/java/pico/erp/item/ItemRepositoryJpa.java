@@ -50,9 +50,9 @@ public class ItemRepositoryJpa implements ItemRepository {
 
   @Override
   public Item create(Item item) {
-    val entity = mapperapper.entity(item);
+    val entity = mapperapper.jpa(item);
     val created = itemEntityRepository.save(entity);
-    return mapperapper.domain(created);
+    return mapperapper.jpa(created);
   }
 
   @Override
@@ -73,19 +73,19 @@ public class ItemRepositoryJpa implements ItemRepository {
   @Override
   public Optional<Item> findBy(ItemId id) {
     return Optional.ofNullable(itemEntityRepository.findOne(id))
-      .map(mapperapper::domain);
+      .map(mapperapper::jpa);
   }
 
   @Override
   public Optional<Item> findBy(ItemCode code) {
     return Optional.ofNullable(itemEntityRepository.findBy(code))
-      .map(mapperapper::domain);
+      .map(mapperapper::jpa);
   }
 
   @Override
   public void update(Item item) {
     val entity = itemEntityRepository.findOne(item.getId());
-    mapperapper.pass(mapperapper.entity(item), entity);
+    mapperapper.pass(mapperapper.jpa(item), entity);
     itemEntityRepository.save(entity);
   }
 

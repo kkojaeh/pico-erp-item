@@ -45,7 +45,7 @@ public abstract class ItemMapper {
   @Autowired
   protected ItemEntityRepository itemEntityRepository;
 
-  public Item domain(ItemEntity entity) {
+  public Item jpa(ItemEntity entity) {
     return Item.builder()
       .id(entity.getId())
       .code(entity.getCode())
@@ -59,7 +59,6 @@ public abstract class ItemMapper {
       .status(entity.getStatus())
       .customer(map(entity.getCustomerId()))
       .specType(map(entity.getSpecTypeId()))
-      .sellable(entity.isSellable())
       .purchasable(entity.isPurchasable())
       .attachmentId(entity.getAttachmentId())
       .build();
@@ -81,13 +80,13 @@ public abstract class ItemMapper {
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
-  public abstract ItemEntity entity(Item item);
+  public abstract ItemEntity jpa(Item item);
 
-  public ItemEntity entity(ItemId itemId) {
+  /*public ItemEntity jpa(ItemId itemId) {
     return Optional.ofNullable(itemId)
       .map(itemEntityRepository::findOne)
       .orElse(null);
-  }
+  }*/
 
   protected ItemCategory map(ItemCategoryId categoryId) {
     return itemCategoryMapper.map(categoryId);
