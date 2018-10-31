@@ -3,15 +3,17 @@ package pico.erp.item.spec;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedList;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.val;
 import pico.erp.item.Item;
 import pico.erp.item.spec.ItemSpecMessages.DeleteResponse;
+import pico.erp.shared.event.Event;
 
 @Getter
 @AllArgsConstructor
@@ -64,17 +66,22 @@ public class ItemSpec {
     if (locked) {
       throw new ItemSpecExceptions.CannotRecalculateException();
     }
+    val events = new LinkedList<Event>();
+    val oldBaseUnitCost = baseUnitCost;
     if (variables.isValid()) {
       baseUnitCost = item.getSpecType().calculateUnitCost(item, variables);
     }
+    if (!oldBaseUnitCost.equals(baseUnitCost)) {
+      events.add(new ItemSpecEvents.UpdatedEvent(this.id));
+    }
     return new ItemSpecMessages.RecalculateResponse(
-      Collections.emptyList()
+      events
     );
   }
 
   public ItemSpecMessages.DeleteResponse apply(ItemSpecMessages.DeleteRequest request) {
     return new DeleteResponse(
-      Arrays.asList(new ItemSpecEvents.UpdatedEvent(this.id))
+      Arrays.asList(new ItemSpecEvents.DeletedEvent(this.id))
     );
   }
 
