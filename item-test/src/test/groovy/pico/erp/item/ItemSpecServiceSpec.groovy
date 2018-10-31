@@ -136,6 +136,8 @@ class ItemSpecServiceSpec extends Specification {
 
     then:
     before.baseUnitCost == after.baseUnitCost
+    before.locked == false
+    after.locked == true
   }
 
   def "품목의 단가가 변경되면 영향을 받게 된다"() {

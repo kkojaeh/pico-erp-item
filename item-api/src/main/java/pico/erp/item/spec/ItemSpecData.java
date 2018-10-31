@@ -26,4 +26,6 @@ public class ItemSpecData {
 
   BigDecimal baseUnitCost;
 
+  boolean locked;
+
 }
