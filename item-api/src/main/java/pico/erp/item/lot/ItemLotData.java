@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import pico.erp.item.ItemId;
+import pico.erp.shared.data.Auditor;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -26,5 +27,9 @@ public class ItemLotData implements Serializable {
   boolean expired;
 
   OffsetDateTime expiredDate;
+
+  Auditor createdBy;
+
+  OffsetDateTime createdDate;
 
 }

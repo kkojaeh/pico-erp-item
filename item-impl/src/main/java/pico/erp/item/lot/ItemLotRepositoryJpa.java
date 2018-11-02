@@ -3,6 +3,7 @@ package pico.erp.item.lot;
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -40,9 +41,9 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public ItemLot create(ItemLot itemLot) {
-    val entity = mapper.entity(itemLot);
+    val entity = mapper.jpa(itemLot);
     val created = repository.save(entity);
-    return mapper.domain(created);
+    return mapper.jpa(created);
   }
 
   @Override
@@ -61,27 +62,33 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(OffsetDateTime fixedDate) {
-    return repository.findAllExpireCandidatesBeforeThan(fixedDate)
-      .map(mapper::domain);
+  public Stream<ItemLot> findAllBy(Iterable<ItemLotId> ids) {
+    return StreamSupport.stream(repository.findAll(ids).spliterator(), false)
+      .map(mapper::jpa);
   }
 
   @Override
-  public Optional<ItemLot> findBy(ItemId itemId, ItemLotCode code) {
-    return Optional.ofNullable(repository.findBy(itemId, code))
-      .map(mapper::domain);
+  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(OffsetDateTime fixedDate) {
+    return repository.findAllExpireCandidatesBeforeThan(fixedDate)
+      .map(mapper::jpa);
   }
 
   @Override
   public Optional<ItemLot> findBy(ItemLotId id) {
     return Optional.ofNullable(repository.findOne(id))
-      .map(mapper::domain);
+      .map(mapper::jpa);
+  }
+
+  @Override
+  public Optional<ItemLot> findBy(ItemId itemId, ItemLotCode code) {
+    return Optional.ofNullable(repository.findBy(itemId, code))
+      .map(mapper::jpa);
   }
 
   @Override
   public void update(ItemLot item) {
     val entity = repository.findOne(item.getId());
-    mapper.pass(mapper.entity(item), entity);
+    mapper.pass(mapper.jpa(item), entity);
     repository.save(entity);
   }
 }

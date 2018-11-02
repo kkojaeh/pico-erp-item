@@ -32,17 +32,21 @@ class ItemServiceSpec extends Specification {
   @Autowired
   ItemService itemService
 
-  def item
+  def itemId = ItemId.from("item")
+
+  def unknownItemId = ItemId.from("unknown")
+
+  def unknownItemCode = ItemCode.from("unknown")
 
   def setup() {
     itemCategoryService.create(new ItemCategoryRequests.CreateRequest(id: ItemCategoryId.from("01"), name: "생산자재"))
     itemCategoryService.create(new ItemCategoryRequests.CreateRequest(id: ItemCategoryId.from("01-1"), name: "조립자재", parentId: ItemCategoryId.from("01")))
-    item = itemService.create(new ItemRequests.CreateRequest(id: ItemId.from("item"), name: "아이템", categoryId: ItemCategoryId.from("01-1"), customerId: CompanyId.from("CUST1"), unit: UnitKind.EA, type: ItemTypeKind.MATERIAL, baseUnitCost: 0))
+    itemService.create(new ItemRequests.CreateRequest(id: itemId, name: "아이템", categoryId: ItemCategoryId.from("01-1"), customerId: CompanyId.from("CUST1"), unit: UnitKind.EA, type: ItemTypeKind.MATERIAL, baseUnitCost: 0))
   }
 
   def "아이디로 존재하는 품목 확인"() {
     when:
-    def exists = itemService.exists(ItemId.from("item"))
+    def exists = itemService.exists(itemId)
 
     then:
     exists == true
@@ -50,7 +54,7 @@ class ItemServiceSpec extends Specification {
 
   def "아이디로 존재하지 않는 품목 확인"() {
     when:
-    def exists = itemService.exists(ItemId.from("!item"))
+    def exists = itemService.exists(unknownItemId)
 
     then:
     exists == false
@@ -58,16 +62,16 @@ class ItemServiceSpec extends Specification {
 
   def "아이디로 존재하는 품목를 조회"() {
     when:
-    def item = itemService.get(ItemId.from("item"))
+    def item = itemService.get(itemId)
 
     then:
-    item.id == ItemId.from("item")
+    item.id == itemId
     item.name == "아이템"
   }
 
   def "아이디로 존재하지 않는 품목를 조회"() {
     when:
-    itemService.get(ItemId.from("!item"))
+    itemService.get(unknownItemId)
 
     then:
     thrown(ItemExceptions.NotFoundException)
@@ -76,7 +80,8 @@ class ItemServiceSpec extends Specification {
 
   def "코드로 존재하는 품목 확인"() {
     when:
-    def exists = itemService.exists(item.code)
+    def code = itemService.get(itemId).code
+    def exists = itemService.exists(code)
 
     then:
     exists == true
@@ -85,7 +90,7 @@ class ItemServiceSpec extends Specification {
   def "코드로 존재하지 않는 품목 확인"() {
     when:
 
-    def exists = itemService.exists(ItemCode.from("unknown"))
+    def exists = itemService.exists(unknownItemCode)
 
     then:
     exists == false
@@ -93,16 +98,17 @@ class ItemServiceSpec extends Specification {
 
   def "코드로 존재하는 품목를 조회"() {
     when:
-    def item = itemService.get(item.code)
+    def code = itemService.get(itemId).code
+    def item = itemService.get(code)
 
     then:
-    item.id == ItemId.from("item")
+    item.id == itemId
     item.name == "아이템"
   }
 
   def "코드로 존재하지 않는 품목를 조회"() {
     when:
-    itemService.get(ItemCode.from("unknown"))
+    itemService.get(unknownItemCode)
 
     then:
     thrown(ItemExceptions.NotFoundException)

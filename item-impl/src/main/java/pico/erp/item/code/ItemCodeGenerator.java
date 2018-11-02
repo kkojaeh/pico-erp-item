@@ -4,8 +4,6 @@ import pico.erp.item.Item;
 import pico.erp.item.ItemCode;
 import pico.erp.item.category.ItemCategory;
 import pico.erp.item.category.ItemCategoryCode;
-import pico.erp.item.lot.ItemLot;
-import pico.erp.item.lot.ItemLotCode;
 
 public interface ItemCodeGenerator {
 
@@ -13,5 +11,4 @@ public interface ItemCodeGenerator {
 
   ItemCode generate(Item item);
 
-  ItemLotCode generate(ItemLot item);
 }

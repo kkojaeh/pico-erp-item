@@ -1,5 +1,7 @@
 package pico.erp.item.lot;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +104,13 @@ public class ItemLotServiceLogic implements ItemLotService {
     return itemLotRepository.findBy(id)
       .map(mapper::map)
       .orElseThrow(NotFoundException::new);
+  }
+
+  @Override
+  public List<ItemLotData> getAll(Iterable<ItemLotId> ids) {
+    return itemLotRepository.findAllBy(ids)
+      .map(mapper::map)
+      .collect(Collectors.toList());
   }
 
   @Override

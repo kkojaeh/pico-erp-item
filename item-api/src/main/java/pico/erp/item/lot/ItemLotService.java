@@ -1,5 +1,6 @@
 package pico.erp.item.lot;
 
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import pico.erp.item.ItemId;
@@ -23,6 +24,8 @@ public interface ItemLotService {
   ItemLotData get(@NotNull ItemId itemId, @NotNull ItemLotCode code);
 
   ItemLotData get(@NotNull ItemLotId id);
+
+  List<ItemLotData> getAll(@NotNull Iterable<ItemLotId> ids);
 
   void update(@Valid UpdateRequest request);
 

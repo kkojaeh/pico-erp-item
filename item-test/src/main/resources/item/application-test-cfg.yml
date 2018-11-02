@@ -77,3 +77,11 @@ data:
     code: "20181018"
     item-id: item-1
     expiration-date: 2019-10-18T00:00:00+09:00
+  - id: item-1-lot-2
+    code: "20181019"
+    item-id: item-1
+    expiration-date: 2019-10-18T00:00:00+09:00
+  - id: item-1-lot-3
+    code: "20181020"
+    item-id: item-1
+    expiration-date: 2019-10-18T00:00:00+09:00

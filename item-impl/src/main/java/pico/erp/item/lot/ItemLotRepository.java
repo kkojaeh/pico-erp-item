@@ -24,6 +24,8 @@ public interface ItemLotRepository {
 
   Optional<ItemLot> findBy(@NotNull ItemLotId id);
 
+  Stream<ItemLot> findAllBy(@NotNull Iterable<ItemLotId> ids);
+
   void update(@NotNull ItemLot item);
 
 }

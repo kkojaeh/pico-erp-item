@@ -2,7 +2,6 @@ package pico.erp.item.code;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import pico.erp.item.ItemRepository;
 import pico.erp.item.category.ItemCategory;
 import pico.erp.item.category.ItemCategoryCode;
 import pico.erp.item.category.ItemCategoryRepository;
-import pico.erp.item.lot.ItemLot;
-import pico.erp.item.lot.ItemLotCode;
 
 @Component
 public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
@@ -62,12 +59,6 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
     val countPart = itemRepository.countByCreatedThisMonth();
     val code = String.format("%s-%s-%03d", customerPart, monthPart, countPart).toUpperCase();
     return ItemCode.from(code);
-  }
-
-  @Override
-  public ItemLotCode generate(ItemLot item) {
-    val code = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-    return ItemLotCode.from(code);
   }
 
 }

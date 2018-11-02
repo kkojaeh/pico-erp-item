@@ -3,7 +3,6 @@ package pico.erp.item.lot;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
-import java.util.Optional;
 import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,6 +21,7 @@ import pico.erp.item.lot.ItemLotMessages.CreateResponse;
 import pico.erp.item.lot.ItemLotMessages.DeleteResponse;
 import pico.erp.item.lot.ItemLotMessages.ExpireResponse;
 import pico.erp.item.lot.ItemLotMessages.UpdateResponse;
+import pico.erp.shared.data.Auditor;
 
 @Getter
 @ToString
@@ -47,6 +47,9 @@ public class ItemLot implements Serializable {
 
   OffsetDateTime expiredDate;
 
+  Auditor createdBy;
+
+  OffsetDateTime createdDate;
 
   public ItemLot() {
     expired = false;
@@ -54,8 +57,7 @@ public class ItemLot implements Serializable {
 
   public CreateResponse apply(ItemLotMessages.CreateRequest request) {
     id = request.getId();
-    code = Optional.ofNullable(request.getCode())
-      .orElseGet(() -> request.getItemCodeGenerator().generate(this));
+    code = request.getCode();
     item = request.getItem();
     expirationDate = request.getExpirationDate();
     return new CreateResponse(

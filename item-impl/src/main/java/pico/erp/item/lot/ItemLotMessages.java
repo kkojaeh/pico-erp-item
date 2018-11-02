@@ -20,6 +20,7 @@ public interface ItemLotMessages {
     @NotNull
     ItemLotId id;
 
+    @NotNull
     @Valid
     ItemLotCode code;
 

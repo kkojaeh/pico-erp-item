@@ -21,7 +21,7 @@ public abstract class ItemLotMapper {
   @Autowired
   protected ItemCodeGenerator itemCodeGenerator;
 
-  public ItemLot domain(ItemLotEntity entity) {
+  public ItemLot jpa(ItemLotEntity entity) {
     return ItemLot.builder()
       .id(entity.getId())
       .code(entity.getCode())
@@ -29,6 +29,8 @@ public abstract class ItemLotMapper {
       .expirationDate(entity.getExpirationDate())
       .expired(entity.isExpired())
       .expiredDate(entity.getExpiredDate())
+      .createdBy(entity.getCreatedBy())
+      .createdDate(entity.getCreatedDate())
       .build();
   }
 
@@ -39,10 +41,10 @@ public abstract class ItemLotMapper {
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
-  public abstract ItemLotEntity entity(ItemLot lot);
+  public abstract ItemLotEntity jpa(ItemLot lot);
 
   @Mappings({
-    @Mapping(target = "itemId", source = "item.id"),
+    @Mapping(target = "itemId", source = "item.id")
   })
   public abstract ItemLotData map(ItemLot lot);
 

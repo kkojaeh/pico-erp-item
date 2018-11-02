@@ -24,6 +24,7 @@ public interface ItemLotRequests {
     ItemLotId id;
 
     @Valid
+    @NotNull
     ItemLotCode code;
 
     @Valid
