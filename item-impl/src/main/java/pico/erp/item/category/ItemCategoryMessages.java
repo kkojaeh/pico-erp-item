@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.item.code.ItemCodeGenerator;
+import pico.erp.item.ItemCodeGenerator;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.event.Event;
 
@@ -32,7 +32,7 @@ public interface ItemCategoryMessages {
     String description;
 
     @NotNull
-    ItemCodeGenerator itemCodeGenerator;
+    ItemCategoryCodeGenerator codeGenerator;
 
   }
 

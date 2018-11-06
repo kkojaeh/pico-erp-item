@@ -71,7 +71,7 @@ public class ItemCategory implements Serializable {
     this.description = request.getDescription();
     this.parent = request.getParent();
     this.apply(new ItemCategoryMessages.SetParentRequest(request.getParent()));
-    this.code = request.getItemCodeGenerator().generate(this);
+    this.code = request.getCodeGenerator().generate(this);
     return new CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
     );

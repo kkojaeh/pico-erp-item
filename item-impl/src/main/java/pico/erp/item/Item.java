@@ -110,7 +110,7 @@ public class Item implements Serializable, ItemInfo {
     customer = request.getCustomer();
     specType = request.getSpecType();
     attachmentId = request.getAttachmentId();
-    code = request.getItemCodeGenerator().generate(this);
+    code = request.getCodeGenerator().generate(this);
     return new CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
     );

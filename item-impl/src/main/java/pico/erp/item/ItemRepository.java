@@ -1,5 +1,6 @@
 package pico.erp.item;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ public interface ItemRepository {
 
   long countAll();
 
-  long countByCreatedThisMonth();
+  long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end);
 
   Item create(@NotNull Item item);
 

@@ -1,8 +1,6 @@
 package pico.erp.item;
 
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Optional;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 interface ItemEntityRepository extends CrudRepository<ItemEntity, ItemId> {
 
   @Query("SELECT COUNT(i) FROM Item i WHERE i.createdDate >= :begin AND i.createdDate <= :end")
-  long countByCreatedDateBetween(@Param("begin") OffsetDateTime begin,
+  long countCreatedBetween(@Param("begin") OffsetDateTime begin,
     @Param("end") OffsetDateTime end);
 
   @Query("SELECT i FROM Item i WHERE i.code = :code")
@@ -29,64 +27,60 @@ interface ItemEntityRepository extends CrudRepository<ItemEntity, ItemId> {
 public class ItemRepositoryJpa implements ItemRepository {
 
   @Autowired
-  private ItemEntityRepository itemEntityRepository;
+  private ItemEntityRepository repository;
 
   @Autowired
-  private ItemMapper mapperapper;
+  private ItemMapper mapper;
 
   @Override
   public long countAll() {
-    return itemEntityRepository.count();
+    return repository.count();
   }
 
   @Override
-  public long countByCreatedThisMonth() {
-    val begin = OffsetDateTime.now().with(TemporalAdjusters.firstDayOfMonth())
-      .with(LocalTime.MIN);
-    val end = OffsetDateTime.now().with(TemporalAdjusters.lastDayOfMonth())
-      .with(LocalTime.MAX);
-    return itemEntityRepository.countByCreatedDateBetween(begin, end);
+  public long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end) {
+    return repository.countCreatedBetween(begin, end);
   }
 
   @Override
   public Item create(Item item) {
-    val entity = mapperapper.jpa(item);
-    val created = itemEntityRepository.save(entity);
-    return mapperapper.jpa(created);
+    val entity = mapper.jpa(item);
+    val created = repository.save(entity);
+    return mapper.jpa(created);
   }
 
   @Override
   public void deleteBy(ItemId id) {
-    itemEntityRepository.delete(id);
+    repository.delete(id);
   }
 
   @Override
   public boolean exists(ItemId id) {
-    return itemEntityRepository.exists(id);
+    return repository.exists(id);
   }
 
   @Override
   public boolean exists(ItemCode code) {
-    return itemEntityRepository.findBy(code) != null;
+    return repository.findBy(code) != null;
   }
 
   @Override
   public Optional<Item> findBy(ItemId id) {
-    return Optional.ofNullable(itemEntityRepository.findOne(id))
-      .map(mapperapper::jpa);
+    return Optional.ofNullable(repository.findOne(id))
+      .map(mapper::jpa);
   }
 
   @Override
   public Optional<Item> findBy(ItemCode code) {
-    return Optional.ofNullable(itemEntityRepository.findBy(code))
-      .map(mapperapper::jpa);
+    return Optional.ofNullable(repository.findBy(code))
+      .map(mapper::jpa);
   }
 
   @Override
   public void update(Item item) {
-    val entity = itemEntityRepository.findOne(item.getId());
-    mapperapper.pass(mapperapper.jpa(item), entity);
-    itemEntityRepository.save(entity);
+    val entity = repository.findOne(item.getId());
+    mapper.pass(mapper.jpa(item), entity);
+    repository.save(entity);
   }
 
 }

@@ -14,7 +14,6 @@ import pico.erp.item.ItemExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategory;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.category.ItemCategoryMapper;
-import pico.erp.item.code.ItemCodeGenerator;
 import pico.erp.item.spec.type.ItemSpecType;
 import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.item.spec.type.ItemSpecTypeMapper;
@@ -104,7 +103,7 @@ public abstract class ItemMapper {
     @Mapping(target = "category", source = "categoryId"),
     @Mapping(target = "customer", source = "customerId"),
     @Mapping(target = "specType", source = "specTypeId"),
-    @Mapping(target = "itemCodeGenerator", expression = "java(itemCodeGenerator)"),
+    @Mapping(target = "codeGenerator", expression = "java(itemCodeGenerator)"),
   })
   public abstract ItemMessages.CreateRequest map(ItemRequests.CreateRequest request);
 

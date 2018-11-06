@@ -7,9 +7,9 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import pico.erp.item.Item;
+import pico.erp.item.ItemCodeGenerator;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemMapper;
-import pico.erp.item.code.ItemCodeGenerator;
 
 @Mapper
 public abstract class ItemLotMapper {

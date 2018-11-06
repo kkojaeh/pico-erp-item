@@ -12,7 +12,6 @@ import lombok.Value;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyData;
 import pico.erp.item.category.ItemCategory;
-import pico.erp.item.code.ItemCodeGenerator;
 import pico.erp.item.spec.type.ItemSpecType;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.UnitKind;
@@ -64,7 +63,7 @@ public interface ItemMessages {
     AttachmentId attachmentId;
 
     @NotNull
-    ItemCodeGenerator itemCodeGenerator;
+    ItemCodeGenerator codeGenerator;
 
     boolean purchasable;
 

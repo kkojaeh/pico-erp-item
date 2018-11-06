@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
 import pico.erp.item.Item;
-import pico.erp.item.code.ItemCodeGenerator;
+import pico.erp.item.ItemCodeGenerator;
 import pico.erp.shared.event.Event;
 
 public interface ItemLotMessages {

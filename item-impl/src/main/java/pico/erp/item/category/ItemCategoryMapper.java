@@ -8,9 +8,9 @@ import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import pico.erp.item.Item;
+import pico.erp.item.ItemCodeGenerator;
 import pico.erp.item.ItemId;
 import pico.erp.item.ItemMapper;
-import pico.erp.item.code.ItemCodeGenerator;
 
 @Mapper
 public abstract class ItemCategoryMapper {
@@ -22,6 +22,10 @@ public abstract class ItemCategoryMapper {
   @Lazy
   @Autowired
   protected ItemCodeGenerator itemCodeGenerator;
+
+  @Lazy
+  @Autowired
+  protected ItemCategoryCodeGenerator itemCategoryCodeGenerator;
 
   @Lazy
   @Autowired
@@ -64,7 +68,7 @@ public abstract class ItemCategoryMapper {
 
   @Mappings({
     @Mapping(target = "parent", source = "parentId"),
-    @Mapping(target = "itemCodeGenerator", expression = "java(itemCodeGenerator)")
+    @Mapping(target = "codeGenerator", expression = "java(itemCategoryCodeGenerator)")
   })
   public abstract ItemCategoryMessages.CreateRequest map(
     ItemCategoryRequests.CreateRequest request);
