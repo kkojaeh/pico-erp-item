@@ -39,7 +39,8 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
     val endMonth = OffsetDateTime.now().with(TemporalAdjusters.lastDayOfMonth())
       .with(LocalTime.MAX);
     val now = LocalDate.now();
-    val monthPart = (now.getYear() % 100) * 100 + Integer.toString(now.getMonthValue(), 16);
+    val monthPart =
+      Integer.toString(now.getYear() - 1900, 36) + Integer.toString(now.getMonthValue(), 16);
     val countPart = itemRepository.countCreatedBetween(beginMonth, endMonth);
     val code = String.format("%s-%s-%03d", customerPart, monthPart, countPart).toUpperCase();
     return ItemCode.from(code);
