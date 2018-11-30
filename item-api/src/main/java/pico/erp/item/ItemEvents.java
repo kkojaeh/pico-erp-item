@@ -65,8 +65,6 @@ public interface ItemEvents {
 
     private ItemId itemId;
 
-    private boolean nameChanged = false;
-
     public String channel() {
       return CHANNEL;
     }

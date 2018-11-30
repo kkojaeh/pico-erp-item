@@ -72,7 +72,6 @@ public abstract class ItemMapper {
   @Mappings({
     @Mapping(target = "categoryId", source = "category.id"),
     @Mapping(target = "customerId", source = "customer.id"),
-    @Mapping(target = "customerName", source = "customer.name"),
     @Mapping(target = "specTypeId", source = "specType.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
@@ -114,8 +113,7 @@ public abstract class ItemMapper {
   @Mappings({
     @Mapping(target = "category", source = "categoryId"),
     @Mapping(target = "customer", source = "customerId"),
-    @Mapping(target = "specType", source = "specTypeId"),
-    @Mapping(target = "itemCodeGenerator", expression = "java(itemCodeGenerator)")
+    @Mapping(target = "specType", source = "specTypeId")
   })
   public abstract ItemMessages.UpdateRequest map(ItemRequests.UpdateRequest request);
 

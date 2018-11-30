@@ -1,5 +1,9 @@
 package pico.erp.item.category;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import pico.erp.audit.AuditService;
-import pico.erp.item.category.ItemCategoryExceptions.AlreadyExistsException;
-import pico.erp.item.category.ItemCategoryExceptions.CodeAlreadyExistsException;
 import pico.erp.item.category.ItemCategoryExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategoryRequests.CreateRequest;
 import pico.erp.item.category.ItemCategoryRequests.DeleteRequest;
@@ -38,31 +40,34 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   @Autowired
   private AuditService auditService;
 
+  public void cascadeReset(CascadeResetRequest request) {
+    val id = request.getId();
+    val itemCategory = itemCategoryRepository.findBy(id)
+      .orElseThrow(NotFoundException::new);
+    itemCategoryRepository.findChildrenBy(id)
+      .forEach(child -> {
+        val response = child.apply(new ItemCategoryMessages.SetParentRequest(itemCategory));
+        itemCategoryRepository.update(child);
+        auditService.commit(child);
+        eventPublisher.publishEvents(response.getEvents());
+      });
+  }
+
   @Override
   public ItemCategoryData create(CreateRequest request) {
     val itemCategory = new ItemCategory();
     if (itemCategoryRepository.exists(request.getId())) {
-      throw new AlreadyExistsException();
+      throw new ItemCategoryExceptions.AlreadyExistsException();
     }
     val response = itemCategory.apply(mapper.map(request));
 
     if (itemCategoryRepository.exists(itemCategory.getCode())) {
-      throw new CodeAlreadyExistsException();
+      throw new ItemCategoryExceptions.CodeAlreadyExistsException();
     }
     val created = itemCategoryRepository.create(itemCategory);
     auditService.commit(created);
     eventPublisher.publishEvents(response.getEvents());
     return mapper.map(created);
-  }
-
-  @Override
-  public void delete(DeleteRequest request) {
-    val itemCategory = itemCategoryRepository.findBy(request.getId())
-      .orElseThrow(NotFoundException::new);
-    val response = itemCategory.apply(mapper.map(request));
-    itemCategoryRepository.deleteBy(request.getId());
-    auditService.delete(itemCategory);
-    eventPublisher.publishEvents(response.getEvents());
   }
 
   @Override
@@ -76,17 +81,20 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   }
 
   @Override
-  public ItemCategoryData get(ItemCategoryId id) {
-    return itemCategoryRepository.findBy(id)
-      .map(mapper::map)
-      .orElseThrow(NotFoundException::new);
+  public void delete(DeleteRequest request) {
+    val itemCategory = itemCategoryRepository.findBy(request.getId())
+      .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
+    val response = itemCategory.apply(mapper.map(request));
+    itemCategoryRepository.deleteBy(request.getId());
+    auditService.delete(itemCategory);
+    eventPublisher.publishEvents(response.getEvents());
   }
 
   @Override
   public ItemCategoryData get(ItemCategoryCode code) {
     return itemCategoryRepository.findBy(code)
       .map(mapper::map)
-      .orElseThrow(NotFoundException::new);
+      .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
   }
 
   @Override
@@ -99,6 +107,23 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
     itemCategoryRepository.update(itemCategory);
     auditService.commit(itemCategory);
     eventPublisher.publishEvents(response.getEvents());
+  }
+
+  @Override
+  public ItemCategoryData get(ItemCategoryId id) {
+    return itemCategoryRepository.findBy(id)
+      .map(mapper::map)
+      .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
+  }
+
+  @Getter
+  @Builder
+  public static class CascadeResetRequest {
+
+    @Valid
+    @NotNull
+    ItemCategoryId id;
+
   }
 
 }

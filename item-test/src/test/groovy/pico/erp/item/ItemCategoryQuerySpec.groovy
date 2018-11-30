@@ -8,7 +8,6 @@ import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import pico.erp.item.category.ItemCategoryQuery
-import pico.erp.item.category.ItemCategoryService
 import pico.erp.shared.IntegrationConfiguration
 import spock.lang.Specification
 
@@ -20,16 +19,8 @@ import spock.lang.Specification
 @ComponentScan("pico.erp.config")
 class ItemCategoryQuerySpec extends Specification {
 
-  def setup() {
-//    itemCategoryService.create(new ItemCategoryService.CreateRequest(id: ItemCategoryId.from("01"), name: "생산자재"))
-//    itemCategoryService.create(new ItemCategoryService.CreateRequest(id: ItemCategoryId.from("01-1"), name: "조립자재", parentId: ItemCategoryId.from("01")))
-  }
-
   @Autowired
   ItemCategoryQuery itemCategoryQuery
-
-  @Autowired
-  ItemCategoryService itemCategoryService
 
   def "카테고리 조회"() {
     when:

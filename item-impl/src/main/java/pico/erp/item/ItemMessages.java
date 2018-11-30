@@ -113,9 +113,6 @@ public interface ItemMessages {
     @Valid
     AttachmentId attachmentId;
 
-    @NotNull
-    ItemCodeGenerator itemCodeGenerator;
-
     boolean purchasable;
 
   }

@@ -77,10 +77,7 @@ public class ItemQueryJpa implements ItemQuery {
       item.type,
       item.externalCode,
       itemCategory.id.as("categoryId"),
-      itemCategory.name.as("categoryName"),
-      itemCategory.path.as("categoryPath"),
       item.customerId,
-      item.customerName,
       item.status,
       item.createdBy,
       item.createdDate

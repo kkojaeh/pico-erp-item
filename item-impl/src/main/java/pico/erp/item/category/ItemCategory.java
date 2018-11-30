@@ -81,9 +81,9 @@ public class ItemCategory implements Serializable {
     val events = new LinkedList<Event>();
     this.name = request.getName();
     this.description = request.getDescription();
-    val setParentResponse = this
+    val response = this
       .apply(new ItemCategoryMessages.SetParentRequest(request.getParent()));
-    events.addAll(setParentResponse.getEvents());
+    events.addAll(response.getEvents());
     events.add(new UpdatedEvent(this.id));
     return new UpdateResponse(events);
   }
@@ -99,13 +99,13 @@ public class ItemCategory implements Serializable {
     val oldParent = this.parent;
     val oldKey = this.key;
     val oldPath = this.path;
-    key = Optional.ofNullable(parent)
+    this.parent = request.getParent();
+    this.key = Optional.ofNullable(parent)
       .map(p -> p.getKey() + KEY_DELIMITER + getId().getValue())
       .orElse(getId().getValue().toString());
-    path = Optional.ofNullable(parent)
+    this.path = Optional.ofNullable(parent)
       .map(p -> p.getPath() + PATH_DELIMITER + getName())
       .orElse(getName());
-    this.parent = request.getParent();
     val events = new HashSet<Event>();
     if (!key.equals(oldKey) || !path.equals(oldPath)) {
       val oldParentId = Optional.ofNullable(oldParent)

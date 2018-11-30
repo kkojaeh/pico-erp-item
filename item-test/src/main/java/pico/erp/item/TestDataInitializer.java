@@ -54,6 +54,7 @@ public class TestDataInitializer implements ApplicationInitializer {
     dataProperties.itemSpecVariables.forEach(variable -> variable.ready());
     dataProperties.itemSpecVariables.forEach(itemSpecService::update);
     dataProperties.itemLots.forEach(itemLotService::create);
+    dataProperties.activeItems.forEach(itemService::activate);
   }
 
   @Data
@@ -70,6 +71,8 @@ public class TestDataInitializer implements ApplicationInitializer {
     List<ItemSpecTypedUpdateRequest> itemSpecVariables = new LinkedList<>();
 
     List<ItemLotRequests.CreateRequest> itemLots = new LinkedList<>();
+
+    List<ItemRequests.ActivateRequest> activeItems = new LinkedList<>();
 
   }
 

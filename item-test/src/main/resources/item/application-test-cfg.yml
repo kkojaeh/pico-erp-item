@@ -61,6 +61,18 @@ data:
     customer-id: CUST1
     unit: EA
     type: SEMI_PRODUCT
+  - id: i-0
+    name: 헤어케어 선물 세트박스 상짝
+    base-unit-cost: 50
+    customer-id: CUST1
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: i-1
+    name: 헤어케어 선물 세트박스 하짝
+    base-unit-cost: 50
+    customer-id: CUST1
+    unit: EA
+    type: SEMI_PRODUCT
   item-specs:
   - id: item-2-spec-1
     item-id: item-2
@@ -85,3 +97,5 @@ data:
     code: "20181020"
     item-id: item-1
     expiration-date: 2019-10-18T00:00:00+09:00
+  active-items:
+  - id: i-0

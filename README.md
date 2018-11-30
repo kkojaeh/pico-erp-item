@@ -21,3 +21,11 @@ build/generated-schema/create.sql
 * Settings
   * Build, Execution, Deployment > Build Tools > Gradle > Runner
     * Delegate IDE build/run actions to Gradle 활성화
+
+# 테스트 데이터
+
+
+ id            | status | bom | process | bom
+---------------|--------|-----|---------|-----
+ i-0           |        |     |         |
+ i-1           |        |     |         |

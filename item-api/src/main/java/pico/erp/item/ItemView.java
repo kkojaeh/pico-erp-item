@@ -31,13 +31,7 @@ public class ItemView {
 
   ItemCategoryId categoryId;
 
-  String categoryName;
-
-  String categoryPath;
-
   CompanyId customerId;
-
-  String customerName;
 
   ItemStatusKind status;
 

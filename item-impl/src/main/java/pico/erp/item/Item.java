@@ -147,8 +147,7 @@ public class Item implements Serializable, ItemInfo {
     customer = request.getCustomer();
     specType = request.getSpecType();
     attachmentId = request.getAttachmentId();
-    code = request.getItemCodeGenerator().generate(this);
-    events.add(new UpdatedEvent(this.id, !old.getName().equals(name)));
+    events.add(new UpdatedEvent(this.id));
     return new UpdateResponse(events,
       setCategoryResponse.isCategoryChanged(),
       old

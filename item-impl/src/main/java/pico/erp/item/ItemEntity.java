@@ -114,9 +114,6 @@ public class ItemEntity implements Serializable {
   })
   AttachmentId attachmentId;
 
-  @Column(length = TypeDefinitions.NAME_LENGTH)
-  String customerName;
-
   @Embedded
   @AttributeOverrides({
     @AttributeOverride(name = "id", column = @Column(name = "CREATED_BY_ID", updatable = false, length = TypeDefinitions.ID_LENGTH)),

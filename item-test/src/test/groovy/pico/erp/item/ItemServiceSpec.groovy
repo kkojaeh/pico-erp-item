@@ -9,7 +9,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import pico.erp.company.CompanyId
 import pico.erp.item.category.ItemCategoryId
-import pico.erp.item.category.ItemCategoryRequests
 import pico.erp.item.category.ItemCategoryService
 import pico.erp.shared.IntegrationConfiguration
 import pico.erp.shared.data.UnitKind
@@ -38,13 +37,27 @@ class ItemServiceSpec extends Specification {
 
   def unknownItemCode = ItemCode.from("unknown")
 
+  def categoryId = ItemCategoryId.from("category-1")
+
+  def customerId = CompanyId.from("CUST1")
+
+  def name = "아이템"
+
   def setup() {
-    itemCategoryService.create(new ItemCategoryRequests.CreateRequest(id: ItemCategoryId.from("01"), name: "생산자재"))
-    itemCategoryService.create(new ItemCategoryRequests.CreateRequest(id: ItemCategoryId.from("01-1"), name: "조립자재", parentId: ItemCategoryId.from("01")))
-    itemService.create(new ItemRequests.CreateRequest(id: itemId, name: "아이템", categoryId: ItemCategoryId.from("01-1"), customerId: CompanyId.from("CUST1"), unit: UnitKind.EA, type: ItemTypeKind.MATERIAL, baseUnitCost: 0))
+    itemService.create(
+      new ItemRequests.CreateRequest(
+        id: itemId,
+        name: name,
+        categoryId: categoryId,
+        customerId: customerId,
+        unit: UnitKind.EA,
+        type: ItemTypeKind.MATERIAL,
+        baseUnitCost: 0
+      )
+    )
   }
 
-  def "아이디로 존재하는 품목 확인"() {
+  def "존재 - 아이디로 확인"() {
     when:
     def exists = itemService.exists(itemId)
 
@@ -52,7 +65,7 @@ class ItemServiceSpec extends Specification {
     exists == true
   }
 
-  def "아이디로 존재하지 않는 품목 확인"() {
+  def "존재 - 존재하지 않는 아이디로 확인"() {
     when:
     def exists = itemService.exists(unknownItemId)
 
@@ -60,25 +73,7 @@ class ItemServiceSpec extends Specification {
     exists == false
   }
 
-  def "아이디로 존재하는 품목를 조회"() {
-    when:
-    def item = itemService.get(itemId)
-
-    then:
-    item.id == itemId
-    item.name == "아이템"
-  }
-
-  def "아이디로 존재하지 않는 품목를 조회"() {
-    when:
-    itemService.get(unknownItemId)
-
-    then:
-    thrown(ItemExceptions.NotFoundException)
-  }
-
-
-  def "코드로 존재하는 품목 확인"() {
+  def "존재 - 코드로 확인"() {
     when:
     def code = itemService.get(itemId).code
     def exists = itemService.exists(code)
@@ -87,7 +82,7 @@ class ItemServiceSpec extends Specification {
     exists == true
   }
 
-  def "코드로 존재하지 않는 품목 확인"() {
+  def "존재 - 존재하지 않는 코드로 확인"() {
     when:
 
     def exists = itemService.exists(unknownItemCode)
@@ -96,7 +91,30 @@ class ItemServiceSpec extends Specification {
     exists == false
   }
 
-  def "코드로 존재하는 품목를 조회"() {
+  def "조회 - 아이디로 조회"() {
+    when:
+    def item = itemService.get(itemId)
+
+    then:
+    item.id == itemId
+    item.name == name
+    item.categoryId == categoryId
+    item.customerId == customerId
+    item.unit == UnitKind.EA
+    item.type == ItemTypeKind.MATERIAL
+    item.baseUnitCost == 0
+  }
+
+  def "조회 - 존재하지 않는 아이디로 조회"() {
+    when:
+    itemService.get(unknownItemId)
+
+    then:
+    thrown(ItemExceptions.NotFoundException)
+  }
+
+
+  def "조회 - 코드로 조회"() {
     when:
     def code = itemService.get(itemId).code
     def item = itemService.get(code)
@@ -106,7 +124,7 @@ class ItemServiceSpec extends Specification {
     item.name == "아이템"
   }
 
-  def "코드로 존재하지 않는 품목를 조회"() {
+  def "조회 - 존재하지 않는 코드로 조회"() {
     when:
     itemService.get(unknownItemCode)
 
