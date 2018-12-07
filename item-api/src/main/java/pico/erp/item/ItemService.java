@@ -1,6 +1,5 @@
 package pico.erp.item;
 
-import java.io.Serializable;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import pico.erp.item.ItemRequests.ActivateRequest;
@@ -26,8 +25,6 @@ public interface ItemService {
   ItemData get(@NotNull ItemCode code);
 
   ItemData get(@NotNull ItemId id);
-
-  Serializable getSpecMetadata(@NotNull ItemId id);
 
   void update(@Valid UpdateRequest request);
 

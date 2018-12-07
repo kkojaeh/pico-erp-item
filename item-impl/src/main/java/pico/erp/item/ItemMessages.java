@@ -12,7 +12,7 @@ import lombok.Value;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyData;
 import pico.erp.item.category.ItemCategory;
-import pico.erp.item.spec.type.ItemSpecType;
+import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.UnitKind;
 import pico.erp.shared.event.Event;
@@ -45,7 +45,7 @@ public interface ItemMessages {
     CompanyData customer;
 
     @Valid
-    ItemSpecType specType;
+    ItemSpecTypeId specTypeId;
 
     @NotNull
     UnitKind unit;
@@ -96,7 +96,7 @@ public interface ItemMessages {
     CompanyData customer;
 
     @Valid
-    ItemSpecType specType;
+    ItemSpecTypeId specTypeId;
 
     @NotNull
     UnitKind unit;
@@ -123,6 +123,14 @@ public interface ItemMessages {
 
     @Valid
     ItemCategory category;
+
+  }
+
+  @Data
+  @AllArgsConstructor
+  class PrepareImportRequest {
+
+    Item previous;
 
   }
 
@@ -171,6 +179,13 @@ public interface ItemMessages {
     Collection<Event> events;
 
     boolean categoryChanged;
+
+  }
+
+  @Value
+  class PrepareImportResponse {
+
+    Collection<Event> events;
 
   }
 }

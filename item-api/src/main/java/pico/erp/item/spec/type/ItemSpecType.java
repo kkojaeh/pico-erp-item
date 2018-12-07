@@ -2,13 +2,9 @@ package pico.erp.item.spec.type;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import pico.erp.item.ItemInfo;
-import pico.erp.item.spec.ItemSpecVariables;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 
 public interface ItemSpecType<T extends ItemSpecVariables> {
-
-  BigDecimal calculateUnitCost(ItemInfo item, T variables);
 
   T create();
 

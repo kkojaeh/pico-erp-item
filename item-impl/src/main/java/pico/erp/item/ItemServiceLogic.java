@@ -1,6 +1,5 @@
 package pico.erp.item;
 
-import java.io.Serializable;
 import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.val;
@@ -116,13 +115,6 @@ public class ItemServiceLogic implements ItemService {
     return itemRepository.findBy(code)
       .map(mapper::map)
       .orElseThrow(NotFoundException::new);
-  }
-
-  @Override
-  public Serializable getSpecMetadata(ItemId id) {
-    Item item = itemRepository.findBy(id)
-      .orElseThrow(NotFoundException::new);
-    return item.getSpecMetadata();
   }
 
   @Override

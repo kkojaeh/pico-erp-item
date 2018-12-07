@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 
 @Data
 @AllArgsConstructor

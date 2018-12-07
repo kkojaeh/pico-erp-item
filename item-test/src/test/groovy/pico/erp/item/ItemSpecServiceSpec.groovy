@@ -59,7 +59,7 @@ class ItemSpecServiceSpec extends Specification {
         unit: UnitKind.SHEET,
         type: ItemTypeKind.MATERIAL,
         baseUnitCost: 3.164,
-        specTypeId: ItemSpecTypeId.from("pico.erp.config.item.spec.PaperItemSpecVariables")
+        specTypeId: ItemSpecTypeId.from("material-paper")
       )
     )
 
@@ -128,7 +128,7 @@ class ItemSpecServiceSpec extends Specification {
         unit: UnitKind.SHEET,
         type: ItemTypeKind.MATERIAL,
         baseUnitCost: 3.264,
-        specTypeId: ItemSpecTypeId.from("pico.erp.config.item.spec.PaperItemSpecVariables")
+        specTypeId: ItemSpecTypeId.from("material-paper")
       )
     )
 
@@ -152,7 +152,7 @@ class ItemSpecServiceSpec extends Specification {
         unit: UnitKind.SHEET,
         type: ItemTypeKind.MATERIAL,
         baseUnitCost: 3.264,
-        specTypeId: ItemSpecTypeId.from("pico.erp.config.item.spec.PaperItemSpecVariables")
+        specTypeId: ItemSpecTypeId.from("material-paper")
       )
     )
 

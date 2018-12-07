@@ -57,7 +57,7 @@ public abstract class ItemMapper {
       .description(entity.getDescription())
       .status(entity.getStatus())
       .customer(map(entity.getCustomerId()))
-      .specType(map(entity.getSpecTypeId()))
+      .specTypeId(entity.getSpecTypeId())
       .purchasable(entity.isPurchasable())
       .attachmentId(entity.getAttachmentId())
       .build();
@@ -72,7 +72,6 @@ public abstract class ItemMapper {
   @Mappings({
     @Mapping(target = "categoryId", source = "category.id"),
     @Mapping(target = "customerId", source = "customer.id"),
-    @Mapping(target = "specTypeId", source = "specType.id"),
     @Mapping(target = "createdBy", ignore = true),
     @Mapping(target = "createdDate", ignore = true),
     @Mapping(target = "lastModifiedBy", ignore = true),
@@ -101,7 +100,6 @@ public abstract class ItemMapper {
   @Mappings({
     @Mapping(target = "category", source = "categoryId"),
     @Mapping(target = "customer", source = "customerId"),
-    @Mapping(target = "specType", source = "specTypeId"),
     @Mapping(target = "codeGenerator", expression = "java(itemCodeGenerator)"),
   })
   public abstract ItemMessages.CreateRequest map(ItemRequests.CreateRequest request);
@@ -112,8 +110,7 @@ public abstract class ItemMapper {
 
   @Mappings({
     @Mapping(target = "category", source = "categoryId"),
-    @Mapping(target = "customer", source = "customerId"),
-    @Mapping(target = "specType", source = "specTypeId")
+    @Mapping(target = "customer", source = "customerId")
   })
   public abstract ItemMessages.UpdateRequest map(ItemRequests.UpdateRequest request);
 
@@ -121,7 +118,6 @@ public abstract class ItemMapper {
 
   @Mappings({
     @Mapping(target = "categoryId", source = "category.id"),
-    @Mapping(target = "specTypeId", source = "specType.id"),
     @Mapping(target = "customerId", source = "customer.id")
   })
   public abstract ItemData map(Item item);

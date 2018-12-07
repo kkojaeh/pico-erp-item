@@ -2,6 +2,7 @@ package pico.erp.item;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository {
 
   long countAll();
+
+  Stream<Item> getAll();
 
   long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end);
 

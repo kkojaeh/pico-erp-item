@@ -3,6 +3,7 @@ package pico.erp.item.category;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Optional;
@@ -16,14 +17,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.val;
 import pico.erp.audit.annotation.Audit;
 import pico.erp.item.Item;
-import pico.erp.item.category.ItemCategoryEvents.CreatedEvent;
-import pico.erp.item.category.ItemCategoryEvents.DeletedEvent;
-import pico.erp.item.category.ItemCategoryEvents.ParentChangedEvent;
 import pico.erp.item.category.ItemCategoryEvents.UpdatedEvent;
-import pico.erp.item.category.ItemCategoryMessages.CreateResponse;
-import pico.erp.item.category.ItemCategoryMessages.DeleteResponse;
-import pico.erp.item.category.ItemCategoryMessages.SetParentResponse;
-import pico.erp.item.category.ItemCategoryMessages.UpdateResponse;
 import pico.erp.shared.event.Event;
 
 @Data
@@ -65,19 +59,19 @@ public class ItemCategory implements Serializable {
     itemCount = itemCount.add(BigDecimal.ONE);
   }
 
-  public CreateResponse apply(ItemCategoryMessages.CreateRequest request) {
+  public ItemCategoryMessages.CreateResponse apply(ItemCategoryMessages.CreateRequest request) {
     this.id = request.getId();
     this.name = request.getName();
     this.description = request.getDescription();
     this.parent = request.getParent();
     this.apply(new ItemCategoryMessages.SetParentRequest(request.getParent()));
     this.code = request.getCodeGenerator().generate(this);
-    return new CreateResponse(
-      Arrays.asList(new CreatedEvent(this.id))
+    return new ItemCategoryMessages.CreateResponse(
+      Arrays.asList(new ItemCategoryEvents.CreatedEvent(this.id))
     );
   }
 
-  public UpdateResponse apply(ItemCategoryMessages.UpdateRequest request) {
+  public ItemCategoryMessages.UpdateResponse apply(ItemCategoryMessages.UpdateRequest request) {
     val events = new LinkedList<Event>();
     this.name = request.getName();
     this.description = request.getDescription();
@@ -85,16 +79,16 @@ public class ItemCategory implements Serializable {
       .apply(new ItemCategoryMessages.SetParentRequest(request.getParent()));
     events.addAll(response.getEvents());
     events.add(new UpdatedEvent(this.id));
-    return new UpdateResponse(events);
+    return new ItemCategoryMessages.UpdateResponse(events);
   }
 
-  public DeleteResponse apply(ItemCategoryMessages.DeleteRequest request) {
-    return new DeleteResponse(
-      Arrays.asList(new DeletedEvent(this.id))
+  public ItemCategoryMessages.DeleteResponse apply(ItemCategoryMessages.DeleteRequest request) {
+    return new ItemCategoryMessages.DeleteResponse(
+      Arrays.asList(new ItemCategoryEvents.DeletedEvent(this.id))
     );
   }
 
-  public SetParentResponse apply(
+  public ItemCategoryMessages.SetParentResponse apply(
     ItemCategoryMessages.SetParentRequest request) {
     val oldParent = this.parent;
     val oldKey = this.key;
@@ -114,13 +108,21 @@ public class ItemCategory implements Serializable {
       val newParentId = Optional.ofNullable(parent)
         .map(ItemCategory::getId)
         .orElse(null);
-      events.add(new ParentChangedEvent(this.id, oldParentId, newParentId));
+      events.add(new ItemCategoryEvents.ParentChangedEvent(this.id, oldParentId, newParentId));
     }
-    return new SetParentResponse(events);
+    return new ItemCategoryMessages.SetParentResponse(events);
   }
 
   public void removeItem(Item item) {
     itemCount = itemCount.subtract(BigDecimal.ONE);
+  }
+
+  public ItemCategoryMessages.PrepareImportResponse apply(
+    ItemCategoryMessages.PrepareImportRequest request) {
+    apply(new ItemCategoryMessages.SetParentRequest(this.parent));
+    return new ItemCategoryMessages.PrepareImportResponse(
+      Collections.emptyList()
+    );
   }
 
 }

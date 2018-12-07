@@ -61,6 +61,14 @@ public interface ItemCategoryMessages {
 
   @Data
   @AllArgsConstructor
+  class PrepareImportRequest {
+
+    ItemCategory previous;
+
+  }
+
+  @Data
+  @AllArgsConstructor
   class SetParentRequest {
 
     @Valid
@@ -91,6 +99,13 @@ public interface ItemCategoryMessages {
 
   @Value
   class SetParentResponse {
+
+    Collection<Event> events;
+
+  }
+
+  @Value
+  class PrepareImportResponse {
 
     Collection<Event> events;
 

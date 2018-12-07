@@ -35,7 +35,7 @@ public abstract class ItemCategoryMapper {
   @Autowired
   private ItemCategoryEntityRepository itemCategoryEntityRepository;
 
-  public ItemCategory domain(ItemCategoryEntity entity) {
+  public ItemCategory jpa(ItemCategoryEntity entity) {
     if (entity == null) {
       return null;
     }
@@ -58,13 +58,13 @@ public abstract class ItemCategoryMapper {
     @Mapping(target = "lastModifiedBy", ignore = true),
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
-  public abstract ItemCategoryEntity entity(ItemCategory itemCategory);
+  public abstract ItemCategoryEntity jpa(ItemCategory itemCategory);
 
-  public ItemCategoryEntity entity(ItemCategoryId categoryId) {
+  /*public ItemCategoryEntity jpa(ItemCategoryId categoryId) {
     return Optional.ofNullable(categoryId)
       .map(itemCategoryEntityRepository::findOne)
       .orElse(null);
-  }
+  }*/
 
   @Mappings({
     @Mapping(target = "parent", source = "parentId"),

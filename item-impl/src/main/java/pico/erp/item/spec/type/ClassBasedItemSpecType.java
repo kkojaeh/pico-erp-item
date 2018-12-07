@@ -5,13 +5,10 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.github.reinert.jjschema.v1.JsonSchemaFactory;
 import com.github.reinert.jjschema.v1.JsonSchemaV4Factory;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import lombok.Getter;
 import lombok.SneakyThrows;
-import pico.erp.item.ItemInfo;
-import pico.erp.item.spec.ItemSpecVariables;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 
 public class ClassBasedItemSpecType<T extends ItemSpecVariables> implements
   ItemSpecType<T> {
@@ -36,12 +33,8 @@ public class ClassBasedItemSpecType<T extends ItemSpecVariables> implements
   @Getter
   private final Serializable metadata;
 
-  private final BiFunction<ItemInfo, T, BigDecimal> unitCostCalculator;
-
-  public ClassBasedItemSpecType(Class<T> variablesType,
-    BiFunction<ItemInfo, T, BigDecimal> unitCostCalculator) {
-    this.unitCostCalculator = unitCostCalculator;
-    this.id = ItemSpecTypeId.from(variablesType.getName());
+  public ClassBasedItemSpecType(String id, Class<T> variablesType) {
+    this.id = ItemSpecTypeId.from(id);
     this.variablesType = variablesType;
     JsonNode schema = schemaFactory.createSchema(variablesType);
     TextNode titleNode = (TextNode) schema.get("title");
@@ -53,11 +46,6 @@ public class ClassBasedItemSpecType<T extends ItemSpecVariables> implements
       .map(node -> node.asText())
       .orElse("N/A");
     this.metadata = schema.toString();
-  }
-
-  @Override
-  public BigDecimal calculateUnitCost(ItemInfo item, T variables) {
-    return unitCostCalculator.apply(item, variables);
   }
 
   @SneakyThrows

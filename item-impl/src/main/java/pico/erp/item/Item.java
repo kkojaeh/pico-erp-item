@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,22 +19,16 @@ import lombok.val;
 import pico.erp.attachment.AttachmentId;
 import pico.erp.audit.annotation.Audit;
 import pico.erp.company.CompanyData;
-import pico.erp.item.ItemEvents.CategoryChangedEvent;
 import pico.erp.item.ItemEvents.CreatedEvent;
 import pico.erp.item.ItemEvents.DeletedEvent;
 import pico.erp.item.ItemEvents.UpdatedEvent;
 import pico.erp.item.ItemExceptions.CannotActivateException;
 import pico.erp.item.ItemExceptions.CannotDeactivateException;
-import pico.erp.item.ItemExceptions.CannotSpecifyException;
-import pico.erp.item.ItemMessages.ActivateResponse;
-import pico.erp.item.ItemMessages.CreateResponse;
 import pico.erp.item.ItemMessages.DeactivateResponse;
 import pico.erp.item.ItemMessages.DeleteResponse;
 import pico.erp.item.ItemMessages.SetCategoryResponse;
-import pico.erp.item.ItemMessages.UpdateResponse;
 import pico.erp.item.category.ItemCategory;
-import pico.erp.item.spec.ItemSpecVariables;
-import pico.erp.item.spec.type.ItemSpecType;
+import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.shared.data.UnitKind;
 import pico.erp.shared.event.Event;
 
@@ -72,8 +65,7 @@ public class Item implements Serializable, ItemInfo {
 
   ItemStatusKind status;
 
-  @Transient
-  ItemSpecType specType;
+  ItemSpecTypeId specTypeId;
 
   String description;
 
@@ -87,17 +79,17 @@ public class Item implements Serializable, ItemInfo {
     this.status = ItemStatusKind.DRAFT;
   }
 
-  public ActivateResponse apply(ItemMessages.ActivateRequest request) {
+  public ItemMessages.ActivateResponse apply(ItemMessages.ActivateRequest request) {
     if (!status.isActivatable()) {
       throw new CannotActivateException();
     }
     status = ItemStatusKind.ACTIVATED;
-    return new ActivateResponse(
+    return new ItemMessages.ActivateResponse(
       Collections.emptyList()
     );
   }
 
-  public CreateResponse apply(ItemMessages.CreateRequest request) {
+  public ItemMessages.CreateResponse apply(ItemMessages.CreateRequest request) {
     id = request.getId();
     name = request.getName();
     externalCode = request.getExternalCode();
@@ -108,15 +100,15 @@ public class Item implements Serializable, ItemInfo {
     purchasable = request.isPurchasable();
     apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
     customer = request.getCustomer();
-    specType = request.getSpecType();
+    specTypeId = request.getSpecTypeId();
     attachmentId = request.getAttachmentId();
     code = request.getCodeGenerator().generate(this);
-    return new CreateResponse(
+    return new ItemMessages.CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
     );
   }
 
-  public DeactivateResponse apply(ItemMessages.DeactivateRequest request) {
+  public ItemMessages.DeactivateResponse apply(ItemMessages.DeactivateRequest request) {
     if (!status.isDeactivatable()) {
       throw new CannotDeactivateException();
     }
@@ -126,13 +118,13 @@ public class Item implements Serializable, ItemInfo {
     );
   }
 
-  public DeleteResponse apply(ItemMessages.DeleteRequest request) {
+  public ItemMessages.DeleteResponse apply(ItemMessages.DeleteRequest request) {
     return new DeleteResponse(
       Arrays.asList(new DeletedEvent(this.id))
     );
   }
 
-  public UpdateResponse apply(ItemMessages.UpdateRequest request) {
+  public ItemMessages.UpdateResponse apply(ItemMessages.UpdateRequest request) {
     List<Event> events = new LinkedList<>();
     Item old = toBuilder().build();
     name = request.getName();
@@ -142,19 +134,19 @@ public class Item implements Serializable, ItemInfo {
     type = request.getType();
     description = request.getDescription();
     purchasable = request.isPurchasable();
-    val setCategoryResponse = apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
-    events.addAll(setCategoryResponse.getEvents());
+    val response = apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
+    events.addAll(response.getEvents());
     customer = request.getCustomer();
-    specType = request.getSpecType();
+    specTypeId = request.getSpecTypeId();
     attachmentId = request.getAttachmentId();
     events.add(new UpdatedEvent(this.id));
-    return new UpdateResponse(events,
-      setCategoryResponse.isCategoryChanged(),
+    return new ItemMessages.UpdateResponse(events,
+      response.isCategoryChanged(),
       old
     );
   }
 
-  private SetCategoryResponse apply(ItemMessages.SetCategoryRequest request) {
+  private ItemMessages.SetCategoryResponse apply(ItemMessages.SetCategoryRequest request) {
     val oldCategory = this.category;
     val newCategory = request.getCategory();
     if (Optional.ofNullable(oldCategory)
@@ -175,11 +167,17 @@ public class Item implements Serializable, ItemInfo {
       .map(c -> c.getId())
       .orElse(null);
     return new SetCategoryResponse(
-      Arrays.asList(new CategoryChangedEvent(this.id, oldCategoryId, newCategoryId)),
+      Arrays.asList(new ItemEvents.CategoryChangedEvent(this.id, oldCategoryId, newCategoryId)),
       true
     );
   }
 
+  public ItemMessages.PrepareImportResponse apply(ItemMessages.PrepareImportRequest request) {
+    return new ItemMessages.PrepareImportResponse(
+      Collections.emptyList()
+    );
+  }
+/*
   public ItemSpecVariables createSpecVariables() {
     if (!isSpecifiable()) {
       throw new CannotSpecifyException();
@@ -192,10 +190,10 @@ public class Item implements Serializable, ItemInfo {
       throw new CannotSpecifyException();
     }
     return specType.getMetadata();
-  }
+  }*/
 
   public boolean isSpecifiable() {
-    return specType != null;
+    return specTypeId != null;
   }
 
   public boolean isSalable() {

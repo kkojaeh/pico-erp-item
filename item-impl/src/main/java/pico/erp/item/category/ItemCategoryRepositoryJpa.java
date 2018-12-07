@@ -18,7 +18,10 @@ interface ItemCategoryEntityRepository extends
   ItemCategoryEntity findBy(@Param("code") ItemCategoryCode code);
 
   @Query("SELECT ic FROM ItemCategory ic WHERE ic.parentId = :parentId")
-  Stream<ItemCategoryEntity> findByParentId(@Param("parentId") ItemCategoryId parentId);
+  Stream<ItemCategoryEntity> findChildrenBy(@Param("parentId") ItemCategoryId parentId);
+
+  @Query("SELECT ic FROM ItemCategory ic WHERE ic.parentId IS NULL")
+  Stream<ItemCategoryEntity> findRoots();
 
 }
 
@@ -39,9 +42,9 @@ public class ItemCategoryRepositoryJpa implements ItemCategoryRepository {
 
   @Override
   public ItemCategory create(ItemCategory itemCategory) {
-    val entity = mapper.entity(itemCategory);
+    val entity = mapper.jpa(itemCategory);
     val created = repository.save(entity);
-    return mapper.domain(created);
+    return mapper.jpa(created);
   }
 
   @Override
@@ -62,25 +65,27 @@ public class ItemCategoryRepositoryJpa implements ItemCategoryRepository {
   @Override
   public Optional<ItemCategory> findBy(ItemCategoryId id) {
     return Optional.ofNullable(repository.findOne(id))
-      .map(mapper::domain);
+      .map(mapper::jpa);
   }
 
   @Override
   public Optional<ItemCategory> findBy(ItemCategoryCode code) {
     return Optional.ofNullable(repository.findBy(code))
-      .map(mapper::domain);
+      .map(mapper::jpa);
   }
 
   @Override
   public Stream<ItemCategory> findChildrenBy(ItemCategoryId parentId) {
-    return repository.findByParentId(parentId)
-      .map(mapper::domain);
+    return Optional.ofNullable(parentId)
+      .map(id -> repository.findChildrenBy(id))
+      .orElseGet(() -> repository.findRoots())
+      .map(mapper::jpa);
   }
 
   @Override
   public void update(ItemCategory itemCategory) {
     val entity = repository.findOne(itemCategory.getId());
-    mapper.pass(mapper.entity(itemCategory), entity);
+    mapper.pass(mapper.jpa(itemCategory), entity);
     repository.save(entity);
   }
 }

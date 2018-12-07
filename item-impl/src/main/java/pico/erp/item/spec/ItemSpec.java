@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.val;
 import pico.erp.item.Item;
 import pico.erp.item.spec.ItemSpecMessages.DeleteResponse;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 import pico.erp.shared.event.Event;
 
 @Getter
@@ -39,9 +40,9 @@ public class ItemSpec {
   public ItemSpecMessages.CreateResponse apply(ItemSpecMessages.CreateRequest request) {
     id = request.getId();
     item = request.getItem();
-    variables = item.createSpecVariables();
+    variables = request.getItemSpecVariablesLifecycler().initialize(item.getSpecTypeId());
     if (variables.isValid()) {
-      baseUnitCost = item.getSpecType().calculateUnitCost(item, variables);
+      baseUnitCost = variables.calculateUnitCost(item);
     }
     summary = variables.getSummary();
     return new ItemSpecMessages.CreateResponse(
@@ -53,7 +54,7 @@ public class ItemSpec {
   public ItemSpecMessages.UpdateResponse apply(ItemSpecMessages.UpdateRequest request) {
     variables = request.getVariables();
     if (variables.isValid()) {
-      baseUnitCost = item.getSpecType().calculateUnitCost(item, variables);
+      baseUnitCost = variables.calculateUnitCost(item);
     }
     summary = variables.getSummary();
     return new ItemSpecMessages.UpdateResponse(
@@ -69,7 +70,7 @@ public class ItemSpec {
     val events = new LinkedList<Event>();
     val oldBaseUnitCost = baseUnitCost;
     if (variables.isValid()) {
-      baseUnitCost = item.getSpecType().calculateUnitCost(item, variables);
+      baseUnitCost = variables.calculateUnitCost(item);
     }
     if (!oldBaseUnitCost.equals(baseUnitCost)) {
       events.add(new ItemSpecEvents.UpdatedEvent(this.id));

@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Value;
 import pico.erp.item.Item;
+import pico.erp.item.spec.variables.ItemSpecVariables;
+import pico.erp.item.spec.variables.ItemSpecVariablesLifecycler;
 import pico.erp.shared.event.Event;
 
 public interface ItemSpecMessages {
@@ -20,6 +22,9 @@ public interface ItemSpecMessages {
     @Valid
     @NotNull
     Item item;
+
+    @NotNull
+    ItemSpecVariablesLifecycler itemSpecVariablesLifecycler;
 
   }
 

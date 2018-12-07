@@ -1,0 +1,5 @@
+spring:
+  messages:
+    cache-seconds: 60
+    basename: messages, item-messages
+    encoding: UTF-8

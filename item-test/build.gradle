@@ -9,8 +9,10 @@ dependencies {
 
   compile project(':item-impl')
 
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:audit-test:${auditVersion}")
+  testCompileOnly("com.github.kkojaeh.pico-erp-audit:audit-test:${auditVersion}")
 
-  testRuntimeOnly("com.github.kkojaeh.pico-erp-company:company-test:${companyVersion}")
+  testCompileOnly("com.github.kkojaeh.pico-erp-company:company-test:${companyVersion}")
+
+  testCompileOnly("com.github.kkojaeh.pico-erp-attachment:attachment-test:${attachmentVersion}")
 
 }

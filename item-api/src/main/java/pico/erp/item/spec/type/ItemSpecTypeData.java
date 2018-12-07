@@ -1,6 +1,7 @@
 package pico.erp.item.spec.type;
 
 
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,5 +14,7 @@ public class ItemSpecTypeData {
   String name;
 
   String description;
+
+  Serializable metadata;
 
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 
 public interface ItemSpecRequests {
 

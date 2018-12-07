@@ -2,6 +2,8 @@ package pico.erp.item;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -35,6 +37,12 @@ public class ItemRepositoryJpa implements ItemRepository {
   @Override
   public long countAll() {
     return repository.count();
+  }
+
+  @Override
+  public Stream<Item> getAll() {
+    return StreamSupport.stream(repository.findAll().spliterator(), false)
+      .map(mapper::jpa);
   }
 
   @Override

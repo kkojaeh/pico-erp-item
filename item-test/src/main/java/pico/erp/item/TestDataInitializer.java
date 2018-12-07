@@ -18,7 +18,7 @@ import pico.erp.item.lot.ItemLotRequests;
 import pico.erp.item.lot.ItemLotService;
 import pico.erp.item.spec.ItemSpecRequests;
 import pico.erp.item.spec.ItemSpecService;
-import pico.erp.item.spec.ItemSpecVariables;
+import pico.erp.item.spec.variables.ItemSpecVariables;
 import pico.erp.shared.ApplicationInitializer;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
