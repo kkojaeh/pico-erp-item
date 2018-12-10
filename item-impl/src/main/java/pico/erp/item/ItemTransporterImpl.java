@@ -28,7 +28,6 @@ import pico.erp.company.CompanyService;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.category.ItemCategoryMapper;
 import pico.erp.item.spec.type.ItemSpecTypeId;
-import pico.erp.item.spec.type.ItemSpecTypeMapper;
 import pico.erp.shared.LabeledValue;
 import pico.erp.shared.Public;
 import pico.erp.shared.data.ContentInputStream;
@@ -47,9 +46,6 @@ public class ItemTransporterImpl implements ItemTransporter {
 
   @Autowired
   private ItemCategoryMapper itemCategoryMapper;
-
-  @Autowired
-  private ItemSpecTypeMapper itemSpecTypeMapper;
 
   @Autowired
   private MessageSource messageSource;

@@ -12,7 +12,7 @@ public class ItemConfiguration {
 
   @Public
   @Bean
-  public ItemSpecType<MaterialPaperItemSpecVariables> paperItemSpecType() {
+  public ItemSpecType<MaterialPaperItemSpecVariables> materialPaperItemSpecType() {
     return new ClassBasedItemSpecType<>("material-paper", MaterialPaperItemSpecVariables.class);
   }
 

@@ -39,7 +39,6 @@ data:
     customer-id: CUST1
     unit: EA
     type: SEMI_PRODUCT
-    spec-type-id: material-paper
   - id: item-3
     base-unit-cost: 80
     name: HG105-0311 - 카드 - 코팅완료
@@ -73,17 +72,141 @@ data:
     customer-id: CUST1
     unit: EA
     type: SEMI_PRODUCT
+  - id: materail-paper-sc
+    name: 원지 SC
+    unit: SHEET
+    base-unit-cost: 13.95
+    spec-type-id: material-paper
+    type: MATERIAL
+  - id: materail-paper-iv
+    name: 원지 IV
+    unit: SHEET
+    base-unit-cost: 16.86
+    spec-type-id: material-paper
+    type: MATERIAL
+  - id: sk-k-e
+    name: SK.K E골
+    unit: SHEET
+    base-unit-cost: 50
+    spec-type-id: material-paper
+    type: MATERIAL
+
+  - id: toothbrush-0
+    name: 안티시린항균완전미세모Ⅲ8입(10)
+    external-code: "301841"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: PRODUCT
+  - id: toothbrush-01
+    name: 식모-뉴안티시린(P)
+    external-code: "301841"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-02
+    name: 식모-뉴안티시린(B)
+    external-code: "301842"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-03
+    name: 식모-뉴안티시린(O)
+    external-code: "301843"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-04
+    name: 식모-뉴안티시린(Black)
+    external-code: "301844"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-05
+    name: 카드-안티시린항균완전미세모Ⅲ8입(접이식)+간지
+    external-code: "203689"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-06
+    name: PET-안티시린항균완전미세모Ⅲ8입(접이식)
+    external-code: "212397"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-07
+    name: 박스-안티시린항균완전미세모Ⅲ8입(10)
+    external-code: "204754"
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: SEMI_PRODUCT
+  - id: toothbrush-051
+    name: 인쇄-카드-안티시린항균완전미세모Ⅲ8입(접이식)+간지
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: SHEET
+    type: WORK_IN_PROCESS
+  - id: toothbrush-052
+    name: 코팅-카드-안티시린항균완전미세모Ⅲ8입(접이식)+간지
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: SHEET
+    type: WORK_IN_PROCESS
+  - id: toothbrush-061
+    name: 성형(압착)-PET-안티시린항균완전미세모Ⅲ8입(접이식)
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: WORK_IN_PROCESS
+  - id: toothbrush-071
+    name: 인쇄-코팅-박스-안티시린항균완전미세모Ⅲ8입(10)
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: WORK_IN_PROCESS
+  - id: toothbrush-072
+    name: 합지(단면)-박스-안티시린항균완전미세모Ⅲ8입(10)
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: WORK_IN_PROCESS
+  - id: toothbrush-073
+    name: 톰슨(전면)-박스-안티시린항균완전미세모Ⅲ8입(10)
+    base-unit-cost: 0
+    customer-id: CLI0
+    unit: EA
+    type: WORK_IN_PROCESS
+
   item-specs:
-  - id: item-2-spec-1
-    item-id: item-2
+  - id: materail-paper-sc-spec-1
+    item-id: materail-paper-sc
+  - id: materail-paper-iv-spec-1
+    item-id: materail-paper-iv
+  - id: sk-k-e-spec-1
+    item-id: sk-k-e
+
   item-spec-variables:
-  - id: item-2-spec-1
+  - id: materail-paper-sc-spec-1
     variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
     variable-data:
-      grammage: 180
-      height: 364
+      grammage: 240
+      height: 1120
       incisionCount: 1
-      width: 545
+      width: 550
+  - id: materail-paper-iv-spec-1
+    variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
+    variable-data:
+      grammage: 350
+      height: 790
+      incisionCount: 2
+      width: 580
   item-lots:
   - id: item-1-lot-1
     code: "20181018"
@@ -99,3 +222,20 @@ data:
     expiration-date: 2019-10-18T00:00:00+09:00
   active-items:
   - id: i-0
+  - id: materail-paper-sc
+  - id: materail-paper-iv
+  - id: sk-k-e
+  - id: toothbrush-0
+  - id: toothbrush-01
+  - id: toothbrush-02
+  - id: toothbrush-03
+  - id: toothbrush-04
+  - id: toothbrush-05
+  - id: toothbrush-06
+  - id: toothbrush-07
+  - id: toothbrush-051
+  - id: toothbrush-052
+  - id: toothbrush-061
+  - id: toothbrush-071
+  - id: toothbrush-072
+  - id: toothbrush-073
