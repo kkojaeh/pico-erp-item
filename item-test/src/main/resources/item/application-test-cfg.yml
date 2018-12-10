@@ -207,6 +207,13 @@ data:
       height: 790
       incisionCount: 2
       width: 580
+  - id: sk-k-e-spec-1
+    variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
+    variable-data:
+      grammage: 350
+      height: 540
+      incisionCount: 1
+      width: 1200
   item-lots:
   - id: item-1-lot-1
     code: "20181018"
