@@ -49,7 +49,7 @@ class ItemQuerySpec extends Specification {
     where:
     condition                                 | pageable               || totalElements
     new ItemView.Filter(name: "헤어케어 선물 세트박스") | new PageRequest(0, 10) || 2
-    new ItemView.Filter()                     | new PageRequest(0, 10) || 24
+    new ItemView.Filter()                     | new PageRequest(0, 10) || 25
   }
 
 }

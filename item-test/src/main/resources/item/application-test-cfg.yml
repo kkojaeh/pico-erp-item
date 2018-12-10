@@ -90,6 +90,11 @@ data:
     base-unit-cost: 50
     spec-type-id: material-paper
     type: MATERIAL
+  - id: material-pet-04t
+    name: 원단 PET - 0.4T
+    unit: M
+    base-unit-cost: 50
+    type: MATERIAL
 
   - id: toothbrush-0
     name: 안티시린항균완전미세모Ⅲ8입(10)
@@ -231,6 +236,7 @@ data:
   - id: i-0
   - id: materail-paper-sc
   - id: materail-paper-iv
+  - id: material-pet-04t
   - id: sk-k-e
   - id: toothbrush-0
   - id: toothbrush-01
