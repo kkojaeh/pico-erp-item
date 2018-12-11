@@ -98,7 +98,7 @@ data:
 
   - id: toothbrush-0
     name: 안티시린항균완전미세모Ⅲ8입(10)
-    external-code: "301841"
+    external-code: "105635"
     base-unit-cost: 0
     customer-id: CLI0
     unit: EA
