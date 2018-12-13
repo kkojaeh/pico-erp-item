@@ -5,9 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
-import pico.erp.attachment.category.AttachmentCategory;
-import pico.erp.attachment.category.AttachmentCategory.AttachmentCategoryImpl;
-import pico.erp.attachment.category.AttachmentCategoryId;
 import pico.erp.audit.AuditConfiguration;
 import pico.erp.shared.ApplicationStarter;
 import pico.erp.shared.Public;
@@ -40,11 +37,11 @@ public class ItemApplication implements ApplicationStarter {
     application().run(args);
   }
 
-  @Public
+  /*@Public
   @Bean
   public AttachmentCategory attachmentCategory() {
     return new AttachmentCategoryImpl(AttachmentCategoryId.from("item"), "품목");
-  }
+  }*/
 
   @Bean
   @Public

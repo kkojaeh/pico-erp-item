@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyId;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.spec.type.ItemSpecTypeId;
@@ -55,9 +54,8 @@ public interface ItemRequests {
     @Valid
     ItemSpecTypeId specTypeId;
 
-    @Builder.Default
     @NotNull
-    UnitKind unit = UnitKind.EA;
+    UnitKind unit;
 
     @Min(0)
     @NotNull
@@ -68,9 +66,6 @@ public interface ItemRequests {
 
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
-
-    @Valid
-    AttachmentId attachmentId;
 
     boolean purchasable;
 
@@ -136,9 +131,6 @@ public interface ItemRequests {
 
     @Valid
     ItemSpecTypeId specTypeId;
-
-    @Valid
-    AttachmentId attachmentId;
 
     boolean purchasable;
 

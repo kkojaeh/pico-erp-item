@@ -22,7 +22,6 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyId;
 import pico.erp.company.CompanyService;
 import pico.erp.item.category.ItemCategoryId;
@@ -83,8 +82,6 @@ public class ItemTransporterImpl implements ItemTransporter {
           .add("customerId",
             e -> e.getCustomer() != null ? e.getCustomer().getId().getValue() : null)
           .add("purchasable", e -> e.isPurchasable() + "")
-          .add("attachmentId",
-            e -> e.getAttachmentId() != null ? e.getAttachmentId().getValue() : null)
       )
       .asExcel(
         ExportExcelConfig.fromWorkbook(workbook).build("items")
@@ -106,7 +103,7 @@ public class ItemTransporterImpl implements ItemTransporter {
   @Override
   public void importExcel(ImportRequest request) {
 
-    val items = Parsers.xlsx("items")
+    Stream<Item> items = Parsers.xlsx("items")
       .trimValues()
       .parse(FileSource.of(request.getInputStream()))
       .skip(1)
@@ -156,11 +153,6 @@ public class ItemTransporterImpl implements ItemTransporter {
             .orElse(null)
         )
         .purchasable(Boolean.valueOf(row.cell("purchasable").asString()))
-        .attachmentId(
-          Optional.ofNullable(row.cell("attachmentId").asString())
-            .map(id -> AttachmentId.from(id))
-            .orElse(null)
-        )
         .build()
       );
 

@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Value;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyData;
 import pico.erp.item.category.ItemCategory;
 import pico.erp.item.spec.type.ItemSpecTypeId;
@@ -59,13 +58,11 @@ public interface ItemMessages {
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
 
-    @Valid
-    AttachmentId attachmentId;
+    boolean purchasable;
 
     @NotNull
     ItemCodeGenerator codeGenerator;
 
-    boolean purchasable;
 
   }
 
@@ -109,9 +106,6 @@ public interface ItemMessages {
 
     @Size(max = TypeDefinitions.DESCRIPTION_LENGTH)
     String description;
-
-    @Valid
-    AttachmentId attachmentId;
 
     boolean purchasable;
 

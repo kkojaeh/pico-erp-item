@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyId;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.spec.type.ItemSpecTypeId;
@@ -50,7 +49,5 @@ public class ItemData implements Serializable, ItemInfo {
   boolean salable;
 
   boolean specifiable;
-
-  AttachmentId attachmentId;
 
 }

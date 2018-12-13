@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.audit.annotation.Audit;
 import pico.erp.company.CompanyData;
 import pico.erp.item.ItemEvents.CreatedEvent;
@@ -73,8 +72,6 @@ public class Item implements Serializable, ItemInfo {
 
   boolean purchasable;
 
-  AttachmentId attachmentId;
-
   public Item() {
     this.status = ItemStatusKind.DRAFT;
   }
@@ -101,7 +98,6 @@ public class Item implements Serializable, ItemInfo {
     apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
     customer = request.getCustomer();
     specTypeId = request.getSpecTypeId();
-    attachmentId = request.getAttachmentId();
     code = request.getCodeGenerator().generate(this);
     return new ItemMessages.CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
@@ -138,7 +134,6 @@ public class Item implements Serializable, ItemInfo {
     events.addAll(response.getEvents());
     customer = request.getCustomer();
     specTypeId = request.getSpecTypeId();
-    attachmentId = request.getAttachmentId();
     events.add(new UpdatedEvent(this.id));
     return new ItemMessages.UpdateResponse(events,
       response.isCategoryChanged(),

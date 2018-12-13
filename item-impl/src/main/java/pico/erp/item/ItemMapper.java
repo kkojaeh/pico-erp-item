@@ -59,7 +59,6 @@ public abstract class ItemMapper {
       .customer(map(entity.getCustomerId()))
       .specTypeId(entity.getSpecTypeId())
       .purchasable(entity.isPurchasable())
-      .attachmentId(entity.getAttachmentId())
       .build();
   }
 

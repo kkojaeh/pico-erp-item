@@ -28,7 +28,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import pico.erp.attachment.AttachmentId;
 import pico.erp.company.CompanyId;
 import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.spec.type.ItemSpecTypeId;
@@ -108,11 +107,6 @@ public class ItemEntity implements Serializable {
     @AttributeOverride(name = "value", column = @Column(name = "CUSTOMER_ID", length = TypeDefinitions.ID_LENGTH))
   })
   CompanyId customerId;
-
-  @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "ATTACHMENT_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))
-  })
-  AttachmentId attachmentId;
 
   @Embedded
   @AttributeOverrides({

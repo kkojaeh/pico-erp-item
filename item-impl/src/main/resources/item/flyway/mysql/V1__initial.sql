@@ -1,6 +1,5 @@
 create table itm_item (
 	id binary(16) not null,
-	attachment_id binary(16),
 	base_unit_cost decimal(19,2),
 	category_id binary(16),
 	code varchar(20),
@@ -8,7 +7,6 @@ create table itm_item (
 	created_by_name varchar(50),
 	created_date datetime,
 	customer_id varchar(50),
-	customer_name varchar(50),
 	description varchar(200),
 	external_code varchar(100),
 	last_modified_by_id varchar(50),
@@ -68,6 +66,7 @@ create table itm_item_spec (
 	last_modified_by_id varchar(50),
 	last_modified_by_name varchar(50),
 	last_modified_date datetime,
+	locked bit not null,
 	summary varchar(100),
 	variables longtext,
 	primary key (id)
