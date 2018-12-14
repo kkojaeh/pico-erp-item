@@ -154,29 +154,29 @@ data:
     type: SEMI_PRODUCT
 
   item-specs:
-  - id: materail-paper-sc-spec-1
-    item-id: materail-paper-sc
-  - id: materail-paper-iv-spec-1
-    item-id: materail-paper-iv
-  - id: sk-k-e-spec-1
-    item-id: sk-k-e
+  - id: material-paper-sc-spec-1
+    item-id: material-paper-sc
+  - id: material-paper-iv-spec-1
+    item-id: material-paper-iv
+  - id: material-sk-k-e-spec-1
+    item-id: material-sk-k-e
 
   item-spec-variables:
-  - id: materail-paper-sc-spec-1
+  - id: material-paper-sc-spec-1
     variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
     variable-data:
       grammage: 240
       height: 1120
       incisionCount: 1
       width: 550
-  - id: materail-paper-iv-spec-1
+  - id: material-paper-iv-spec-1
     variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
     variable-data:
       grammage: 350
       height: 790
       incisionCount: 2
       width: 580
-  - id: sk-k-e-spec-1
+  - id: material-sk-k-e-spec-1
     variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
     variable-data:
       grammage: 350
@@ -210,9 +210,3 @@ data:
   - id: toothbrush-05
   - id: toothbrush-06
   - id: toothbrush-07
-  - id: toothbrush-051
-  - id: toothbrush-052
-  - id: toothbrush-061
-  - id: toothbrush-071
-  - id: toothbrush-072
-  - id: toothbrush-073
