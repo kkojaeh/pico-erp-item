@@ -152,42 +152,6 @@ data:
     customer-id: CLI0
     unit: EA
     type: SEMI_PRODUCT
-  - id: toothbrush-051
-    name: 인쇄-카드-안티시린항균완전미세모Ⅲ8입(접이식)+간지
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: SHEET
-    type: WORK_IN_PROCESS
-  - id: toothbrush-052
-    name: 코팅-카드-안티시린항균완전미세모Ⅲ8입(접이식)+간지
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: SHEET
-    type: WORK_IN_PROCESS
-  - id: toothbrush-061
-    name: 성형(압착)-PET-안티시린항균완전미세모Ⅲ8입(접이식)
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: EA
-    type: WORK_IN_PROCESS
-  - id: toothbrush-071
-    name: 인쇄-코팅-박스-안티시린항균완전미세모Ⅲ8입(10)
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: EA
-    type: WORK_IN_PROCESS
-  - id: toothbrush-072
-    name: 합지(단면)-박스-안티시린항균완전미세모Ⅲ8입(10)
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: EA
-    type: WORK_IN_PROCESS
-  - id: toothbrush-073
-    name: 톰슨(전면)-박스-안티시린항균완전미세모Ⅲ8입(10)
-    base-unit-cost: 0
-    customer-id: CLI0
-    unit: EA
-    type: WORK_IN_PROCESS
 
   item-specs:
   - id: materail-paper-sc-spec-1
