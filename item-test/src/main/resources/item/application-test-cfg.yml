@@ -72,19 +72,19 @@ data:
     customer-id: CUST1
     unit: EA
     type: SEMI_PRODUCT
-  - id: materail-paper-sc
+  - id: material-paper-sc
     name: 원지 SC
     unit: SHEET
     base-unit-cost: 2.79
     spec-type-id: material-paper
     type: MATERIAL
-  - id: materail-paper-iv
+  - id: material-paper-iv
     name: 원지 IV
     unit: SHEET
     base-unit-cost: 3.372
     spec-type-id: material-paper
     type: MATERIAL
-  - id: sk-k-e
+  - id: material-sk-k-e
     name: SK.K E골
     unit: SHEET
     base-unit-cost: 50
