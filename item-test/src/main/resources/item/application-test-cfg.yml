@@ -198,10 +198,10 @@ data:
     expiration-date: 2019-10-18T00:00:00+09:00
   active-items:
   - id: i-0
-  - id: materail-paper-sc
-  - id: materail-paper-iv
+  - id: material-paper-sc
+  - id: material-paper-iv
   - id: material-pet-04t
-  - id: sk-k-e
+  - id: material-sk-k-e
   - id: toothbrush-0
   - id: toothbrush-01
   - id: toothbrush-02
