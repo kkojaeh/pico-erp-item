@@ -84,16 +84,16 @@ data:
     base-unit-cost: 3.372
     spec-type-id: material-paper
     type: MATERIAL
-  - id: material-sk-k-e
+  - id: material-cfb-sk.k-e
     name: SK.K E골
     unit: SHEET
-    base-unit-cost: 50
-    spec-type-id: material-paper
+    base-unit-cost: 275
     type: MATERIAL
-  - id: material-pet-04t
-    name: 원단 PET - 0.4T
+  - id: material-pet-s
+    name: 페트 PET-S
     unit: M
     base-unit-cost: 4
+    spec-type-id: pet
     type: MATERIAL
 
   - id: toothbrush-0
@@ -158,8 +158,8 @@ data:
     item-id: material-paper-sc
   - id: material-paper-iv-spec-1
     item-id: material-paper-iv
-  - id: material-sk-k-e-spec-1
-    item-id: material-sk-k-e
+  - id: material-pet-s-spec-1
+    item-id: material-pet-s
 
   item-spec-variables:
   - id: material-paper-sc-spec-1
@@ -176,13 +176,14 @@ data:
       height: 790
       incisionCount: 2
       width: 580
-  - id: material-sk-k-e-spec-1
-    variable-type: pico.erp.config.item.spec.MaterialPaperItemSpecVariables
+  - id: material-pet-s-spec-1
+    variable-type: pico.erp.config.item.spec.PetItemSpecVariables
     variable-data:
-      grammage: 350
-      height: 540
-      incisionCount: 1
-      width: 1200
+      thickness: 400
+      width: 410
+      color: 투명
+      side: 단면
+      colorCost: 0
   item-lots:
   - id: item-1-lot-1
     code: "20181018"
@@ -200,8 +201,8 @@ data:
   - id: i-0
   - id: material-paper-sc
   - id: material-paper-iv
-  - id: material-pet-04t
-  - id: material-sk-k-e
+  - id: material-pet-s
+  - id: material-cfb-sk.k-e
   - id: toothbrush-0
   - id: toothbrush-01
   - id: toothbrush-02
