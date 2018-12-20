@@ -8,9 +8,9 @@ apply from: 'https://github.com/kkojaeh/pico-erp-gradle/raw/master/impl.gradle'
 
 dependencies {
 
-  compile project(':item-api')
+  compile project(':api')
 
-  compile("com.github.kkojaeh.pico-erp-shared:shared-impl:${sharedVersion}")
+  compile("com.github.kkojaeh.pico-erp-shared:impl:${sharedVersion}")
 
   compile("com.github.reinert:jjschema:${jjschemaVersion}")
 

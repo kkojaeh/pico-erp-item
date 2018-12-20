@@ -1,11 +1,19 @@
 package pico.erp.item;
 
 import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import pico.erp.attachment.AttachmentApi;
+import pico.erp.audit.AuditApi;
 import pico.erp.audit.AuditConfiguration;
+import pico.erp.company.CompanyApi;
+import pico.erp.item.ItemApi.Roles;
+import pico.erp.shared.ApplicationId;
 import pico.erp.shared.ApplicationStarter;
 import pico.erp.shared.Public;
 import pico.erp.shared.SpringBootConfigs;
@@ -48,13 +56,22 @@ public class ItemApplication implements ApplicationStarter {
   public AuditConfiguration auditConfiguration() {
     return AuditConfiguration.builder()
       .packageToScan("pico.erp.item")
-      .entity(ItemRoles.class)
+      .entity(Roles.class)
       .build();
   }
 
   @Override
-  public int getOrder() {
-    return 4;
+  public Set<ApplicationId> getDependencies() {
+    return Stream.of(
+      AuditApi.ID,
+      CompanyApi.ID,
+      AttachmentApi.ID
+    ).collect(Collectors.toSet());
+  }
+
+  @Override
+  public ApplicationId getId() {
+    return ItemApi.ID;
   }
 
   @Override
@@ -65,13 +82,13 @@ public class ItemApplication implements ApplicationStarter {
   @Bean
   @Public
   public Role itemAccessorRole() {
-    return ItemRoles.ITEM_ACCESSOR;
+    return Roles.ITEM_ACCESSOR;
   }
 
   @Bean
   @Public
   public Role itemManagerRole() {
-    return ItemRoles.ITEM_MANAGER;
+    return Roles.ITEM_MANAGER;
   }
 
   @Override
