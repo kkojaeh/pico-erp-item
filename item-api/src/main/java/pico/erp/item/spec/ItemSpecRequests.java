@@ -1,5 +1,6 @@
 package pico.erp.item.spec;
 
+import java.math.BigDecimal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -69,6 +70,20 @@ public interface ItemSpecRequests {
     @Valid
     @NotNull
     ItemSpecId id;
+
+  }
+
+  @Data
+  @AllArgsConstructor
+  @NoArgsConstructor
+  class CalculatePurchaseQuantityRequest {
+
+    @Valid
+    @NotNull
+    ItemSpecId id;
+
+    @NotNull
+    BigDecimal quantity;
 
   }
 }

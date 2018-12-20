@@ -187,12 +187,12 @@ public class Item implements Serializable, ItemInfo {
     return specType.getMetadata();
   }*/
 
-  public boolean isSpecifiable() {
-    return specTypeId != null;
-  }
-
   public boolean isSalable() {
     return type.isSalable();
+  }
+
+  public boolean isSpecifiable() {
+    return specTypeId != null;
   }
 
 }

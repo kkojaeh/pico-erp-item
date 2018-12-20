@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import pico.erp.item.ItemId;
 import pico.erp.item.spec.variables.ItemSpecVariables;
+import pico.erp.shared.data.UnitKind;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +28,12 @@ public class ItemSpecData {
 
   BigDecimal baseUnitCost;
 
+  BigDecimal purchaseUnitCost;
+
   boolean locked;
+
+  UnitKind unit;
+
+  UnitKind purchaseUnit;
 
 }

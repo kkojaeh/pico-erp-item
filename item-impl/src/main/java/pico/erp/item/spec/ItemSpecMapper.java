@@ -39,11 +39,6 @@ public abstract class ItemSpecMapper {
   })
   public abstract ItemSpecEntity jpa(ItemSpec spec);
 
-  @Mappings({
-    @Mapping(target = "itemId", source = "item.id")
-  })
-  public abstract ItemSpecData map(ItemSpec itemSpec);
-
   @SuppressWarnings("unchecked")
   public ItemSpec jpa(ItemSpecEntity entity) {
     Item item = map(entity.getItemId());
@@ -57,6 +52,11 @@ public abstract class ItemSpecMapper {
       .build();
   }
 
+  @Mappings({
+    @Mapping(target = "itemId", source = "item.id")
+  })
+  public abstract ItemSpecData map(ItemSpec itemSpec);
+
   public abstract ItemSpecMessages.UpdateRequest map(ItemSpecRequests.UpdateRequest request);
 
   public abstract ItemSpecMessages.DeleteRequest map(ItemSpecRequests.DeleteRequest request);
@@ -69,12 +69,12 @@ public abstract class ItemSpecMapper {
     return itemMapper.map(itemId);
   }
 
-  public abstract void pass(ItemSpecEntity from, @MappingTarget ItemSpecEntity to);
-
   @Mappings({
     @Mapping(target = "item", source = "itemId"),
     @Mapping(target = "itemSpecVariablesLifecycler", expression = "java(itemSpecVariablesLifecycler)")
   })
   public abstract ItemSpecMessages.CreateRequest map(ItemSpecRequests.CreateRequest request);
+
+  public abstract void pass(ItemSpecEntity from, @MappingTarget ItemSpecEntity to);
 
 }

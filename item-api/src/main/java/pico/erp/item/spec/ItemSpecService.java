@@ -1,22 +1,25 @@
 package pico.erp.item.spec;
 
+import java.math.BigDecimal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 public interface ItemSpecService {
 
-  ItemSpecData create(@Valid ItemSpecRequests.CreateRequest request);
+  BigDecimal calculate(@Valid @NotNull ItemSpecRequests.CalculatePurchaseQuantityRequest request);
 
-  void delete(@Valid ItemSpecRequests.DeleteRequest request);
+  ItemSpecData create(@Valid @NotNull ItemSpecRequests.CreateRequest request);
+
+  void delete(@Valid @NotNull ItemSpecRequests.DeleteRequest request);
 
   boolean exists(@NotNull ItemSpecId id);
 
   ItemSpecData get(@NotNull ItemSpecId id);
 
-  void lock(@Valid ItemSpecRequests.LockRequest request);
+  void lock(@Valid @NotNull ItemSpecRequests.LockRequest request);
 
-  void unlock(@Valid ItemSpecRequests.UnlockRequest request);
+  void unlock(@Valid @NotNull ItemSpecRequests.UnlockRequest request);
 
-  void update(@Valid ItemSpecRequests.UpdateRequest request);
+  void update(@Valid @NotNull ItemSpecRequests.UpdateRequest request);
 
 }

@@ -15,9 +15,9 @@ public interface ItemSpecRepository {
 
   boolean exists(@NotNull ItemSpecId id);
 
-  Optional<ItemSpec> findBy(@NotNull ItemSpecId id);
-
   Stream<ItemSpec> findAllBy(@NotNull ItemId itemId);
+
+  Optional<ItemSpec> findBy(@NotNull ItemSpecId id);
 
   void update(@NotNull ItemSpec itemSpec);
 

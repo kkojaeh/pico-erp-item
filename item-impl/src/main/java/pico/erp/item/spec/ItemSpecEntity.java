@@ -68,6 +68,9 @@ public class ItemSpecEntity implements Serializable {
   @Column(scale = 2)
   BigDecimal baseUnitCost;
 
+  @Column(scale = 2)
+  BigDecimal purchaseUnitCost;
+
   @Embedded
   @AttributeOverrides({
     @AttributeOverride(name = "id", column = @Column(name = "CREATED_BY_ID", updatable = false, length = TypeDefinitions.ID_LENGTH)),

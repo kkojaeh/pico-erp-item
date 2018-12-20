@@ -11,8 +11,6 @@ public interface ItemRepository {
 
   long countAll();
 
-  Stream<Item> getAll();
-
   long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end);
 
   Item create(@NotNull Item item);
@@ -26,6 +24,8 @@ public interface ItemRepository {
   Optional<Item> findBy(@NotNull ItemId id);
 
   Optional<Item> findBy(@NotNull ItemCode code);
+
+  Stream<Item> getAll();
 
   void update(@NotNull Item item);
 

@@ -14,6 +14,7 @@ import lombok.val;
 import pico.erp.item.Item;
 import pico.erp.item.spec.ItemSpecMessages.DeleteResponse;
 import pico.erp.item.spec.variables.ItemSpecVariables;
+import pico.erp.shared.data.UnitKind;
 import pico.erp.shared.event.Event;
 
 @Getter
@@ -34,6 +35,8 @@ public class ItemSpec {
 
   BigDecimal baseUnitCost;
 
+  BigDecimal purchaseUnitCost;
+
   boolean locked;
 
   @SuppressWarnings("unchecked")
@@ -43,6 +46,7 @@ public class ItemSpec {
     variables = request.getItemSpecVariablesLifecycler().initialize(item.getSpecTypeId());
     if (variables.isValid()) {
       baseUnitCost = variables.calculateUnitCost(item);
+      purchaseUnitCost = variables.calculatePurchaseUnitCost(item);
     }
     summary = variables.getSummary();
     return new ItemSpecMessages.CreateResponse(
@@ -52,9 +56,13 @@ public class ItemSpec {
 
   @SuppressWarnings("unchecked")
   public ItemSpecMessages.UpdateResponse apply(ItemSpecMessages.UpdateRequest request) {
+    if (locked) {
+      throw new ItemSpecExceptions.CannotRecalculateException();
+    }
     variables = request.getVariables();
     if (variables.isValid()) {
       baseUnitCost = variables.calculateUnitCost(item);
+      purchaseUnitCost = variables.calculatePurchaseUnitCost(item);
     }
     summary = variables.getSummary();
     return new ItemSpecMessages.UpdateResponse(
@@ -71,6 +79,7 @@ public class ItemSpec {
     val oldBaseUnitCost = baseUnitCost;
     if (variables.isValid()) {
       baseUnitCost = variables.calculateUnitCost(item);
+      purchaseUnitCost = variables.calculatePurchaseUnitCost(item);
     }
     if (!oldBaseUnitCost.equals(baseUnitCost)) {
       events.add(new ItemSpecEvents.UpdatedEvent(this.id));
@@ -98,6 +107,18 @@ public class ItemSpec {
     return new ItemSpecMessages.UnlockResponse(
       Arrays.asList(new ItemSpecEvents.UpdatedEvent(this.id))
     );
+  }
+
+  public BigDecimal calculatePurchaseQuantity(BigDecimal quantity) {
+    return variables.calculatePurchaseQuantity(quantity);
+  }
+
+  public UnitKind getPurchaseUnit() {
+    return variables.getPurchaseUnit();
+  }
+
+  public UnitKind getUnit() {
+    return variables.getUnit();
   }
 
 }

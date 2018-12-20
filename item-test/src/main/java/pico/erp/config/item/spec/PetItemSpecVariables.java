@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.val;
 import pico.erp.item.ItemInfo;
 import pico.erp.item.spec.variables.ItemSpecVariables;
+import pico.erp.shared.data.UnitKind;
 
 @Data
 @Attributes(title = "PET 스펙", description = "PET 정보")
@@ -26,6 +27,29 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "색상 단가", required = true, format = "number")
   private Integer colorCost = 0;
 
+  private UnitKind unit = UnitKind.M;
+
+  private UnitKind purchaseUnit = UnitKind.KG;
+
+  @Override
+  public BigDecimal calculatePurchaseQuantity(BigDecimal quantity) {
+    val weightConstant = new BigDecimal(1.4);
+    val lengthCentimeter = quantity.multiply(new BigDecimal(100)); // 1m
+    val thicknessCentimeter = new BigDecimal(thickness).divide(new BigDecimal(10000));
+    val widthCentimeter = new BigDecimal(width).divide(BigDecimal.TEN);
+    return lengthCentimeter
+      .multiply(thicknessCentimeter)
+      .multiply(widthCentimeter)
+      .multiply(weightConstant)
+      .divide(new BigDecimal(1000))
+      .setScale(0, BigDecimal.ROUND_HALF_UP);
+  }
+
+  @Override
+  public BigDecimal calculatePurchaseUnitCost(ItemInfo item) {
+    return item.getBaseUnitCost().add(new BigDecimal(colorCost));
+  }
+
   @Override
   public BigDecimal calculateUnitCost(ItemInfo item) {
     val weightConstant = new BigDecimal(1.4);
@@ -38,7 +62,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
       .multiply(weightConstant)
       .divide(new BigDecimal(1000));
 
-    val costPerKilogram = item.getBaseUnitCost();
+    val costPerKilogram = item.getBaseUnitCost().add(new BigDecimal(colorCost));
     return kilogramPerMeter.multiply(costPerKilogram)
       .add(new BigDecimal(colorCost))
       .setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -46,7 +70,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
 
   @Override
   public String getSummary() {
-    return String.format("%s %sT*%04dmm %s",
+    return String.format("%s %s*%04d %s",
       side,
       new BigDecimal(thickness).divide(new BigDecimal(1000)).setScale(3, BigDecimal.ROUND_HALF_UP)
         .toString(),
@@ -58,4 +82,5 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   public boolean isValid() {
     return thickness != null && width != null;
   }
+
 }

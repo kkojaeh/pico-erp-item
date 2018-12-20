@@ -40,12 +40,6 @@ public class ItemRepositoryJpa implements ItemRepository {
   }
 
   @Override
-  public Stream<Item> getAll() {
-    return StreamSupport.stream(repository.findAll().spliterator(), false)
-      .map(mapper::jpa);
-  }
-
-  @Override
   public long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end) {
     return repository.countCreatedBetween(begin, end);
   }
@@ -81,6 +75,12 @@ public class ItemRepositoryJpa implements ItemRepository {
   @Override
   public Optional<Item> findBy(ItemCode code) {
     return Optional.ofNullable(repository.findBy(code))
+      .map(mapper::jpa);
+  }
+
+  @Override
+  public Stream<Item> getAll() {
+    return StreamSupport.stream(repository.findAll().spliterator(), false)
       .map(mapper::jpa);
   }
 

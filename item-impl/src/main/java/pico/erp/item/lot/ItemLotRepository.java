@@ -18,13 +18,13 @@ public interface ItemLotRepository {
 
   boolean exists(@NotNull ItemId itemId, @NotNull ItemLotCode code);
 
-  Stream<ItemLot> findAllExpireCandidatesBeforeThan(@NotNull OffsetDateTime fixedDate);
+  Stream<ItemLot> findAllBy(@NotNull Iterable<ItemLotId> ids);
 
-  Optional<ItemLot> findBy(@NotNull ItemId itemId, @NotNull ItemLotCode code);
+  Stream<ItemLot> findAllExpireCandidatesBeforeThan(@NotNull OffsetDateTime fixedDate);
 
   Optional<ItemLot> findBy(@NotNull ItemLotId id);
 
-  Stream<ItemLot> findAllBy(@NotNull Iterable<ItemLotId> ids);
+  Optional<ItemLot> findBy(@NotNull ItemId itemId, @NotNull ItemLotCode code);
 
   void update(@NotNull ItemLot item);
 

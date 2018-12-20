@@ -1,10 +1,12 @@
 package pico.erp.item.spec;
 
+import java.math.BigDecimal;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import pico.erp.item.spec.ItemSpecRequests.CalculatePurchaseQuantityRequest;
 import pico.erp.item.spec.ItemSpecRequests.CreateRequest;
 import pico.erp.item.spec.ItemSpecRequests.DeleteRequest;
 import pico.erp.item.spec.ItemSpecRequests.LockRequest;
@@ -27,6 +29,13 @@ public class ItemSpecServiceLogic implements ItemSpecService {
 
   @Autowired
   private EventPublisher eventPublisher;
+
+  @Override
+  public BigDecimal calculate(CalculatePurchaseQuantityRequest request) {
+    val itemSpec = itemSpecRepository.findBy(request.getId())
+      .orElseThrow(ItemSpecExceptions.NotFoundException::new);
+    return itemSpec.calculatePurchaseQuantity(request.getQuantity());
+  }
 
   @Override
   public ItemSpecData create(CreateRequest request) {

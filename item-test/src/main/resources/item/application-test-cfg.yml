@@ -86,7 +86,7 @@ data:
     type: MATERIAL
   - id: material-cfb-sk.k-e
     name: SK.K E골
-    unit: SHEET
+    unit: M2
     base-unit-cost: 275
     type: MATERIAL
   - id: material-pet-s

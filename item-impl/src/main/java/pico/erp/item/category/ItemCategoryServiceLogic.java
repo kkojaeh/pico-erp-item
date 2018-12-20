@@ -71,16 +71,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   }
 
   @Override
-  public boolean exists(ItemCategoryId id) {
-    return itemCategoryRepository.exists(id);
-  }
-
-  @Override
-  public boolean exists(ItemCategoryCode code) {
-    return itemCategoryRepository.exists(code);
-  }
-
-  @Override
   public void delete(DeleteRequest request) {
     val itemCategory = itemCategoryRepository.findBy(request.getId())
       .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
@@ -91,8 +81,25 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   }
 
   @Override
+  public boolean exists(ItemCategoryCode code) {
+    return itemCategoryRepository.exists(code);
+  }
+
+  @Override
+  public boolean exists(ItemCategoryId id) {
+    return itemCategoryRepository.exists(id);
+  }
+
+  @Override
   public ItemCategoryData get(ItemCategoryCode code) {
     return itemCategoryRepository.findBy(code)
+      .map(mapper::map)
+      .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
+  }
+
+  @Override
+  public ItemCategoryData get(ItemCategoryId id) {
+    return itemCategoryRepository.findBy(id)
       .map(mapper::map)
       .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
   }
@@ -107,13 +114,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
     itemCategoryRepository.update(itemCategory);
     auditService.commit(itemCategory);
     eventPublisher.publishEvents(response.getEvents());
-  }
-
-  @Override
-  public ItemCategoryData get(ItemCategoryId id) {
-    return itemCategoryRepository.findBy(id)
-      .map(mapper::map)
-      .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
   }
 
   @Getter

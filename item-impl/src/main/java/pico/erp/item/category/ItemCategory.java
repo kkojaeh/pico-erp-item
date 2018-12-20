@@ -113,16 +113,16 @@ public class ItemCategory implements Serializable {
     return new ItemCategoryMessages.SetParentResponse(events);
   }
 
-  public void removeItem(Item item) {
-    itemCount = itemCount.subtract(BigDecimal.ONE);
-  }
-
   public ItemCategoryMessages.PrepareImportResponse apply(
     ItemCategoryMessages.PrepareImportRequest request) {
     apply(new ItemCategoryMessages.SetParentRequest(this.parent));
     return new ItemCategoryMessages.PrepareImportResponse(
       Collections.emptyList()
     );
+  }
+
+  public void removeItem(Item item) {
+    itemCount = itemCount.subtract(BigDecimal.ONE);
   }
 
 }

@@ -16,12 +16,12 @@ import pico.erp.item.ItemId;
 @Repository
 interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotId> {
 
+  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
+  boolean exists(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
+
   @Query("SELECT il FROM ItemLot il WHERE il.expired = false AND il.expirationDate IS NOT NULL AND il.expirationDate < :fixedDate")
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
     @Param("fixedDate") OffsetDateTime fixedDate);
-
-  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
-  boolean exists(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
 
   @Query("SELECT il FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
   ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);

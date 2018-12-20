@@ -62,12 +62,6 @@ public abstract class ItemMapper {
       .build();
   }
 
-  protected CompanyData map(CompanyId companyId) {
-    return Optional.ofNullable(companyId)
-      .map(companyService::get)
-      .orElse(null);
-  }
-
   @Mappings({
     @Mapping(target = "categoryId", source = "category.id"),
     @Mapping(target = "customerId", source = "customer.id"),
@@ -77,6 +71,12 @@ public abstract class ItemMapper {
     @Mapping(target = "lastModifiedDate", ignore = true)
   })
   public abstract ItemEntity jpa(Item item);
+
+  protected CompanyData map(CompanyId companyId) {
+    return Optional.ofNullable(companyId)
+      .map(companyService::get)
+      .orElse(null);
+  }
 
   /*public ItemEntity jpa(ItemId itemId) {
     return Optional.ofNullable(itemId)
