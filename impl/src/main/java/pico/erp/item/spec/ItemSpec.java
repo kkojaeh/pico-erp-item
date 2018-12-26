@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.val;
 import pico.erp.item.Item;
+import pico.erp.item.lot.ItemLotCode;
 import pico.erp.item.spec.ItemSpecMessages.DeleteResponse;
 import pico.erp.item.spec.variables.ItemSpecVariables;
 import pico.erp.shared.data.UnitKind;
@@ -119,6 +120,10 @@ public class ItemSpec {
 
   public UnitKind getUnit() {
     return variables.getUnit();
+  }
+
+  public ItemLotCode getLotCode() {
+    return ItemLotCode.from(this.getSummary());
   }
 
 }
