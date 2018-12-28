@@ -1,6 +1,7 @@
 package pico.erp.config.item.spec;
 
 import com.github.reinert.jjschema.Attributes;
+import com.github.reinert.jjschema.SchemaIgnore;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.val;
@@ -27,8 +28,10 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "색상 단가", required = true, format = "number")
   private Integer colorCost = 0;
 
+  @SchemaIgnore
   private UnitKind unit = UnitKind.M;
 
+  @SchemaIgnore
   private UnitKind purchaseUnit = UnitKind.KG;
 
   @Override

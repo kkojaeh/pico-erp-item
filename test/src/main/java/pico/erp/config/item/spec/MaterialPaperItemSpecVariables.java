@@ -30,8 +30,10 @@ public class MaterialPaperItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "절수", minimum = 1, maximum = 4, enums = {"1", "2", "3", "4"})
   private Integer incisionCount = 1;
 
+  @SchemaIgnore
   private UnitKind unit = UnitKind.SHEET;
 
+  @SchemaIgnore
   private UnitKind purchaseUnit = UnitKind.SHEET;
 
   @Override
