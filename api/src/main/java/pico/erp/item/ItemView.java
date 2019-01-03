@@ -59,6 +59,10 @@ public class ItemView {
     List<ItemStatusKind> statuses;
 
     List<ItemTypeKind> types;
+
+    Boolean purchasable;
+
+    Boolean salable;
   }
 
 }

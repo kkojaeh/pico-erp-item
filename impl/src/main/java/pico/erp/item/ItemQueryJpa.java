@@ -122,6 +122,14 @@ public class ItemQueryJpa implements ItemQuery {
       builder.and(item.customerId.eq(filter.getCustomerId()));
     }
 
+    if (filter.getPurchasable() != null) {
+      builder.and(item.purchasable.eq(filter.getPurchasable()));
+    }
+
+    if (filter.getSalable() != null) {
+      builder.and(item.salable.eq(filter.getSalable()));
+    }
+
     query.where(builder);
     return queryDslJpaSupport.paging(query, pageable, select);
   }
