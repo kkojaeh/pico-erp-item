@@ -48,6 +48,7 @@ public abstract class ItemSpecMapper {
       .item(item)
       .variables(itemSpecVariablesLifecycler.parse(item.getSpecTypeId(), entity.getVariables()))
       .baseUnitCost(entity.getBaseUnitCost())
+      .purchaseUnitCost(entity.getPurchaseUnitCost())
       .locked(entity.isLocked())
       .build();
   }
