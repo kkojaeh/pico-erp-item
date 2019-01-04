@@ -22,7 +22,7 @@ public class PetItemSpecVariables implements ItemSpecVariables {
   @Attributes(title = "색상", enums = {"투명", "금색(펄)", "진금색", "연금색"}, required = true)
   private String color = "투명";
 
-  @Attributes(title = "방향", enums = {"양면", "단면"})
+  @Attributes(title = "방향", enums = {"양면", "단면"}, required = true)
   private String side = "";
 
   @Attributes(title = "색상 단가", required = true, format = "number")
