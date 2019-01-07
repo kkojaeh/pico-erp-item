@@ -86,8 +86,9 @@ data:
     type: MATERIAL
   - id: material-cfb-sk.k-e
     name: SK.K E골
-    unit: M2
+    unit: SHEET
     base-unit-cost: 275
+    spec-type-id: corrugated-fiber-board
     type: MATERIAL
   - id: material-pet-s
     name: 페트 PET-S
@@ -160,6 +161,9 @@ data:
     item-id: material-paper-iv
   - id: material-pet-s-spec-1
     item-id: material-pet-s
+  - id: material-cfb-sk.k-e-spec-1
+    item-id: material-cfb-sk.k-e
+
 
   item-spec-variables:
   - id: material-paper-sc-spec-1
@@ -184,6 +188,11 @@ data:
       color: 투명
       side: 단면
       colorCost: 0
+  - id: material-cfb-sk.k-e-spec-1
+    variable-type: pico.erp.config.item.spec.CorrugatedFiberBoardItemSpecVariables
+    variable-data:
+      width: 410
+      height: 500
   item-lots:
   - id: item-1-lot-1
     code: "20181018"
