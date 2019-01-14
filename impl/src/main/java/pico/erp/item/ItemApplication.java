@@ -26,8 +26,6 @@ public class ItemApplication implements ApplicationStarter {
 
   public static final String CONFIG_NAME = "item/application";
 
-  public static final String CONFIG_NAME_PROPERTY = "spring.config.name=item/application";
-
   public static final Properties DEFAULT_PROPERTIES = new Properties();
 
   static {
