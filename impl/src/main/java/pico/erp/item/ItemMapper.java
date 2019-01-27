@@ -59,6 +59,7 @@ public abstract class ItemMapper {
       .customer(map(entity.getCustomerId()))
       .specTypeId(entity.getSpecTypeId())
       .purchasable(entity.isPurchasable())
+      .barcodeNumber(entity.getBarcodeNumber())
       .build();
   }
 

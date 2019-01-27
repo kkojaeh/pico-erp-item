@@ -41,6 +41,8 @@ class ItemServiceSpec extends Specification {
 
   def customerId = CompanyId.from("CUST1")
 
+  def barcodeNumber = "8809451795679"
+
   def name = "아이템"
 
   def setup() {
@@ -52,7 +54,8 @@ class ItemServiceSpec extends Specification {
         customerId: customerId,
         unit: UnitKind.EA,
         type: ItemTypeKind.MATERIAL,
-        baseUnitCost: 0
+        baseUnitCost: 0,
+        barcodeNumber: barcodeNumber
       )
     )
   }
@@ -103,6 +106,7 @@ class ItemServiceSpec extends Specification {
     item.unit == UnitKind.EA
     item.type == ItemTypeKind.MATERIAL
     item.baseUnitCost == 0
+    item.barcodeNumber == barcodeNumber
   }
 
   def "조회 - 존재하지 않는 아이디로 조회"() {

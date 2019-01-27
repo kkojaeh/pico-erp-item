@@ -69,6 +69,9 @@ public interface ItemRequests {
 
     boolean purchasable;
 
+    @Size(max = TypeDefinitions.EXTERNAL_ID_LENGTH)
+    String barcodeNumber;
+
   }
 
   @Data
@@ -133,6 +136,9 @@ public interface ItemRequests {
     ItemSpecTypeId specTypeId;
 
     boolean purchasable;
+
+    @Size(max = TypeDefinitions.EXTERNAL_ID_LENGTH)
+    String barcodeNumber;
 
   }
 }

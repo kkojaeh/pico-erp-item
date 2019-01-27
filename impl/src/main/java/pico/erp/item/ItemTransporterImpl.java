@@ -82,6 +82,7 @@ public class ItemTransporterImpl implements ItemTransporter {
           .add("customerId",
             e -> e.getCustomer() != null ? e.getCustomer().getId().getValue() : null)
           .add("purchasable", e -> e.isPurchasable() + "")
+          .add("barcodeNumber", e -> e.getBarcodeNumber())
       )
       .asExcel(
         ExportExcelConfig.fromWorkbook(workbook).build("items")
@@ -153,6 +154,7 @@ public class ItemTransporterImpl implements ItemTransporter {
             .orElse(null)
         )
         .purchasable(Boolean.valueOf(row.cell("purchasable").asString()))
+        .barcodeNumber(row.cell("barcodeNumber").asString())
         .build()
       );
 
