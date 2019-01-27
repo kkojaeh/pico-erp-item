@@ -131,4 +131,7 @@ public class ItemEntity implements Serializable {
   @LastModifiedDate
   OffsetDateTime lastModifiedDate;
 
+  @Column(length = TypeDefinitions.EXTERNAL_ID_LENGTH)
+  String barcodeNumber;
+
 }

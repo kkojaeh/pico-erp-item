@@ -60,6 +60,9 @@ public interface ItemMessages {
 
     boolean purchasable;
 
+    @Size(max = TypeDefinitions.EXTERNAL_ID_LENGTH)
+    String barcodeNumber;
+
     @NotNull
     ItemCodeGenerator codeGenerator;
 
@@ -108,6 +111,9 @@ public interface ItemMessages {
     String description;
 
     boolean purchasable;
+
+    @Size(max = TypeDefinitions.EXTERNAL_ID_LENGTH)
+    String barcodeNumber;
 
   }
 

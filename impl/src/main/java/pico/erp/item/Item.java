@@ -72,6 +72,8 @@ public class Item implements Serializable, ItemInfo {
 
   boolean purchasable;
 
+  String barcodeNumber;
+
   public Item() {
     this.status = ItemStatusKind.DRAFT;
   }
@@ -98,6 +100,7 @@ public class Item implements Serializable, ItemInfo {
     apply(new ItemMessages.SetCategoryRequest(request.getCategory()));
     customer = request.getCustomer();
     specTypeId = request.getSpecTypeId();
+    barcodeNumber = request.getBarcodeNumber();
     code = request.getCodeGenerator().generate(this);
     return new ItemMessages.CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
@@ -134,6 +137,7 @@ public class Item implements Serializable, ItemInfo {
     events.addAll(response.getEvents());
     customer = request.getCustomer();
     specTypeId = request.getSpecTypeId();
+    barcodeNumber = request.getBarcodeNumber();
     events.add(new UpdatedEvent(this.id));
     return new ItemMessages.UpdateResponse(events,
       response.isCategoryChanged(),

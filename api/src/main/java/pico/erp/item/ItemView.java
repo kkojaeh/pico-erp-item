@@ -29,6 +29,8 @@ public class ItemView {
 
   String externalCode;
 
+  String barcodeNumber;
+
   ItemCategoryId categoryId;
 
   CompanyId customerId;

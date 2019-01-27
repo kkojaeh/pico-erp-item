@@ -76,6 +76,7 @@ public class ItemQueryJpa implements ItemQuery {
       item.unit,
       item.type,
       item.externalCode,
+      item.barcodeNumber,
       itemCategory.id.as("categoryId"),
       item.customerId,
       item.status,
@@ -99,6 +100,8 @@ public class ItemQueryJpa implements ItemQuery {
         item.code.value
           .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%"))
           .or(item.externalCode
+            .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%")))
+          .or(item.barcodeNumber
             .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%"))));
     }
     if (filter.getStatuses() != null && !filter.getStatuses().isEmpty()) {

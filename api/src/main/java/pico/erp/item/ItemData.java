@@ -32,6 +32,8 @@ public class ItemData implements Serializable, ItemInfo {
 
   String name;
 
+  String barcodeNumber;
+
   UnitKind unit;
 
   BigDecimal baseUnitCost;
