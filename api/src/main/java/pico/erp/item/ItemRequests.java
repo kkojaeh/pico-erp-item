@@ -38,7 +38,7 @@ public interface ItemRequests {
     @NotNull
     ItemId id;
 
-    @Size(max = TypeDefinitions.NAME_LENGTH)
+    @Size(max = TypeDefinitions.NAME_X2_LENGTH)
     @NotNull
     String name;
 
@@ -106,7 +106,7 @@ public interface ItemRequests {
     @NotNull
     ItemId id;
 
-    @Size(max = TypeDefinitions.NAME_LENGTH)
+    @Size(max = TypeDefinitions.NAME_X2_LENGTH)
     @NotNull
     String name;
 

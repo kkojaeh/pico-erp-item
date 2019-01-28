@@ -58,7 +58,7 @@ public class ItemEntity implements Serializable {
   })
   ItemId id;
 
-  @Column(length = TypeDefinitions.NAME_LENGTH)
+  @Column(length = TypeDefinitions.NAME_X2_LENGTH)
   String name;
 
   @AttributeOverrides({
