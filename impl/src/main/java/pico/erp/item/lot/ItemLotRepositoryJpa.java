@@ -12,19 +12,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.ItemSpecCode;
 
 @Repository
 interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotId> {
 
-  @Query("SELECT CASE WHEN COUNT(il) > 0 THEN true ELSE false END FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
-  boolean exists(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
+  @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END FROM ItemLot l WHERE l.itemId = :itemId AND l.specCode = :specCode AND l.lotCode = :lotCode")
+  boolean exists(@Param("itemId") ItemId itemId, @Param("specCode") ItemSpecCode specCode,
+    @Param("lotCode") ItemLotCode lotCode);
 
-  @Query("SELECT il FROM ItemLot il WHERE il.expired = false AND il.expirationDate IS NOT NULL AND il.expirationDate < :fixedDate")
+  @Query("SELECT l FROM ItemLot l WHERE l.expired = false AND l.expirationDate IS NOT NULL AND l.expirationDate < :fixedDate")
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
     @Param("fixedDate") OffsetDateTime fixedDate);
 
-  @Query("SELECT il FROM ItemLot il WHERE il.itemId = :itemId AND il.code = :code")
-  ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("code") ItemLotCode code);
+  @Query("SELECT l FROM ItemLot l WHERE l.itemId = :itemId AND l.specCode = :specCode AND l.lotCode = :lotCode")
+  ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("specCode") ItemSpecCode specCode,
+    @Param("lotCode") ItemLotCode lotCode);
 
 }
 
@@ -57,8 +60,8 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public boolean exists(ItemId itemId, ItemLotCode code) {
-    return repository.exists(itemId, code);
+  public boolean exists(ItemLotKey key) {
+    return repository.exists(key.getItemId(), key.getSpecCode(), key.getLotCode());
   }
 
   @Override
@@ -80,8 +83,9 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public Optional<ItemLot> findBy(ItemId itemId, ItemLotCode code) {
-    return Optional.ofNullable(repository.findBy(itemId, code))
+  public Optional<ItemLot> findBy(ItemLotKey key) {
+    return Optional
+      .ofNullable(repository.findBy(key.getItemId(), key.getSpecCode(), key.getLotCode()))
       .map(mapper::jpa);
   }
 

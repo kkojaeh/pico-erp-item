@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.ItemSpecCode;
 import pico.erp.shared.data.Auditor;
 
 @Data
@@ -20,7 +21,9 @@ public class ItemLotData implements Serializable {
 
   ItemId itemId;
 
-  ItemLotCode code;
+  ItemSpecCode specCode;
+
+  ItemLotCode lotCode;
 
   OffsetDateTime expirationDate;
 

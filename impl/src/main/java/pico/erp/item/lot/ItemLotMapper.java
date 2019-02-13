@@ -24,7 +24,8 @@ public abstract class ItemLotMapper {
   public ItemLot jpa(ItemLotEntity entity) {
     return ItemLot.builder()
       .id(entity.getId())
-      .code(entity.getCode())
+      .specCode(entity.getSpecCode())
+      .lotCode(entity.getLotCode())
       .item(map(entity.getItemId()))
       .expirationDate(entity.getExpirationDate())
       .expired(entity.isExpired())

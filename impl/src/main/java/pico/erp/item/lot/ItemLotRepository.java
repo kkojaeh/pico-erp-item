@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
-import pico.erp.item.ItemId;
 
 @Repository
 public interface ItemLotRepository {
@@ -16,7 +15,7 @@ public interface ItemLotRepository {
 
   boolean exists(@NotNull ItemLotId id);
 
-  boolean exists(@NotNull ItemId itemId, @NotNull ItemLotCode code);
+  boolean exists(@NotNull ItemLotKey key);
 
   Stream<ItemLot> findAllBy(@NotNull Iterable<ItemLotId> ids);
 
@@ -24,7 +23,7 @@ public interface ItemLotRepository {
 
   Optional<ItemLot> findBy(@NotNull ItemLotId id);
 
-  Optional<ItemLot> findBy(@NotNull ItemId itemId, @NotNull ItemLotCode code);
+  Optional<ItemLot> findBy(@NotNull ItemLotKey key);
 
   void update(@NotNull ItemLot item);
 

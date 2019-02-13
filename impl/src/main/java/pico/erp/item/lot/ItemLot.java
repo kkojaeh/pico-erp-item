@@ -21,6 +21,7 @@ import pico.erp.item.lot.ItemLotMessages.CreateResponse;
 import pico.erp.item.lot.ItemLotMessages.DeleteResponse;
 import pico.erp.item.lot.ItemLotMessages.ExpireResponse;
 import pico.erp.item.lot.ItemLotMessages.UpdateResponse;
+import pico.erp.item.spec.ItemSpecCode;
 import pico.erp.shared.data.Auditor;
 
 @Getter
@@ -37,9 +38,11 @@ public class ItemLot implements Serializable {
   @Id
   ItemLotId id;
 
-  ItemLotCode code;
-
   Item item;
+
+  ItemSpecCode specCode;
+
+  ItemLotCode lotCode;
 
   OffsetDateTime expirationDate;
 
@@ -57,7 +60,8 @@ public class ItemLot implements Serializable {
 
   public CreateResponse apply(ItemLotMessages.CreateRequest request) {
     id = request.getId();
-    code = request.getCode();
+    specCode = request.getSpecCode();
+    lotCode = request.getLotCode();
     item = request.getItem();
     expirationDate = request.getExpirationDate();
     return new CreateResponse(
@@ -93,6 +97,10 @@ public class ItemLot implements Serializable {
     return new DeleteResponse(
       Arrays.asList(new ExpiredEvent(this.id))
     );
+  }
+
+  public ItemLotKey getKey() {
+    return ItemLotKey.from(item.getId(), specCode, lotCode);
   }
 
 

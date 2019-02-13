@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.ItemSpecCode;
 import pico.erp.shared.data.Auditor;
 
 @AllArgsConstructor
@@ -20,7 +21,9 @@ public class ItemLotView {
 
   ItemId itemId;
 
-  ItemLotCode code;
+  ItemSpecCode specCode;
+
+  ItemLotCode lotCode;
 
   OffsetDateTime expirationDate;
 

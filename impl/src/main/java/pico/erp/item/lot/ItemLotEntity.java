@@ -26,13 +26,13 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.ItemSpecCode;
 import pico.erp.shared.TypeDefinitions;
 import pico.erp.shared.data.Auditor;
 
 @Entity(name = "ItemLot")
 @Table(name = "ITM_ITEM_LOT", indexes = {
-  @Index(columnList = "ITEM_ID, CODE", unique = true),
-  @Index(columnList = "ITEM_ID")
+  @Index(columnList = "ITEM_ID, SPEC_CODE, LOT_CODE", unique = true)
 })
 @Data
 @EqualsAndHashCode(of = "id")
@@ -53,9 +53,14 @@ public class ItemLotEntity implements Serializable {
   ItemLotId id;
 
   @AttributeOverrides({
-    @AttributeOverride(name = "value", column = @Column(name = "CODE", length = TypeDefinitions.CODE_LENGTH))
+    @AttributeOverride(name = "value", column = @Column(name = "LOT_CODE", length = TypeDefinitions.CODE_LENGTH))
   })
-  ItemLotCode code;
+  ItemLotCode lotCode;
+
+  @AttributeOverrides({
+    @AttributeOverride(name = "value", column = @Column(name = "SPEC_CODE", length = TypeDefinitions.CODE_LENGTH))
+  })
+  ItemSpecCode specCode;
 
   @AttributeOverrides({
     @AttributeOverride(name = "value", column = @Column(name = "ITEM_ID", length = TypeDefinitions.UUID_BINARY_LENGTH))

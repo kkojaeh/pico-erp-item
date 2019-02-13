@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pico.erp.item.ItemId;
+import pico.erp.item.spec.ItemSpecCode;
 
 public interface ItemLotRequests {
 
@@ -24,7 +25,11 @@ public interface ItemLotRequests {
 
     @Valid
     @NotNull
-    ItemLotCode code;
+    ItemSpecCode specCode;
+
+    @Valid
+    @NotNull
+    ItemLotCode lotCode;
 
     @Valid
     @NotNull
@@ -32,7 +37,6 @@ public interface ItemLotRequests {
 
     @Future
     OffsetDateTime expirationDate;
-
 
   }
 

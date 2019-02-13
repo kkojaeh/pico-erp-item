@@ -39,7 +39,8 @@ public class ItemLotQueryJpa implements ItemLotQuery {
     val select = Projections.bean(ItemLotView.class,
       itemLot.id,
       itemLot.itemId,
-      itemLot.code,
+      itemLot.specCode,
+      itemLot.lotCode,
       itemLot.expirationDate,
       itemLot.expired,
       itemLot.expiredDate,
@@ -55,8 +56,13 @@ public class ItemLotQueryJpa implements ItemLotQuery {
 
     if (!isEmpty(filter.getCode())) {
       builder.and(
-        itemLot.code.value
-          .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%")));
+        itemLot.lotCode.value
+          .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%"))
+          .or(
+            itemLot.specCode.value
+              .likeIgnoreCase(queryDslJpaSupport.toLikeKeyword("%", filter.getCode(), "%"))
+          )
+      );
     }
 
     if (filter.getExpired() != null) {

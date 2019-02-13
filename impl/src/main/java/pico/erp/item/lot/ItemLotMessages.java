@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.Value;
 import pico.erp.item.Item;
 import pico.erp.item.ItemCodeGenerator;
+import pico.erp.item.spec.ItemSpecCode;
 import pico.erp.shared.event.Event;
 
 public interface ItemLotMessages {
@@ -22,7 +23,11 @@ public interface ItemLotMessages {
 
     @NotNull
     @Valid
-    ItemLotCode code;
+    ItemSpecCode specCode;
+
+    @NotNull
+    @Valid
+    ItemLotCode lotCode;
 
     @Future
     OffsetDateTime expirationDate;

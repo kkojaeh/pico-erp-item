@@ -8,6 +8,7 @@ import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 import pico.erp.item.lot.*
+import pico.erp.item.spec.ItemSpecCode
 import pico.erp.shared.IntegrationConfiguration
 import spock.lang.Specification
 
@@ -33,27 +34,34 @@ class ItemLotServiceSpec extends Specification {
 
   def itemId = ItemId.from("item-1")
 
-  def itemLotCode = ItemLotCode.from("20181102")
+  def lotCode = ItemLotCode.from("20181102")
 
-  def unknownItemLotCode = ItemLotCode.from("unknown")
+  def specCode = ItemSpecCode.NOT_APPLICABLE
 
-  def itemLotId = ItemLotId.from("item-lot")
+  def unknownLotCode = ItemLotCode.from("unknown")
 
-  def unknownItemLotId = ItemLotId.from("unknown")
+  def id = ItemLotId.from("item-lot")
+
+  def unknownId = ItemLotId.from("unknown")
+
+  def key = ItemLotKey.from(itemId, specCode, lotCode)
+
+  def unknownKey = ItemLotKey.from(itemId, specCode, unknownLotCode)
 
   def setup() {
     itemLotService.create(
       new ItemLotRequests.CreateRequest(
-        id: itemLotId,
+        id: id,
         itemId: itemId,
-        code: itemLotCode
+        specCode: specCode,
+        lotCode: lotCode
       )
     )
   }
 
   def "존재 - 아이디로 확인"() {
     when:
-    def exists = itemLotService.exists(itemLotId)
+    def exists = itemLotService.exists(id)
 
     then:
     exists == true
@@ -61,7 +69,7 @@ class ItemLotServiceSpec extends Specification {
 
   def "존재 - 코드로 확인"() {
     when:
-    def exists = itemLotService.exists(itemId, itemLotCode)
+    def exists = itemLotService.exists(key)
 
     then:
     exists == true
@@ -69,7 +77,7 @@ class ItemLotServiceSpec extends Specification {
 
   def "존재 - 존재하지 않는 아이디로 확인"() {
     when:
-    def exists = itemLotService.exists(unknownItemLotId)
+    def exists = itemLotService.exists(unknownId)
 
     then:
     exists == false
@@ -78,7 +86,7 @@ class ItemLotServiceSpec extends Specification {
   def "존재 - 존재하지 않는 코드로 확인"() {
     when:
 
-    def exists = itemLotService.exists(itemId, unknownItemLotCode)
+    def exists = itemLotService.exists(unknownKey)
 
     then:
     exists == false
@@ -86,17 +94,18 @@ class ItemLotServiceSpec extends Specification {
 
   def "조회 - 아이디로 조회"() {
     when:
-    def itemLot = itemLotService.get(itemLotId)
+    def itemLot = itemLotService.get(id)
 
     then:
-    itemLot.id == itemLotId
+    itemLot.id == id
     itemLot.itemId == itemId
-    itemLot.code == itemLotCode
+    itemLot.specCode == specCode
+    itemLot.lotCode == lotCode
   }
 
   def "조회 - 존재하지 않는 아이디로 조회"() {
     when:
-    itemLotService.get(unknownItemLotId)
+    itemLotService.get(unknownId)
 
     then:
     thrown(ItemLotExceptions.NotFoundException)
@@ -105,17 +114,18 @@ class ItemLotServiceSpec extends Specification {
 
   def "조회 - 코드로 조회"() {
     when:
-    def itemLot = itemLotService.get(itemId, itemLotCode)
+    def itemLot = itemLotService.get(key)
 
     then:
-    itemLot.id == itemLotId
+    itemLot.id == id
     itemLot.itemId == itemId
-    itemLot.code == itemLotCode
+    itemLot.specCode == specCode
+    itemLot.lotCode == lotCode
   }
 
   def "조회 - 존재하지 않는 코드로 조회"() {
     when:
-    itemLotService.get(itemId, unknownItemLotCode)
+    itemLotService.get(unknownKey)
 
     then:
     thrown(ItemLotExceptions.NotFoundException)
@@ -127,9 +137,10 @@ class ItemLotServiceSpec extends Specification {
     itemLotService.create(new ItemLotRequests.CreateRequest(
       id: itemLotId2,
       itemId: itemId,
-      code: ItemLotCode.from("201811021")
+      specCode: specCode,
+      lotCode: ItemLotCode.from("201811021")
     ))
-    def itemLots = itemLotService.getAll(Arrays.asList(itemLotId, itemLotId2))
+    def itemLots = itemLotService.getAll(Arrays.asList(id, itemLotId2))
 
     then:
     itemLots.size() == 2
@@ -140,11 +151,11 @@ class ItemLotServiceSpec extends Specification {
     def expirationDate = OffsetDateTime.now().plusDays(1)
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
-        id: itemLotId,
+        id: id,
         expirationDate: expirationDate
       )
     )
-    def itemLot = itemLotService.get(itemId, itemLotCode)
+    def itemLot = itemLotService.get(key)
 
     then:
     itemLot.expirationDate == expirationDate
@@ -154,7 +165,7 @@ class ItemLotServiceSpec extends Specification {
     when:
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
-        id: itemLotId,
+        id: id,
         expirationDate: OffsetDateTime.now().plusDays(1)
       )
     )
@@ -163,11 +174,10 @@ class ItemLotServiceSpec extends Specification {
         fixedDate: OffsetDateTime.now().plusDays(1)
       )
     )
-    def itemLot = itemLotService.get(itemId, itemLotCode)
+    def itemLot = itemLotService.get(key)
 
     then:
     itemLot.expired == true
   }
-
 
 }
