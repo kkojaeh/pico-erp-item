@@ -9,6 +9,8 @@ dependencies {
 
   compile project(':impl')
 
+  compile project(':jjschema')
+
   testRuntimeOnly("com.github.kkojaeh.pico-erp-audit:test:${auditVersion}")
 
   testRuntimeOnly("com.github.kkojaeh.pico-erp-company:test:${companyVersion}")

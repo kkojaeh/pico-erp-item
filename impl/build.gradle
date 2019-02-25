@@ -12,6 +12,4 @@ dependencies {
 
   compile("com.github.kkojaeh.pico-erp-shared:impl:${sharedVersion}")
 
-  compile("com.github.reinert:jjschema:${jjschemaVersion}")
-
 }

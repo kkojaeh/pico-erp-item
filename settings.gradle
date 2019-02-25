@@ -2,4 +2,5 @@ rootProject.name = 'pico-erp-item'
 include 'api'
 include 'impl'
 include 'test'
+include 'jjschema'
 
