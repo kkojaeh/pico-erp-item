@@ -1,8 +1,0 @@
-spring:
-  profiles:
-    include:
-    - test-cfg
-  messages:
-    cache-seconds: 60
-    basename: messages, item-messages
-    encoding: UTF-8
