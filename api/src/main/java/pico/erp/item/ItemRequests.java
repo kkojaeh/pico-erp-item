@@ -38,6 +38,9 @@ public interface ItemRequests {
     @NotNull
     ItemId id;
 
+    @Valid
+    ItemCode code;
+
     @Size(max = TypeDefinitions.NAME_X2_LENGTH)
     @NotNull
     String name;

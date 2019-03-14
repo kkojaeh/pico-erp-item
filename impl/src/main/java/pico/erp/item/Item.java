@@ -90,6 +90,7 @@ public class Item implements Serializable, ItemInfo {
 
   public ItemMessages.CreateResponse apply(ItemMessages.CreateRequest request) {
     id = request.getId();
+    code = request.getCode();
     name = request.getName();
     externalCode = request.getExternalCode();
     unit = request.getUnit();
@@ -101,7 +102,9 @@ public class Item implements Serializable, ItemInfo {
     customer = request.getCustomer();
     specTypeId = request.getSpecTypeId();
     barcodeNumber = request.getBarcodeNumber();
-    code = request.getCodeGenerator().generate(this);
+    if (code == null) {
+      code = request.getCodeGenerator().generate(this);
+    }
     return new ItemMessages.CreateResponse(
       Arrays.asList(new CreatedEvent(this.id))
     );
