@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.item.Item;
 import pico.erp.item.lot.ItemLotEvents.CreatedEvent;
 import pico.erp.item.lot.ItemLotEvents.ExpiredEvent;
@@ -30,7 +29,6 @@ import pico.erp.shared.data.Auditor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "item-lot")
 public class ItemLot implements Serializable {
 
   private static final long serialVersionUID = 1L;

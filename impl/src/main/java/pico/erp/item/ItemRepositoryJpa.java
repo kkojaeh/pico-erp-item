@@ -19,8 +19,11 @@ interface ItemEntityRepository extends CrudRepository<ItemEntity, ItemId> {
   long countCreatedBetween(@Param("begin") OffsetDateTime begin,
     @Param("end") OffsetDateTime end);
 
+  @Query("SELECT CASE WHEN COUNT(i) > 0 THEN true ELSE false END FROM Item i WHERE i.code = :code")
+  boolean exists(@Param("code") ItemCode code);
+
   @Query("SELECT i FROM Item i WHERE i.code = :code")
-  ItemEntity findBy(@Param("code") ItemCode code);
+  Optional<ItemEntity> findBy(@Param("code") ItemCode code);
 
 }
 
@@ -53,28 +56,28 @@ public class ItemRepositoryJpa implements ItemRepository {
 
   @Override
   public void deleteBy(ItemId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ItemId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
   public boolean exists(ItemCode code) {
-    return repository.findBy(code) != null;
+    return repository.exists(code);
   }
 
   @Override
   public Optional<Item> findBy(ItemId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public Optional<Item> findBy(ItemCode code) {
-    return Optional.ofNullable(repository.findBy(code))
+    return repository.findBy(code)
       .map(mapper::jpa);
   }
 
@@ -86,7 +89,7 @@ public class ItemRepositoryJpa implements ItemRepository {
 
   @Override
   public void update(Item item) {
-    val entity = repository.findOne(item.getId());
+    val entity = repository.findById(item.getId()).get();
     mapper.pass(mapper.jpa(item), entity);
     repository.save(entity);
   }

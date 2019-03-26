@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.company.CompanyData;
 import pico.erp.item.ItemEvents.CreatedEvent;
 import pico.erp.item.ItemEvents.DeletedEvent;
@@ -37,7 +36,6 @@ import pico.erp.shared.event.Event;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "item")
 public class Item implements Serializable, ItemInfo {
 
   private static final long serialVersionUID = 1L;

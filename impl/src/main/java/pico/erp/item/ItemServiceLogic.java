@@ -2,13 +2,12 @@ package pico.erp.item;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+import kkojaeh.spring.boot.component.Give;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.audit.AuditService;
 import pico.erp.item.ItemExceptions.AlreadyExistsException;
 import pico.erp.item.ItemExceptions.CodeAlreadyExistsException;
 import pico.erp.item.ItemExceptions.NotFoundException;
@@ -18,12 +17,11 @@ import pico.erp.item.ItemRequests.DeactivateRequest;
 import pico.erp.item.ItemRequests.DeleteRequest;
 import pico.erp.item.ItemRequests.UpdateRequest;
 import pico.erp.item.category.ItemCategoryRepository;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Service
-@Public
+@Give
 @Transactional
 @Validated
 public class ItemServiceLogic implements ItemService {
@@ -40,17 +38,12 @@ public class ItemServiceLogic implements ItemService {
   @Autowired
   private ItemMapper mapper;
 
-  @Lazy
-  @Autowired
-  private AuditService auditService;
-
   @Override
   public void activate(ActivateRequest request) {
     val item = itemRepository.findBy(request.getId())
       .orElseThrow(NotFoundException::new);
     val response = item.apply(mapper.map(request));
     itemRepository.update(item);
-    auditService.commit(item);
     eventPublisher.publishEvents(response.getEvents());
   }
 
@@ -68,7 +61,6 @@ public class ItemServiceLogic implements ItemService {
       throw new CodeAlreadyExistsException();
     }
     val created = itemRepository.create(item);
-    auditService.commit(created);
     eventPublisher.publishEvents(response.getEvents());
     return mapper.map(created);
   }
@@ -79,7 +71,6 @@ public class ItemServiceLogic implements ItemService {
       .orElseThrow(NotFoundException::new);
     val response = item.apply(mapper.map(request));
     itemRepository.update(item);
-    auditService.commit(item);
     eventPublisher.publishEvents(response.getEvents());
   }
 
@@ -89,7 +80,6 @@ public class ItemServiceLogic implements ItemService {
       .orElseThrow(NotFoundException::new);
     val response = item.apply(mapper.map(request));
     itemRepository.deleteBy(request.getId());
-    auditService.delete(item);
     eventPublisher.publishEvents(response.getEvents());
   }
 
@@ -134,14 +124,12 @@ public class ItemServiceLogic implements ItemService {
       }
     }
     itemRepository.update(item);
-    auditService.commit(item);
 
     if (response.isCategoryChanged()) {
       Stream.of(response.getOldItem().getCategory(), item.getCategory())
         .forEach(category -> {
           if (category != null) {
             itemCategoryRepository.update(category);
-            auditService.commit(category);
           }
         });
     }

@@ -51,12 +51,12 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public void deleteBy(ItemLotId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ItemLotId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -66,7 +66,7 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public Stream<ItemLot> findAllBy(Iterable<ItemLotId> ids) {
-    return StreamSupport.stream(repository.findAll(ids).spliterator(), false)
+    return StreamSupport.stream(repository.findAllById(ids).spliterator(), false)
       .map(mapper::jpa);
   }
 
@@ -78,7 +78,7 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public Optional<ItemLot> findBy(ItemLotId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
@@ -91,7 +91,7 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public void update(ItemLot item) {
-    val entity = repository.findOne(item.getId());
+    val entity = repository.findById(item.getId()).get();
     mapper.pass(mapper.jpa(item), entity);
     repository.save(entity);
   }

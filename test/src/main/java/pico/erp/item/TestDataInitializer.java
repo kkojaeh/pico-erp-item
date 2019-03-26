@@ -3,12 +3,14 @@ package pico.erp.item;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import kkojaeh.spring.boot.component.SpringBootComponentReadyEvent;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
@@ -19,12 +21,11 @@ import pico.erp.item.lot.ItemLotService;
 import pico.erp.item.spec.ItemSpecRequests;
 import pico.erp.item.spec.ItemSpecService;
 import pico.erp.item.spec.variables.ItemSpecVariables;
-import pico.erp.shared.ApplicationInitializer;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Configuration
 @Profile({"test-data"})
-public class TestDataInitializer implements ApplicationInitializer {
+public class TestDataInitializer implements ApplicationListener<SpringBootComponentReadyEvent> {
 
   @Lazy
   @Autowired
@@ -47,7 +48,7 @@ public class TestDataInitializer implements ApplicationInitializer {
   private DataProperties dataProperties;
 
   @Override
-  public void initialize() {
+  public void onApplicationEvent(SpringBootComponentReadyEvent event) {
     dataProperties.itemCategories.forEach(itemCategoryService::create);
     dataProperties.items.forEach(itemService::create);
     dataProperties.itemSpecs.forEach(itemSpecService::create);

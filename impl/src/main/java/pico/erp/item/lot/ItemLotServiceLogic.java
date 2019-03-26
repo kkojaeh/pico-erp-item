@@ -2,14 +2,13 @@ package pico.erp.item.lot;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.Give;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.audit.AuditService;
 import pico.erp.item.lot.ItemLotExceptions.AlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.CodeAlreadyExistsException;
 import pico.erp.item.lot.ItemLotExceptions.NotFoundException;
@@ -17,13 +16,12 @@ import pico.erp.item.lot.ItemLotRequests.CreateRequest;
 import pico.erp.item.lot.ItemLotRequests.DeleteRequest;
 import pico.erp.item.lot.ItemLotRequests.ExpireRequest;
 import pico.erp.item.lot.ItemLotRequests.UpdateRequest;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Slf4j
 @Service
-@Public
+@Give
 @Transactional
 @Validated
 public class ItemLotServiceLogic implements ItemLotService {
@@ -36,10 +34,6 @@ public class ItemLotServiceLogic implements ItemLotService {
 
   @Autowired
   private ItemLotMapper mapper;
-
-  @Lazy
-  @Autowired
-  private AuditService auditService;
 
   @Override
   public ItemLotData create(CreateRequest request) {
@@ -55,7 +49,6 @@ public class ItemLotServiceLogic implements ItemLotService {
       throw new CodeAlreadyExistsException();
     }
     val created = itemLotRepository.create(itemLot);
-    auditService.commit(created);
     eventPublisher.publishEvents(response.getEvents());
     return mapper.map(created);
   }
@@ -66,7 +59,6 @@ public class ItemLotServiceLogic implements ItemLotService {
       .orElseThrow(NotFoundException::new);
     val response = itemLot.apply(mapper.map(request));
     itemLotRepository.deleteBy(request.getId());
-    auditService.delete(itemLot);
     eventPublisher.publishEvents(response.getEvents());
   }
 
@@ -86,7 +78,6 @@ public class ItemLotServiceLogic implements ItemLotService {
       .forEach(itemLot -> {
         val response = itemLot.apply(mapper.map(request));
         itemLotRepository.update(itemLot);
-        auditService.commit(itemLot);
         eventPublisher.publishEvents(response.getEvents());
       });
   }
@@ -118,7 +109,6 @@ public class ItemLotServiceLogic implements ItemLotService {
       .orElseThrow(NotFoundException::new);
     val response = itemLot.apply(mapper.map(request));
     itemLotRepository.update(itemLot);
-    auditService.commit(itemLot);
     eventPublisher.publishEvents(response.getEvents());
   }
 }

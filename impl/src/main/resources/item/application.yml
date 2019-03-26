@@ -1,13 +1,11 @@
-banner:
-  location: classpath:item/banner.txt
-
 spring:
+  banner:
+    location: classpath:item/banner.txt
   application:
     name: pico-item
   session:
     store-type: NONE
   messages:
-    cache-seconds: 60
     basename: item-messages
     encoding: UTF-8
   datasource:
@@ -17,6 +15,8 @@ spring:
     password: ${ITEM_DATASOURCE_PASSWORD:${DATASOURCE_PASSWORD:null}}
     hikari:
       maximum-pool-size: 4
+  flyway:
+    enabled: false
   jpa:
     database: HSQL
     hibernate:
@@ -82,9 +82,6 @@ logging:
   level:
     org:
       springframework: INFO
-
-flyway:
-  enabled: false
 
 item:
   category:

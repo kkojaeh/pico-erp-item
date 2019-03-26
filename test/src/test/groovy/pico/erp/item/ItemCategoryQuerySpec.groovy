@@ -1,22 +1,22 @@
 package pico.erp.item
 
+import kkojaeh.spring.boot.component.SpringBootTestComponent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
+import pico.erp.company.CompanyApplication
+import pico.erp.config.ItemConfiguration
 import pico.erp.item.category.ItemCategoryQuery
-import pico.erp.shared.IntegrationConfiguration
+import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
-@SpringBootTest(classes = [IntegrationConfiguration])
+@SpringBootTest(classes = [ItemApplication, ItemConfiguration])
+@SpringBootTestComponent(parent = TestParentApplication, siblings = [CompanyApplication])
 @Transactional
 @Rollback
 @ActiveProfiles("test")
-@Configuration
-@ComponentScan("pico.erp.config")
 class ItemCategoryQuerySpec extends Specification {
 
   @Autowired
