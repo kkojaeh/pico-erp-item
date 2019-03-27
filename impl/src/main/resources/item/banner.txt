@@ -1,10 +1,8 @@
 
- ___   _______  _______  __   __
-|   | |       ||       ||  |_|  |
-|   | |_     _||    ___||       |
-|   |   |   |  |   |___ |       |
-|   |   |   |  |    ___||       |
-|   |   |   |  |   |___ | ||_|| |
-|___|   |___|  |_______||_|   |_|
+    ______
+   /  _/ /____  ____ ___
+   / // __/ _ \/ __ `__ \
+ _/ // /_/  __/ / / / / /
+/___/\__/\___/_/ /_/ /_/
 
-${application.version} - made by http://patorjk.com/software/taag/#p=display&f=Modular&t=ITEM
+${application.version} - made by http://patorjk.com/software/taag/#p=display&f=Slant&t=Item
