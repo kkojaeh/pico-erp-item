@@ -1,4 +1,6 @@
 spring:
+  jmx:
+    default-domain: item
   banner:
     location: classpath:item/banner.txt
   application:
