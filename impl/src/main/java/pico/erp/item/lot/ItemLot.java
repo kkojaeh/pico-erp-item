@@ -1,7 +1,7 @@
 package pico.erp.item.lot;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import javax.persistence.Id;
 import lombok.AccessLevel;
@@ -42,15 +42,15 @@ public class ItemLot implements Serializable {
 
   ItemLotCode lotCode;
 
-  OffsetDateTime expirationDate;
+  LocalDateTime expirationDate;
 
   boolean expired;
 
-  OffsetDateTime expiredDate;
+  LocalDateTime expiredDate;
 
   Auditor createdBy;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   public ItemLot() {
     expired = false;
@@ -79,7 +79,7 @@ public class ItemLot implements Serializable {
       throw new CannotExpireException();
     }
     expired = true;
-    expiredDate = OffsetDateTime.now();
+    expiredDate = LocalDateTime.now();
     return new ExpireResponse(
       Arrays.asList(new ExpiredEvent(this.id))
     );
@@ -91,7 +91,7 @@ public class ItemLot implements Serializable {
       throw new CannotExpireException();
     }
     expired = true;
-    expiredDate = OffsetDateTime.now();
+    expiredDate = LocalDateTime.now();
     return new DeleteResponse(
       Arrays.asList(new ExpiredEvent(this.id))
     );

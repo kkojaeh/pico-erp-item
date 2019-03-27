@@ -1,6 +1,6 @@
 package pico.erp.item;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ public interface ItemRepository {
 
   long countAll();
 
-  long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end);
+  long countCreatedBetween(LocalDateTime begin, LocalDateTime end);
 
   Item create(@NotNull Item item);
 

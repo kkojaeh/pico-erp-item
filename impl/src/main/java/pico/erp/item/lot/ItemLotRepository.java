@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
@@ -19,7 +19,7 @@ public interface ItemLotRepository {
 
   Stream<ItemLot> findAllBy(@NotNull Iterable<ItemLotId> ids);
 
-  Stream<ItemLot> findAllExpireCandidatesBeforeThan(@NotNull OffsetDateTime fixedDate);
+  Stream<ItemLot> findAllExpireCandidatesBeforeThan(@NotNull LocalDateTime fixedDate);
 
   Optional<ItemLot> findBy(@NotNull ItemLotId id);
 
