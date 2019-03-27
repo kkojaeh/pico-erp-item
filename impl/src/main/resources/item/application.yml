@@ -9,6 +9,7 @@ spring:
     basename: item-messages
     encoding: UTF-8
   datasource:
+    name: item-datasource
     url: ${ITEM_DATASOURCE_URL:${DATASOURCE_URL:jdbc:p6spy:hsqldb:mem:item}}
     driver-class-name: ${ITEM_DATASOURCE_DRIVER_CLASS_NAME:${DATASOURCE_DRIVER_CLASS_NAME:com.p6spy.engine.spy.P6SpyDriver}}
     username: ${ITEM_DATASOURCE_USERNAME:${DATASOURCE_USERNAME:as}}
