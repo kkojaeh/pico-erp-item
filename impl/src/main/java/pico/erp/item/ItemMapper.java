@@ -1,7 +1,7 @@
 package pico.erp.item;
 
 import java.util.Optional;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -30,7 +30,7 @@ public abstract class ItemMapper {
   @Autowired
   protected ItemSpecTypeMapper itemSpecTypeMapper;
 
-  @Take
+  @ComponentAutowired
   protected CompanyService companyService;
 
   @Lazy

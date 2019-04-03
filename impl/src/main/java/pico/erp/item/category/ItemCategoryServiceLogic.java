@@ -2,7 +2,7 @@ package pico.erp.item.category;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ import pico.erp.shared.event.EventPublisher;
 @SuppressWarnings("Duplicates")
 @Slf4j
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class ItemCategoryServiceLogic implements ItemCategoryService {

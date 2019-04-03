@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import pico.erp.shared.data.LabeledValuable;
 import pico.erp.shared.jpa.QueryDslJpaSupport;
 
 @Service
-@Give
+@ComponentBean
 @Transactional(readOnly = true)
 @Validated
 public class ItemCategoryQueryJpa implements ItemCategoryQuery {

@@ -2,7 +2,7 @@ package pico.erp.item.spec.type;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,7 @@ import pico.erp.shared.ExtendedLabeledValue;
 import pico.erp.shared.data.LabeledValuable;
 
 @Service
-@Give
+@ComponentBean
 @Transactional(readOnly = true)
 @Validated
 public class ItemSpecTypeQueryImpl implements ItemSpecTypeQuery {

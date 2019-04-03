@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -30,7 +30,7 @@ import org.springframework.validation.annotation.Validated;
 import pico.erp.shared.data.ContentInputStream;
 
 @Component
-@Give
+@ComponentBean
 @Validated
 @Transactional
 public class ItemCategoryTransporterImpl implements ItemCategoryTransporter {

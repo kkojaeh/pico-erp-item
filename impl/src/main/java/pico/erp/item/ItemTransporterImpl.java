@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Stream;
-import kkojaeh.spring.boot.component.Give;
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -35,7 +35,7 @@ import pico.erp.shared.data.UnitKind;
 import pico.erp.shared.event.EventPublisher;
 
 @Component
-@Give
+@ComponentBean
 @Validated
 @Transactional
 public class ItemTransporterImpl implements ItemTransporter {
@@ -49,7 +49,7 @@ public class ItemTransporterImpl implements ItemTransporter {
   @Autowired
   private MessageSource messageSource;
 
-  @Take
+  @ComponentAutowired
   private CompanyService companyService;
 
   @Autowired

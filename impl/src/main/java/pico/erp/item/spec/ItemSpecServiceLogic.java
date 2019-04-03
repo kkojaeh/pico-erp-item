@@ -1,7 +1,7 @@
 package pico.erp.item.spec;
 
 import java.math.BigDecimal;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import pico.erp.item.spec.ItemSpecRequests.UpdateRequest;
 import pico.erp.shared.event.EventPublisher;
 
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class ItemSpecServiceLogic implements ItemSpecService {

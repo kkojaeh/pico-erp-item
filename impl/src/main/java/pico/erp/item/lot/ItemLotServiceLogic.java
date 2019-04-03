@@ -2,7 +2,7 @@ package pico.erp.item.lot;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import pico.erp.shared.event.EventPublisher;
 @SuppressWarnings("Duplicates")
 @Slf4j
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class ItemLotServiceLogic implements ItemLotService {

@@ -7,15 +7,15 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.company.CompanyApplication
 import pico.erp.config.ItemConfiguration
 import pico.erp.item.lot.ItemLotQuery
 import pico.erp.item.lot.ItemLotView
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
 import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
 @SpringBootTest(classes = [ItemApplication, ItemConfiguration])
-@SpringBootTestComponent(parent = TestParentApplication, siblings = [CompanyApplication])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
