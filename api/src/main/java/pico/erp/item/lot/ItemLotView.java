@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,15 +25,15 @@ public class ItemLotView {
 
   ItemLotCode lotCode;
 
-  OffsetDateTime expirationDate;
+  LocalDateTime expirationDate;
 
   boolean expired;
 
-  OffsetDateTime expiredDate;
+  LocalDateTime expiredDate;
 
   Auditor createdBy;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   @Data
   @NoArgsConstructor

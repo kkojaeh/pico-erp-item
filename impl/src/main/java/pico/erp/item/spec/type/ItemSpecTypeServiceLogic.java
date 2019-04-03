@@ -1,13 +1,13 @@
 package pico.erp.item.spec.type;
 
+import kkojaeh.spring.boot.component.ComponentBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.shared.Public;
 
 @Service
-@Public
+@ComponentBean
 @Transactional
 @Validated
 public class ItemSpecTypeServiceLogic implements ItemSpecTypeService {

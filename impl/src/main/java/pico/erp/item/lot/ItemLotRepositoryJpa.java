@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -23,7 +23,7 @@ interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotI
 
   @Query("SELECT l FROM ItemLot l WHERE l.expired = false AND l.expirationDate IS NOT NULL AND l.expirationDate < :fixedDate")
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
-    @Param("fixedDate") OffsetDateTime fixedDate);
+    @Param("fixedDate") LocalDateTime fixedDate);
 
   @Query("SELECT l FROM ItemLot l WHERE l.itemId = :itemId AND l.specCode = :specCode AND l.lotCode = :lotCode")
   ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("specCode") ItemSpecCode specCode,
@@ -51,12 +51,12 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public void deleteBy(ItemLotId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ItemLotId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -66,19 +66,19 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public Stream<ItemLot> findAllBy(Iterable<ItemLotId> ids) {
-    return StreamSupport.stream(repository.findAll(ids).spliterator(), false)
+    return StreamSupport.stream(repository.findAllById(ids).spliterator(), false)
       .map(mapper::jpa);
   }
 
   @Override
-  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(OffsetDateTime fixedDate) {
+  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(LocalDateTime fixedDate) {
     return repository.findAllExpireCandidatesBeforeThan(fixedDate)
       .map(mapper::jpa);
   }
 
   @Override
   public Optional<ItemLot> findBy(ItemLotId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
@@ -91,7 +91,7 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
 
   @Override
   public void update(ItemLot item) {
-    val entity = repository.findOne(item.getId());
+    val entity = repository.findById(item.getId()).get();
     mapper.pass(mapper.jpa(item), entity);
     repository.save(entity);
   }

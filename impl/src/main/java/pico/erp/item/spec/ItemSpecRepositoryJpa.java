@@ -38,12 +38,12 @@ public class ItemSpecRepositoryJpa implements ItemSpecRepository {
 
   @Override
   public void deleteBy(ItemSpecId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ItemSpecId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -54,13 +54,13 @@ public class ItemSpecRepositoryJpa implements ItemSpecRepository {
 
   @Override
   public Optional<ItemSpec> findBy(ItemSpecId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public void update(ItemSpec itemSpec) {
-    val entity = repository.findOne(itemSpec.getId());
+    val entity = repository.findById(itemSpec.getId()).get();
     mapper.pass(mapper.jpa(itemSpec), entity);
     repository.save(entity);
   }

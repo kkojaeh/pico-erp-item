@@ -2,7 +2,7 @@ package pico.erp.item.lot;
 
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -68,13 +68,13 @@ public class ItemLotEntity implements Serializable {
   ItemId itemId;
 
   @Column
-  OffsetDateTime expirationDate;
+  LocalDateTime expirationDate;
 
   @Column
   boolean expired;
 
   @Column
-  OffsetDateTime expiredDate;
+  LocalDateTime expiredDate;
 
   @Embedded
   @AttributeOverrides({
@@ -86,7 +86,7 @@ public class ItemLotEntity implements Serializable {
 
   @CreatedDate
   @Column(updatable = false)
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   @Embedded
   @AttributeOverrides({
@@ -97,6 +97,6 @@ public class ItemLotEntity implements Serializable {
   Auditor lastModifiedBy;
 
   @LastModifiedDate
-  OffsetDateTime lastModifiedDate;
+  LocalDateTime lastModifiedDate;
 
 }

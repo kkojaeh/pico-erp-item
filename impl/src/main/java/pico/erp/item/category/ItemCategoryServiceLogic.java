@@ -2,27 +2,25 @@ package pico.erp.item.category;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.audit.AuditService;
 import pico.erp.item.category.ItemCategoryExceptions.NotFoundException;
 import pico.erp.item.category.ItemCategoryRequests.CreateRequest;
 import pico.erp.item.category.ItemCategoryRequests.DeleteRequest;
 import pico.erp.item.category.ItemCategoryRequests.UpdateRequest;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Slf4j
 @Service
-@Public
+@ComponentBean
 @Transactional
 @Validated
 public class ItemCategoryServiceLogic implements ItemCategoryService {
@@ -36,10 +34,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
   @Autowired
   private ItemCategoryMapper mapper;
 
-  @Lazy
-  @Autowired
-  private AuditService auditService;
-
   public void cascadeReset(CascadeResetRequest request) {
     val id = request.getId();
     val itemCategory = itemCategoryRepository.findBy(id)
@@ -48,7 +42,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
       .forEach(child -> {
         val response = child.apply(new ItemCategoryMessages.SetParentRequest(itemCategory));
         itemCategoryRepository.update(child);
-        auditService.commit(child);
         eventPublisher.publishEvents(response.getEvents());
       });
   }
@@ -65,7 +58,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
       throw new ItemCategoryExceptions.CodeAlreadyExistsException();
     }
     val created = itemCategoryRepository.create(itemCategory);
-    auditService.commit(created);
     eventPublisher.publishEvents(response.getEvents());
     return mapper.map(created);
   }
@@ -76,7 +68,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
       .orElseThrow(ItemCategoryExceptions.NotFoundException::new);
     val response = itemCategory.apply(mapper.map(request));
     itemCategoryRepository.deleteBy(request.getId());
-    auditService.delete(itemCategory);
     eventPublisher.publishEvents(response.getEvents());
   }
 
@@ -112,7 +103,6 @@ public class ItemCategoryServiceLogic implements ItemCategoryService {
     val response = itemCategory.apply(mapper.map(request));
 
     itemCategoryRepository.update(itemCategory);
-    auditService.commit(itemCategory);
     eventPublisher.publishEvents(response.getEvents());
   }
 

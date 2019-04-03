@@ -1,7 +1,7 @@
 package pico.erp.item.lot;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -25,14 +25,14 @@ public class ItemLotData implements Serializable {
 
   ItemLotCode lotCode;
 
-  OffsetDateTime expirationDate;
+  LocalDateTime expirationDate;
 
   boolean expired;
 
-  OffsetDateTime expiredDate;
+  LocalDateTime expiredDate;
 
   Auditor createdBy;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
 }

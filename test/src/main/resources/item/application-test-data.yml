@@ -1,6 +1,5 @@
 spring:
   messages:
-    cache-seconds: 60
     basename: messages, item-messages
     encoding: UTF-8
 
@@ -204,17 +203,17 @@ data:
     spec-code: N/A
     lot-code: "20181018"
     item-id: item-1
-    expiration-date: 2019-10-18T00:00:00+09:00
+    expiration-date: "2019-10-18T00:00:00"
   - id: item-1-lot-2
     spec-code: N/A
     lot-code: "20181019"
     item-id: item-1
-    expiration-date: 2019-10-18T00:00:00+09:00
+    expiration-date: "2019-10-18T00:00:00"
   - id: item-1-lot-3
     spec-code: N/A
     lot-code: "20181020"
     item-id: item-1
-    expiration-date: 2019-10-18T00:00:00+09:00
+    expiration-date: "2019-10-18T00:00:00"
   active-items:
   - id: i-0
   - id: material-paper-sc

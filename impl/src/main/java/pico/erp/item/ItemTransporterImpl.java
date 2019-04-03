@@ -7,17 +7,18 @@ import com.coreoz.windmill.files.FileSource;
 import com.coreoz.windmill.imports.Parsers;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Stream;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,14 +29,13 @@ import pico.erp.item.category.ItemCategoryId;
 import pico.erp.item.category.ItemCategoryMapper;
 import pico.erp.item.spec.type.ItemSpecTypeId;
 import pico.erp.shared.LabeledValue;
-import pico.erp.shared.Public;
 import pico.erp.shared.data.ContentInputStream;
 import pico.erp.shared.data.LocalizedNameable;
 import pico.erp.shared.data.UnitKind;
 import pico.erp.shared.event.EventPublisher;
 
 @Component
-@Public
+@ComponentBean
 @Validated
 @Transactional
 public class ItemTransporterImpl implements ItemTransporter {
@@ -49,8 +49,7 @@ public class ItemTransporterImpl implements ItemTransporter {
   @Autowired
   private MessageSource messageSource;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private CompanyService companyService;
 
   @Autowired
@@ -91,7 +90,7 @@ public class ItemTransporterImpl implements ItemTransporter {
     return ContentInputStream.builder()
       .name(
         String.format("items-%s.%s",
-          DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(OffsetDateTime.now()),
+          DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()),
           ContentInputStream.XLSX_CONTENT_EXTENSION
         )
       )

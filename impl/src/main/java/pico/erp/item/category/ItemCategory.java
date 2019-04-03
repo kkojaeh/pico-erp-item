@@ -15,7 +15,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.item.Item;
 import pico.erp.item.category.ItemCategoryEvents.UpdatedEvent;
 import pico.erp.shared.event.Event;
@@ -25,7 +24,6 @@ import pico.erp.shared.event.Event;
 @EqualsAndHashCode(of = "id")
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "item-category")
 public class ItemCategory implements Serializable {
 
   private static final long serialVersionUID = 1L;

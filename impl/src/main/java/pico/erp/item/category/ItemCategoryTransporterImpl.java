@@ -7,7 +7,7 @@ import com.coreoz.windmill.files.FileSource;
 import com.coreoz.windmill.imports.Parsers;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -26,11 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.shared.Public;
 import pico.erp.shared.data.ContentInputStream;
 
 @Component
-@Public
+@ComponentBean
 @Validated
 @Transactional
 public class ItemCategoryTransporterImpl implements ItemCategoryTransporter {
@@ -66,7 +66,7 @@ public class ItemCategoryTransporterImpl implements ItemCategoryTransporter {
     return ContentInputStream.builder()
       .name(
         String.format("item-category-%s.%s",
-          DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(OffsetDateTime.now()),
+          DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()),
           "xlsx"
         )
       )

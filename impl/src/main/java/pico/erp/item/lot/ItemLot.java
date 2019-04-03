@@ -1,7 +1,7 @@
 package pico.erp.item.lot;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import javax.persistence.Id;
 import lombok.AccessLevel;
@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.item.Item;
 import pico.erp.item.lot.ItemLotEvents.CreatedEvent;
 import pico.erp.item.lot.ItemLotEvents.ExpiredEvent;
@@ -30,7 +29,6 @@ import pico.erp.shared.data.Auditor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "item-lot")
 public class ItemLot implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -44,15 +42,15 @@ public class ItemLot implements Serializable {
 
   ItemLotCode lotCode;
 
-  OffsetDateTime expirationDate;
+  LocalDateTime expirationDate;
 
   boolean expired;
 
-  OffsetDateTime expiredDate;
+  LocalDateTime expiredDate;
 
   Auditor createdBy;
 
-  OffsetDateTime createdDate;
+  LocalDateTime createdDate;
 
   public ItemLot() {
     expired = false;
@@ -81,7 +79,7 @@ public class ItemLot implements Serializable {
       throw new CannotExpireException();
     }
     expired = true;
-    expiredDate = OffsetDateTime.now();
+    expiredDate = LocalDateTime.now();
     return new ExpireResponse(
       Arrays.asList(new ExpiredEvent(this.id))
     );
@@ -93,7 +91,7 @@ public class ItemLot implements Serializable {
       throw new CannotExpireException();
     }
     expired = true;
-    expiredDate = OffsetDateTime.now();
+    expiredDate = LocalDateTime.now();
     return new DeleteResponse(
       Arrays.asList(new ExpiredEvent(this.id))
     );

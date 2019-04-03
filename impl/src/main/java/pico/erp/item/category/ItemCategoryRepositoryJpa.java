@@ -49,12 +49,12 @@ public class ItemCategoryRepositoryJpa implements ItemCategoryRepository {
 
   @Override
   public void deleteBy(ItemCategoryId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(ItemCategoryId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -64,7 +64,7 @@ public class ItemCategoryRepositoryJpa implements ItemCategoryRepository {
 
   @Override
   public Optional<ItemCategory> findBy(ItemCategoryId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
@@ -84,7 +84,7 @@ public class ItemCategoryRepositoryJpa implements ItemCategoryRepository {
 
   @Override
   public void update(ItemCategory itemCategory) {
-    val entity = repository.findOne(itemCategory.getId());
+    val entity = repository.findById(itemCategory.getId()).get();
     mapper.pass(mapper.jpa(itemCategory), entity);
     repository.save(entity);
   }

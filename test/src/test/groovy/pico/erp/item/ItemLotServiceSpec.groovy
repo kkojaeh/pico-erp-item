@@ -1,25 +1,25 @@
 package pico.erp.item
 
+import kkojaeh.spring.boot.component.SpringBootTestComponent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
+import pico.erp.config.ItemConfiguration
 import pico.erp.item.lot.*
 import pico.erp.item.spec.ItemSpecCode
-import pico.erp.shared.IntegrationConfiguration
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
+import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 
-@SpringBootTest(classes = [IntegrationConfiguration])
+@SpringBootTest(classes = [ItemApplication, ItemConfiguration])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
-@Configuration
-@ComponentScan("pico.erp.config")
 class ItemLotServiceSpec extends Specification {
 
 
@@ -148,7 +148,7 @@ class ItemLotServiceSpec extends Specification {
 
   def "수정 - 수정 한다"() {
     when:
-    def expirationDate = OffsetDateTime.now().plusDays(1)
+    def expirationDate = LocalDateTime.now().plusDays(1)
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
         id: id,
@@ -166,12 +166,12 @@ class ItemLotServiceSpec extends Specification {
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
         id: id,
-        expirationDate: OffsetDateTime.now().plusDays(1)
+        expirationDate: LocalDateTime.now().plusDays(1)
       )
     )
     itemLotService.expire(
       new ItemLotRequests.ExpireRequest(
-        fixedDate: OffsetDateTime.now().plusDays(1)
+        fixedDate: LocalDateTime.now().plusDays(1)
       )
     )
     def itemLot = itemLotService.get(key)
