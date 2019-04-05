@@ -171,7 +171,7 @@ class ItemLotServiceSpec extends Specification {
     )
     itemLotService.expire(
       new ItemLotRequests.ExpireRequest(
-        fixedDate: OffsetDateTime.now().plusDays(1)
+        fixedDate: OffsetDateTime.now().plusDays(1).plusHours(1)
       )
     )
     def itemLot = itemLotService.get(key)
