@@ -1,6 +1,6 @@
 package pico.erp.item;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +39,7 @@ public class ItemView {
 
   Auditor createdBy;
 
-  LocalDateTime createdDate;
+  OffsetDateTime createdDate;
 
   @Data
   @NoArgsConstructor

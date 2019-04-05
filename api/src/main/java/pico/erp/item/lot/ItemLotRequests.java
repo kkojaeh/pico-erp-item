@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -36,7 +36,7 @@ public interface ItemLotRequests {
     ItemId itemId;
 
     @Future
-    LocalDateTime expirationDate;
+    OffsetDateTime expirationDate;
 
   }
 
@@ -60,7 +60,7 @@ public interface ItemLotRequests {
      * 지정 기준시간보다 예전 데이터를 삭제
      */
     @NotNull
-    LocalDateTime fixedDate;
+    OffsetDateTime fixedDate;
 
   }
 
@@ -75,7 +75,7 @@ public interface ItemLotRequests {
     ItemLotId id;
 
     @Future
-    LocalDateTime expirationDate;
+    OffsetDateTime expirationDate;
 
   }
 

@@ -3,7 +3,7 @@ package pico.erp.item.spec;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Index;
 import javax.persistence.Lob;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,9 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pico.erp.item.ItemId;
 import pico.erp.shared.TypeDefinitions;
@@ -79,9 +79,8 @@ public class ItemSpecEntity implements Serializable {
   @CreatedBy
   Auditor createdBy;
 
-  @CreatedDate
   @Column(updatable = false)
-  LocalDateTime createdDate;
+  OffsetDateTime createdDate;
 
   @Embedded
   @AttributeOverrides({
@@ -91,9 +90,19 @@ public class ItemSpecEntity implements Serializable {
   @LastModifiedBy
   Auditor lastModifiedBy;
 
-  @LastModifiedDate
-  LocalDateTime lastModifiedDate;
+  OffsetDateTime lastModifiedDate;
 
   boolean locked;
+
+  @PrePersist
+  private void onCreate() {
+    createdDate = OffsetDateTime.now();
+    lastModifiedDate = OffsetDateTime.now();
+  }
+
+  @PreUpdate
+  private void onUpdate() {
+    lastModifiedDate = OffsetDateTime.now();
+  }
 
 }

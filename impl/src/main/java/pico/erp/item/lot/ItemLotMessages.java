@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Collection;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
@@ -30,7 +30,7 @@ public interface ItemLotMessages {
     ItemLotCode lotCode;
 
     @Future
-    LocalDateTime expirationDate;
+    OffsetDateTime expirationDate;
 
     @NotNull
     Item item;
@@ -44,7 +44,7 @@ public interface ItemLotMessages {
   class UpdateRequest {
 
     @Future
-    LocalDateTime expirationDate;
+    OffsetDateTime expirationDate;
 
   }
 

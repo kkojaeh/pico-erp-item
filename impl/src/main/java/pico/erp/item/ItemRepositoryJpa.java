@@ -1,6 +1,6 @@
 package pico.erp.item;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 interface ItemEntityRepository extends CrudRepository<ItemEntity, ItemId> {
 
   @Query("SELECT COUNT(i) FROM Item i WHERE i.createdDate >= :begin AND i.createdDate <= :end")
-  long countCreatedBetween(@Param("begin") LocalDateTime begin,
-    @Param("end") LocalDateTime end);
+  long countCreatedBetween(@Param("begin") OffsetDateTime begin,
+    @Param("end") OffsetDateTime end);
 
   @Query("SELECT CASE WHEN COUNT(i) > 0 THEN true ELSE false END FROM Item i WHERE i.code = :code")
   boolean exists(@Param("code") ItemCode code);
@@ -43,7 +43,7 @@ public class ItemRepositoryJpa implements ItemRepository {
   }
 
   @Override
-  public long countCreatedBetween(LocalDateTime begin, LocalDateTime end) {
+  public long countCreatedBetween(OffsetDateTime begin, OffsetDateTime end) {
     return repository.countCreatedBetween(begin, end);
   }
 

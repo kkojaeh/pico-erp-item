@@ -13,7 +13,7 @@ import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupp
 import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @SpringBootTest(classes = [ItemApplication, ItemConfiguration])
 @SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
@@ -148,7 +148,7 @@ class ItemLotServiceSpec extends Specification {
 
   def "수정 - 수정 한다"() {
     when:
-    def expirationDate = LocalDateTime.now().plusDays(1)
+    def expirationDate = OffsetDateTime.now().plusDays(1)
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
         id: id,
@@ -166,12 +166,12 @@ class ItemLotServiceSpec extends Specification {
     itemLotService.update(
       new ItemLotRequests.UpdateRequest(
         id: id,
-        expirationDate: LocalDateTime.now().plusDays(1)
+        expirationDate: OffsetDateTime.now().plusDays(1)
       )
     )
     itemLotService.expire(
       new ItemLotRequests.ExpireRequest(
-        fixedDate: LocalDateTime.now().plusDays(1)
+        fixedDate: OffsetDateTime.now().plusDays(1)
       )
     )
     def itemLot = itemLotService.get(key)

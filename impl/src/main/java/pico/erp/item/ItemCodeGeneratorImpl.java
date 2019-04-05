@@ -1,7 +1,7 @@
 package pico.erp.item;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
 
   @Override
   public ItemCode generate(Item item) {
-    val now = LocalDateTime.now();
+    val now = OffsetDateTime.now();
     val begin = now.with(LocalTime.MIN);
     val end = now.with(LocalTime.MAX);
     val date =

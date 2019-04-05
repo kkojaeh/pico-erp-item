@@ -1,6 +1,6 @@
 package pico.erp.item.lot;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -23,7 +23,7 @@ interface ItemLotEntityRepository extends CrudRepository<ItemLotEntity, ItemLotI
 
   @Query("SELECT l FROM ItemLot l WHERE l.expired = false AND l.expirationDate IS NOT NULL AND l.expirationDate < :fixedDate")
   Stream<ItemLotEntity> findAllExpireCandidatesBeforeThan(
-    @Param("fixedDate") LocalDateTime fixedDate);
+    @Param("fixedDate") OffsetDateTime fixedDate);
 
   @Query("SELECT l FROM ItemLot l WHERE l.itemId = :itemId AND l.specCode = :specCode AND l.lotCode = :lotCode")
   ItemLotEntity findBy(@Param("itemId") ItemId itemId, @Param("specCode") ItemSpecCode specCode,
@@ -71,7 +71,7 @@ public class ItemLotRepositoryJpa implements ItemLotRepository {
   }
 
   @Override
-  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(LocalDateTime fixedDate) {
+  public Stream<ItemLot> findAllExpireCandidatesBeforeThan(OffsetDateTime fixedDate) {
     return repository.findAllExpireCandidatesBeforeThan(fixedDate)
       .map(mapper::jpa);
   }

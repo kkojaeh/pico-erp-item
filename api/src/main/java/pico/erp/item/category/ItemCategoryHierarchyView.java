@@ -1,7 +1,7 @@
 package pico.erp.item.category;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -30,11 +30,11 @@ public class ItemCategoryHierarchyView implements Comparable<ItemCategoryHierarc
 
   Auditor createdBy;
 
-  LocalDateTime createdDate;
+  OffsetDateTime createdDate;
 
   Auditor lastModifiedBy;
 
-  LocalDateTime lastModifiedDate;
+  OffsetDateTime lastModifiedDate;
 
   @Builder.Default
   List<ItemCategoryHierarchyView> children = new LinkedList<>();
