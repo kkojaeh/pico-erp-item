@@ -113,16 +113,16 @@ public class ItemSpec {
     return variables.calculatePurchaseQuantity(quantity);
   }
 
+  public ItemSpecCode getCode() {
+    return ItemSpecCode.from(this.getSummary());
+  }
+
   public UnitKind getPurchaseUnit() {
     return variables.getPurchaseUnit();
   }
 
   public UnitKind getUnit() {
     return variables.getUnit();
-  }
-
-  public ItemSpecCode getCode() {
-    return ItemSpecCode.from(this.getSummary());
   }
 
 }

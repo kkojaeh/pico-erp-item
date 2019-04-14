@@ -12,6 +12,14 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
   @Autowired
   private ItemRepository itemRepository;
 
+  public static String toAlphabeticRadix(int num) {
+    char[] str = Integer.toString(num, 26).toCharArray();
+    for (int i = 0; i < str.length; i++) {
+      str[i] += str[i] > '9' ? 10 : 49;
+    }
+    return new String(str).toUpperCase();
+  }
+
   @Override
   public ItemCode generate(Item item) {
     val now = OffsetDateTime.now();
@@ -23,14 +31,6 @@ public class ItemCodeGeneratorImpl implements ItemCodeGenerator {
     val count = itemRepository.countCreatedBetween(begin, end);
     val code = String.format("%s-%03d", date, count + 1).toUpperCase();
     return ItemCode.from(code);
-  }
-
-  public static String toAlphabeticRadix(int num) {
-    char[] str = Integer.toString(num, 26).toCharArray();
-    for (int i = 0; i < str.length; i++) {
-      str[i] += str[i] > '9' ? 10 : 49;
-    }
-    return new String(str).toUpperCase();
   }
 
 }
